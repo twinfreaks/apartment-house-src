@@ -1,0 +1,46 @@
+<div class="container wrapper">
+  <div class="breadcrumb">
+    <h3 class="title">{{ "CALCULATIONS" | translate }}</h3>
+  </div>
+  <div class="row">
+    <div class="col-12 col-md-6">
+      <ng-select [items]="types" [active]='[defaultValue]' (selected)="filterTypes($event)"></ng-select>
+    </div>
+  </div>
+  <div class="no-calculations" *ngIf="calculations.length === 0">
+    {{'NO_CALCULATIONS' | translate}}
+  </div>
+  <div class="calculations row" infinite-scroll [infiniteScrollDistance]="scrollDistance"
+       [infiniteScrollThrottle]="throttle" (scrolled)="onScrollDown()">
+    <div *ngFor="let calculation of calculations; let index = index" class="col-12 col-lg-6">
+      <div class="card card-outline-primary">
+        <div class="card-block">
+          <div class="row">
+            <div class="col-4 overflow-auto text-center">
+              <img class="rounded" src="{{(calculation.calculationType.icon)?imageUrl + '/' + calculation.calculationType.icon:'assets/img/default_calculation_type_icon.png'}}" width="50px" height="50px">
+              <div class="calculation-title">
+                {{calculation?.calculationType.name}}
+              </div>
+            </div>
+            <div class="col-8 overflow-auto">
+              <div class="calculation-data calculation-date">
+                {{'DATE_OF_INPUT' | translate}} - {{displayDate(calculation?.date)}}
+              </div>
+              <div class="calculation-data calculation-to-pay">
+                {{'CURRENT_SUM_TO_PAY' | translate}} - {{calculation?.toPayAmount}} {{'UAH' | translate}}
+              </div>
+              <div class="calculation-data calculation-payed">
+                {{'PAYED' | translate}} - {{findPayed(index, calculation?.calculationType.id)}} {{'UAH' | translate}}
+              </div>
+              <div class="calculation-data calculation-debt">
+                {{'TOTAL_SUM_TO_PAY' | translate}} - {{calculation?.debt}} {{'UAH' | translate}}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<user-request></user-request>
+<app-scroll-to-top [duration]="100" [show]="toTopShow" (scrollEnd)="toTopShow = false"></app-scroll-to-top>

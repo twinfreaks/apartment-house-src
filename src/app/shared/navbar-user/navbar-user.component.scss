@@ -1,0 +1,63 @@
+@mixin h100 {
+    height: 100%;
+}
+
+@mixin flexbox {
+    display: flex;
+    align-items: center;
+}
+
+@mixin pad-left-10 {
+    padding-left: 10px;
+}
+
+@media only screen and (max-width: 991px) {
+    app-langs {
+        @include flexbox;
+        margin-left: 10px;
+    }
+
+    .nav-a {
+        @include pad-left-10;
+    }
+
+    .padding-l-0 {
+        padding-left: 0;
+    }
+
+    .margin-left-8 {
+        margin-left: 10px;
+    }
+}
+
+@media only screen and (min-width: 992px) {
+    app-langs {
+        @include flexbox;
+        padding-left: 0;
+    }
+    .paddings-0 {
+        padding: 0;
+    }
+
+    .flexbox {
+        @include flexbox;
+    }
+
+    .nav-height {
+        height: 60px;
+    }
+
+    .custom-item {
+        @include flexbox;
+        @include h100;
+    }
+
+    .nav-a {
+        @include h100;
+        @include flexbox;
+    }
+
+    .margin-left-8 {
+        margin-left: 8px;
+    }
+}

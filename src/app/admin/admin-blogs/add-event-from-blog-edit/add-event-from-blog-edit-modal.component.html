@@ -1,0 +1,14 @@
+<div id="event-modal" class="modal fade" bsModal #lgModal="bs-modal" tabindex="-1"
+     role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true"
+     [config]="{backdrop: 'static', keyboard: false}">
+  <div class="modal-dialog modal-lg text-center">
+    <div class="modal-content">
+      <div class="modal-body">
+        <app-add-edit-event [event]="activeEvent"
+                            (cancel)="onCloseAddEventModal()"
+                            (updateEvent)="onAddEvent($event)">
+        </app-add-edit-event>
+      </div>
+    </div>
+  </div>
+</div>

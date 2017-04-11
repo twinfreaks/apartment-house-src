@@ -1,0 +1,30 @@
+<app-navbar-default></app-navbar-default>
+
+<div class="container space-top">
+  <div class="row">
+    <div class="col-sm-12">
+      <form *ngIf="loaded && canChange" [formGroup]="userDataForm" (submit)="changePassword()">
+        <div class="form-group" [ngClass]="{'has-danger': !userDataForm.get('password').valid && userDataForm.get('password').touched}">
+          <label>{{"CHOOSE_PASSWORD" | translate}}</label>
+          <input formControlName="password" type="text" class="form-control" placeholder="{{'CHOOSE_PASSWORD' | translate}}">
+          <app-validation-messages class="form-control-feedback" [control]="userDataForm.controls.password"></app-validation-messages>
+        </div>
+        <div class="form-group" [ngClass]="{'has-danger': !userDataForm.get('passwordRepeat').valid && userDataForm.get('passwordRepeat').touched}">
+          <label>{{"REPEAT_PASSWORD" | translate}}</label>
+          <input formControlName="passwordRepeat" type="text" class="form-control" placeholder="{{'REPEAT_PASSWORD' | translate}}">
+          <app-validation-messages class="form-control-feedback" [control]="userDataForm.controls.passwordRepeat"></app-validation-messages>
+        </div>
+        <div class="form-group">
+          <button [disabled]="!userDataForm.valid" type="submit" class="btn btn-primary">{{"CHANGE_PASSWORD" | translate}}</button>
+        </div>
+      </form>
+      <div *ngIf="loaded && !canChange" class="alert alert-danger">{{"PSWD_RESTORE_CODE_NOT_FOUND" | translate}}</div>
+      <div *ngIf="!loaded">
+        <div class="text-center loading-spinner">
+          <i class="fa fa-spinner fa-spin fa-5x fa-fw"></i>
+          <h4>{{"PROCESSING_PASSWORD_RESTORING_CODE" | translate}}</h4>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

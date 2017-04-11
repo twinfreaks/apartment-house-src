@@ -1,0 +1,99 @@
+<app-navbar-default></app-navbar-default>
+
+<div class="container space-top">
+  <div class="row">
+    <div class="col-sm-12">
+      <div *ngIf="registrationType === 'native'">
+        <h4>{{"SIGN_IN_BY_USING_SOME_OF_SERVICES" | translate}}</h4>
+        <app-oauth-butons-partial></app-oauth-butons-partial>
+        <div class="or-text"><span>{{"OR_SIGN_IN_MANUALLY" | translate}}</span></div>
+      </div>
+      <h3>{{"NEW_USER_REGISTRATION" | translate}}</h3>
+      <form *ngIf="!created" (ngSubmit)="saveRegistration()" [formGroup]="registrationForm">
+        <fieldset [formGroup]="registrationForm.controls.inhabitant" [hidden]="formStep != 1">
+          <legend>{{"INHABITANT_DATA" | translate}}</legend>
+          <div class="form-group row" [ngClass]="{'has-danger': !registrationForm.get('inhabitant').get('building').valid && registrationForm.get('inhabitant').get('building').touched}">
+            <label class="col-md-4 col-form-label">{{'BUILDING' | translate}} *</label>
+            <div class="col-md-8">
+              <ng-select formControlName="building" [items]="buildings" placeholder="{{'SELECT_BUILDING' | translate}}"></ng-select>
+              <span *ngIf="registrationForm.get('inhabitant').get('building').hasError('required') && registrationForm.get('inhabitant').get('building').touched" class="form-control-feedback">{{'MUST_SELECT_BUILDING' | translate}}</span>
+            </div>
+          </div>
+          <div class="form-group row" [ngClass]="{'has-danger': !registrationForm.get('inhabitant').get('appartment').valid && registrationForm.get('inhabitant').get('appartment').touched }">
+            <label class="col-md-4 col-form-label">{{"YOUR_APPARTMENT_NUMBER" | translate}} *</label>
+            <div class="col-md-8">
+              <input formControlName="appartment" type="text" class="form-control" placeholder="{{'YOUR_APPARTMENT_NUMBER' | translate}}">
+              <span *ngIf="registrationForm.get('inhabitant').get('appartment').hasError('required') && registrationForm.get('inhabitant').get('appartment').touched" class="form-control-feedback">{{"MUST_SELECT_APPARTMENT_NUMBER" | translate}}</span>
+            </div>
+          </div>
+          <div class="form-group row" [ngClass]="{'has-danger': !registrationForm.get('inhabitant').get('surname').valid && registrationForm.get('inhabitant').get('surname').touched }">
+            <label class="col-md-4 col-form-label">{{"YOUR_SURNAME" | translate}} *</label>
+            <div class="col-md-8">
+              <input formControlName="surname" type="text" class="form-control" placeholder="{{'YOUR_SURNAME' | translate}}">
+              <app-validation-messages class="form-control-feedback" [control]="registrationForm.controls.inhabitant.controls.surname"></app-validation-messages>
+            </div>
+          </div>
+          <div class="form-group row" [ngClass]="{'has-danger': !registrationForm.get('inhabitant').get('name').valid && registrationForm.get('inhabitant').get('name').touched }">
+            <label class="col-md-4 col-form-label">{{'YOUR_NAME' | translate}}*</label>
+            <div class="col-md-8">
+              <input formControlName="name" type="text" class="form-control" placeholder="{{'YOUR_NAME' | translate}}">
+              <app-validation-messages class="form-control-feedback" [control]="registrationForm.controls.inhabitant.controls.name"></app-validation-messages>
+            </div>
+          </div>
+          <div class="form-group row" [ngClass]="{'has-danger': !registrationForm.get('inhabitant').get('patronymic').valid && registrationForm.get('inhabitant').get('patronymic').touched }">
+            <label class="col-md-4 col-form-label">{{"YOUR_PATRONYMIC" | translate}} *</label>
+            <div class="col-md-8">
+              <input formControlName="patronymic" type="text" class="form-control" placeholder="{{'YOUR_PATRONYMIC' | translate}}">
+              <app-validation-messages class="form-control-feedback" [control]="registrationForm.controls.inhabitant.controls.patronymic"></app-validation-messages>
+            </div>
+          </div>
+          <div class="form-group row" [ngClass]="{'has-danger': (!registrationForm.get('inhabitant').get('email').valid) && registrationForm.get('inhabitant').get('email').touched }">
+            <label class="col-md-4 col-form-label">{{"EMAIL" | translate}} *</label>
+            <div class="col-md-8">
+              <input [readonly]="registrationType !== 'native'" formControlName="email" type="text" class="form-control" placeholder="{{'EMAIL' | translate}}">
+              <app-validation-messages class="form-control-feedback" [control]="registrationForm.controls.inhabitant.controls.email"></app-validation-messages>
+            </div>
+          </div>
+          <div class="form-group row" [ngClass]="{'has-danger': !registrationForm.get('inhabitant').get('phone').valid && registrationForm.get('inhabitant').get('phone').touched }">
+            <label class="col-md-4 col-form-label">{{"PHONE_NUMBER" | translate}} *</label>
+            <div class="col-md-8">
+              <p-inputMask formControlName="phone" placeholder="{{'PHONE_NUMBER' | translate}}" styleClass="form-control" mask="(999) 999-999?9"></p-inputMask>
+              <app-validation-messages class="form-control-feedback" [control]="registrationForm.controls.inhabitant.controls.phone"></app-validation-messages>
+            </div>
+          </div>
+        </fieldset>
+        <fieldset *ngIf="registrationType === 'native'" [formGroup]="registrationForm.controls.userData" [hidden]="formStep != 2">
+          <legend>{{"ACCOUNT_DATA" | translate}}</legend>
+          <div class="form-group row" [ngClass]="{'has-danger': !registrationForm.get('userData').get('password').valid && registrationForm.get('userData').get('password').touched }">
+            <label class="col-md-4 col-form-label">{{"CHOOSE_PASSWORD" | translate}} *</label>
+            <div class="col-md-8">
+              <input formControlName="password" type="text" class="form-control" placeholder="{{'CHOOSE_PASSWORD' | translate}}">
+              <app-validation-messages class="form-control-feedback" [control]="registrationForm.controls.userData.controls.password"></app-validation-messages>
+            </div>
+          </div>
+          <div class="form-group row" [ngClass]="{'has-danger': !registrationForm.get('userData').get('passwordRepeat').valid && registrationForm.get('userData').get('passwordRepeat').touched}">
+            <label class="col-md-4 col-form-label">{{"REPEAT_PASSWORD" | translate}} *</label>
+            <div class="col-md-8">
+              <input formControlName="passwordRepeat" type="text" class="form-control" placeholder="{{'REPEAT_PASSWORD' | translate}}">
+              <app-validation-messages class="form-control-feedback" [control]="registrationForm.controls.userData.controls.passwordRepeat"></app-validation-messages>
+            </div>
+          </div>
+        </fieldset>
+        <div class="form-group row">
+          <div class="col-md-8 offset-md-4">
+            <div class="row justify-content-between">
+              <div *ngIf="registrationType === 'native'" class="col-sm-6">
+                <button [disabled]="canNext" type="button" class="btn btn-secondary" (click)="setStep(formStep-1)">{{"PREV_STEP" | translate}}</button>
+                <button [disabled]="canPrev" type="button" class="btn btn-secondary" (click)="setStep(formStep+1)">{{"NEXT_STEP" | translate}}</button>
+              </div>
+              <div class="col-sm-6">
+                <button [disabled]="!registrationForm.valid || loading" class="btn btn-success">{{"REGISTRATE" | translate}}</button>
+              </div>
+              </div>
+            </div>
+        </div>
+      </form>
+      <div *ngIf="created" class="alert alert-success">{{"SUCCESS_ACCOUNT_CREATION" | translate}}</div>
+    </div>
+  </div>
+</div>

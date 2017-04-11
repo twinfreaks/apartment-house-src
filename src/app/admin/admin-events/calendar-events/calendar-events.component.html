@@ -1,0 +1,89 @@
+<div class="container" id="calendar-event" *ngIf="!activeEvent">
+  <div class="breadcrumb">
+    <h3 class="title">{{ "USER_EVENTS" | translate }}</h3>
+    <button type="button" class="btn btn-success pull-right cursor btn-lg add" (click)="newEvent()">
+      <i class="fa fa-plus" aria-hidden="true"></i>
+    </button> 
+  </div>
+  <div class="row text-center calendar-header">
+    <div class="col-lg-4 col-md-12">
+      <div class="btn-group" id="date-nav">
+        <div class="btn btn-primary cursor" tooltip="{{'PREVIOUS' | translate}}" mwlCalendarPreviousView
+             [view]="view" id="date-nav-prev"
+             [(viewDate)]="viewDate"
+             (click)="renewPeriodTitle()">
+          &laquo;
+        </div>
+        <div class="btn btn-secondary cursor" mwlCalendarToday
+             [(viewDate)]="viewDate" id="date-nav-today"
+             (click)="renewPeriodTitle()">
+          {{'TODAY' | translate}}
+        </div>
+        <div class="btn btn-primary cursor" tooltip="{{'NEXT' | translate}}" mwlCalendarNextView
+             [view]="view" id="date-nav-next"
+             [(viewDate)]="viewDate"
+             (click)="renewPeriodTitle()">
+          &raquo;
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-4 col-md-12">
+      <h3 id="period-title">{{periodTitle}}</h3>
+    </div>
+    <div class="col-lg-4 col-md-12">
+      <div class="btn-group" id="view-nav">
+        <div class="btn btn-primary cursor" (click)="view = 'month'; renewPeriodTitle()"
+             [class.active]="view === 'month'" id="view-nav-month">
+          {{'MONTH' | translate}}
+        </div>
+        <div class="btn btn-primary cursor" (click)="view = 'week'; renewPeriodTitle()"
+             [class.active]="view === 'week'" id="view-nav-week">
+          {{'WEEK' | translate}}
+        </div>
+        <div class="btn btn-primary cursor" (click)="view = 'day'; renewPeriodTitle()" 
+            [class.active]="view === 'day'" id="view-nav-day">
+          {{'DAY' | translate}}
+        </div>
+      </div>
+    </div>
+  </div>
+  <br>
+  <div [ngSwitch]="view" class="calendar">
+    <mwl-calendar-month-view
+      *ngSwitchCase="'month'"
+      [locale]="locale"
+      [viewDate]="viewDate"
+      [events]="events"
+      [activeDayIsOpen]="activeDayIsOpen"
+      (dayClicked)="dayClicked($event.day)"
+      [refresh]="refresh"
+      (eventTimesChanged)="eventTimesChanged($event)">
+    </mwl-calendar-month-view>
+    <mwl-calendar-week-view
+      *ngSwitchCase="'week'"
+      [locale]="locale"
+      [viewDate]="viewDate"
+      [events]="events"
+      [refresh]="refresh"
+      (eventClicked)="handleEvent('Clicked', $event.event, null)"
+      (eventTimesChanged)="eventTimesChanged($event)">
+    </mwl-calendar-week-view>
+    <mwl-calendar-day-view
+      *ngSwitchCase="'day'"
+      [locale]="locale"
+      [viewDate]="viewDate"
+      [events]="events"
+      [refresh]="refresh"
+      (eventClicked)="handleEvent('Clicked', $event.event, null)"
+      (eventTimesChanged)="eventTimesChanged($event)">
+    </mwl-calendar-day-view>
+  </div>
+</div>
+<app-add-edit-event (cancel)="cancelChanges()"
+                    (updateEvent)="handleEvent('Confirm', $event)"
+                    [event]="activeEvent" *ngIf="activeEvent">
+</app-add-edit-event>
+<app-event-details-modal (confirm)="confirmEvent($event)"
+                         (setNewDate)="updateDate($event)"
+                         [modalData]="modalData">
+</app-event-details-modal>

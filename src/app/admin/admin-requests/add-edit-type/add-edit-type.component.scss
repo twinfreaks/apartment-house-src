@@ -1,0 +1,15 @@
+input.ng-invalid.ng-touched,
+textarea.ng-invalid.ng-touched {
+  border:solid #d9534f 2px;
+}
+
+.clearfix::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+form {
+  margin-bottom: 30px;
+}
+

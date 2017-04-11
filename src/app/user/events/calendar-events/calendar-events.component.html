@@ -1,0 +1,72 @@
+<div class="container wrapper">
+  <div class="breadcrumb">
+    <h3 class="title">{{ "USER_EVENTS" | translate }}</h3>
+  </div>
+  <div class="row text-center">
+    <div class="col-lg-4 col-md-12">
+      <div class="btn-group" id="date-nav">
+        <div id="date-nav-prev" class="btn btn-primary cursor"
+             mwlCalendarPreviousView
+             [view]="view" tooltip="{{'PREVIOUS' | translate}}"
+             [(viewDate)]="viewDate"
+             (click)="renewPeriodTitle()">
+          &laquo;
+        </div>
+        <div id="date-nav-today" class="btn btn-secondary cursor"
+             mwlCalendarToday
+             [(viewDate)]="viewDate"
+             (click)="renewPeriodTitle()">
+              {{"TODAY" | translate}}
+        </div>
+        <div id="date-nav-next" class="btn btn-primary cursor"
+             mwlCalendarNextView
+             [view]="view" tooltip="{{'NEXT' | translate}}"
+             [(viewDate)]="viewDate"
+             (click)="renewPeriodTitle()">
+          &raquo;
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-4 col-md-12">
+      <h3 id="period-title">{{periodTitle}}</h3>
+    </div>
+    <div class="col-lg-4 col-md-12">
+      <div class="btn-group" id="view-nav">
+        <div class="btn btn-primary cursor" id="view-nav-month"
+             (click)="view = 'month'; renewPeriodTitle()"
+             [class.active]="view === 'month'">
+              {{"MONTH" | translate}}
+        </div>
+        <div class="btn btn-primary cursor" id="view-nav-week"
+             (click)="view = 'week'; renewPeriodTitle()"
+             [class.active]="view === 'week'">
+              {{"WEEK" | translate}}
+        </div>
+        <div class="btn btn-primary cursor" id="view-nav-day"
+             (click)="view = 'day'; renewPeriodTitle()"
+             [class.active]="view === 'day'">
+              {{"DAY" | translate}}
+        </div>
+      </div>
+    </div>
+  </div>
+  <br>
+  <div [ngSwitch]="view">
+    <mwl-calendar-month-view *ngSwitchCase="'month'"
+      [locale]="locale" [viewDate]="viewDate"
+      [events]="events" [activeDayIsOpen]="activeDayIsOpen"
+      (dayClicked)="dayClicked($event.day)"
+      (eventClicked)="handleEvent('Clicked', $event.event);modal.showModal()">
+    </mwl-calendar-month-view>
+    <mwl-calendar-week-view *ngSwitchCase="'week'"
+      [locale]="locale" [viewDate]="viewDate"
+      [events]="events" (eventClicked)="handleEvent('Clicked', $event.event);modal.showModal()">
+    </mwl-calendar-week-view>
+    <mwl-calendar-day-view *ngSwitchCase="'day'"
+      [locale]="locale" [viewDate]="viewDate"
+      [events]="events" (eventClicked)="handleEvent('Clicked', $event.event);modal.showModal()">
+    </mwl-calendar-day-view>
+  </div>
+</div>
+<app-event-details-modal [modalData]="modalData" #modal></app-event-details-modal>
+<user-request></user-request>

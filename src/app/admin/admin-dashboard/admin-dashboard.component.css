@@ -1,0 +1,15 @@
+.counter {
+    font-size: 0.7em;
+    position: absolute;
+    top: -12%;
+    right: 39%;
+}
+
+@media only screen and (max-width: 768px) {
+    .counter {
+        font-size: 0.7em;
+        position: absolute;
+        top: -12%;
+        right: 30%;
+    }
+}

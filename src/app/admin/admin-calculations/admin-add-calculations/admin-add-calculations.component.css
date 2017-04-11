@@ -1,0 +1,19 @@
+.margin-top {
+  margin: 50px auto;
+}
+
+.content-wrapper {
+  margin: auto;
+}
+
+.pointer {
+  cursor: pointer;
+}
+
+.element {
+  margin: 20px auto;
+}
+
+button:disabled {
+  cursor: not-allowed;
+}

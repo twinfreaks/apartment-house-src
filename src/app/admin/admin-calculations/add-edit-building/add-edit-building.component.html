@@ -1,0 +1,37 @@
+<div class="col-md-6 container">
+  <h1>{{'ADD_BUILDING' | translate}}</h1>
+  <form #addBuilding="ngForm" (ngSubmit)="onSubmit()" id="add-edit-building-form">
+    <div class="form-group">
+      <label for="street">{{'STREET_NAME' | translate}}</label>
+      <input type="text" id="street" class="form-control"
+             required minlength="3"
+             name="street" [(ngModel)]="newBuilding.streetName"
+             #street="ngModel">
+      <div *ngIf="street.errors && (street.dirty || street.touched)"
+           class="alert alert-danger">
+        <div [hidden]="!street.errors.required">
+          {{'REQUIRED' | translate}}
+        </div>
+        <div [hidden]="!street.errors.minlength">
+          {{'MIN_THREE_CHARACTERS' | translate}}
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="building-number">{{'BUILDING_NUMBER' | translate}}</label>
+      <input type="text" id="building-number" class="form-control"
+             required name="building-number"
+             [(ngModel)]="newBuilding.buildingNumber" #buildingNumber="ngModel">
+      <div *ngIf="buildingNumber.errors && (buildingNumber.dirty || buildingNumber.touched)"
+           class="alert alert-danger">
+        <div [hidden]="!buildingNumber.errors.required">
+          {{'REQUIRED' | translate}}
+        </div>
+      </div>
+    </div>
+    <button type="submit" class="btn btn-success"
+            [disabled]="!addBuilding.form.valid">{{'SAVE' | translate}}
+    </button>
+    <button class="btn btn-primary" (click)="emitCancel()">{{'BACK' | translate}}</button>
+  </form>
+</div>

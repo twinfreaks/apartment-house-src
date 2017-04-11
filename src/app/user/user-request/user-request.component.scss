@@ -1,0 +1,51 @@
+.custom-collapse {
+  position: absolute;
+  top: 25%;
+  right: 0;
+  overflow: hidden;
+  transition: width .5s;
+}
+
+.collapse-button {
+  position: fixed;
+  bottom: 1px;
+  margin: 0;
+  right: 1px;
+}
+
+.custom-title {
+  color: white;
+  font-weight: normal;
+  font-size: 20px;
+  letter-spacing: 2px;
+  margin: 0;
+}
+
+.top-button {
+  color: #ccd1f3;
+  cursor: pointer;
+  &:hover {
+    color: white;
+  }
+}
+
+.margin-auto {
+  margin: auto;
+  border: 1px solid #0275d8;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+.flexbox {
+  display: flex;
+  align-items: center;
+}
+
+.margin-top-20 {
+  margin-top: 20px;
+}
+
+#message {
+  margin: auto;
+  resize: none;
+}

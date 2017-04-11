@@ -1,0 +1,27 @@
+<div class="container">
+  <div class="breadcrumb">
+    <h3>{{"INHABITANTS" | translate}}</h3>
+  </div>
+  <tabset [justified]="true">
+    <tab heading="{{'NEW_INHABITANTS' | translate}}">
+      <app-inhabitants-list
+        (activateInhabitant)="activateInhabitantHandler($event)"
+        (inActivateInhabitant)="inActivateInhabitantHandler($event)"
+        (deleteInhabitant)="deleteInhabitantHandler($event)"
+        (searchInhabitants)="searchInhabitantsHandler($event)"
+        [inhabitants]="inhabitantsInactive"
+        [type]="'inactive'">
+      </app-inhabitants-list>
+    </tab>
+    <tab heading="{{'ALL_INHABITANTS' | translate}}">
+      <app-inhabitants-list
+        (activateInhabitant)="activateInhabitantHandler($event)"
+        (inActivateInhabitant)="inActivateInhabitantHandler($event)"
+        (deleteInhabitant)="deleteInhabitantHandler($event)"
+        (searchInhabitants)="searchInhabitantsHandler($event)"
+        [inhabitants]="inhabitantsAll"
+        type="'all'">
+      </app-inhabitants-list>
+    </tab>
+  </tabset>
+</div>

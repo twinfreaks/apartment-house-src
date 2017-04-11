@@ -1,0 +1,55 @@
+<div class="container wrapper" id="add-edit-event">
+  <h3>
+    {{displayTitle()}}
+    <div class="clearfix"></div>
+  </h3>
+  <form [formGroup]="eventForm" novalidate>
+    <div class="form-group">
+      <label for="event-title">{{'TITLE' | translate}}</label>
+      <input id="event-title" type="text" formControlName="title" class="form-control">
+    </div>
+    <div class="form-group">
+      <label for="event-description">{{'DESCRIPTION' | translate}}</label>
+      <textarea id="event-description" formControlName="description" class="form-control" rows="3"></textarea>
+    </div>
+    <div class="form-group">
+      <div class="row">
+        <div class="col-sm-6">
+          <div class="a-center">
+            <label>{{'START' | translate}}</label><br>
+            <p-calendar
+              [locale]="datePickerLang"
+              [defaultDate]="newEvent.start"
+              [showIcon]="true"
+              dateFormat="dd.mm.yy"
+              showTime="showTime"
+              hourFormat="24"
+              formControlName="start">
+            </p-calendar>
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <div class="a-center">
+            {{'END' | translate}}
+            <input type="checkbox" id="withoutend"
+                   (click)="checkWithoutEnd($event.target.checked)"
+                   [checked]="!newEvent.end">
+            <label for="withoutend">{{'WITHOUT_END_DATE' | translate}}</label><br>
+            <p-calendar *ngIf="!noEnd"
+                        [locale]="datePickerLang" [showIcon]="true"
+                        dateFormat="dd.mm.yy" showTime="showTime"
+                        hourFormat="24" formControlName="end">
+            </p-calendar>
+          </div>
+        </div>
+      </div>
+    </div>
+    <viber class="pull-left w-100 margin-b-10" [viberData]="{'description': eventForm.value.description }" #viber></viber>
+    <button type="button" class="btn btn-primary cursor pull-right" (click)="emitCancel();">{{'CANCEL' | translate}}
+    </button>
+    <button type="submit" class="btn btn-success cursor margin-right pull-right"
+            (click)="saveEvent(); viber.shareViaViber(viber.viberData.description)"
+            [disabled]="!(checkValidity() && eventForm.valid)">{{'SAVE' | translate}}
+    </button>
+  </form>
+</div>

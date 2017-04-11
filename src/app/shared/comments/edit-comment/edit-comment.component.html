@@ -1,0 +1,21 @@
+<form class="main-form" [formGroup]="myForm" (ngSubmit)="onSubmit()">
+  <div class="form-group" [ngClass]="{'has-danger': !myForm.get('text').valid}">
+            <textarea placeholder='{{ "ADD_COMMENT_PLACEHOLDER" | translate }}'
+                      formControlName="text" class="form-control comments-input"
+                      rows="5" cols="70"
+                      id="text" autofocus>
+            </textarea>
+
+    <app-validation-messages class="form-control-feedback"
+                             [control]="myForm.controls.text"
+                             [errors]="{'required': translateService.instant('COMMENT_REQUIRED'), 'maxlength': translateService.instant('COMMENT_MAX_LENGTH')}">
+    </app-validation-messages>
+
+  </div>
+  <button type="submit"
+          class="btn btn-primary add-button pull-right"
+          [disabled]="!myForm.valid">
+    {{ "ADD_COMMENT" | translate }}
+  </button>
+  <div class="submit-bottom"></div>
+</form>

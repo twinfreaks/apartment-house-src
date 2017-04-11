@@ -1,0 +1,131 @@
+ /*User profile style */
+.userProfileEditCard {
+  margin: 0 auto;
+  width: 95%;
+  float: none;
+  margin-top: 20px;
+}
+
+.profileEditForm {
+  margin: 0 auto;
+  width: 60%;
+ }
+
+form > .form-group > label {
+  float: left;
+  margin-left: -145px;
+  padding: 5px 0 0;
+  position: relative;
+  text-align: right;
+  width: 134px;
+  word-wrap: break-word;
+  color: #707070;
+}
+
+.field-group > label {
+  float: left;
+  margin-left: -145px;
+  padding: 5px 0 0;
+  position: relative;
+  width: 130px;
+}
+
+form, .form-group {
+  box-sizing: border-box;
+  clear: both;
+  padding: 8px 0 0 0;
+  position: relative;
+  margin: 10px 0;
+  width: 100%;
+}
+
+form, .field-value {
+  font-weight: 400;
+  font-weight: 700;
+  padding-top: 5px;
+}
+
+.aui-avatar-xxlarge,  
+.aui-avatar-inner {
+  height: 200px;
+  width: 200px; 
+  float: left;
+  font-weight: 400;
+}
+
+.aui-avatar-inner {
+  display: table-cell;
+  vertical-align: middle;
+  cursor: pointer;
+}
+
+.aui-avatar {
+  box-sizing: border-box;
+  display: inline-block;
+  vertical-align: text-bottom;
+}
+
+.hoverable {
+  position: relative;
+  display: block;
+}
+
+a {
+  text-decoration: none;
+}
+
+.hoverable:hover .hoverable--overlay {
+  align-items: center;
+  background: rgba(0,0,0,.3);
+  color: #fff;
+  display: flex;
+  height: 100%;
+  justify-content: center;
+  position: absolute;
+  text-align: center;
+  width: 100%;
+}
+
+.hoverable--overlay {
+  border-radius: 5px;
+  display: none;
+}
+
+.userPhoto {
+  width: 100%;
+}
+
+.buttons {
+  padding: 4px 0 4px 180px;
+  position: relative;
+}  
+
+.file-upload {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  float: center;
+  color: white;
+}      
+
+.text {
+  font-size: 14px;
+}
+
+input.ng-invalid.ng-touched {
+   border:solid #d9534f 2px;
+ }
+      
+input[type='file'] {
+   height: 200px;
+   width: 200px;
+   position: relative;
+   display: flex;
+   top: 0;
+   left: 0;
+   opacity: 0;
+   cursor: pointer;
+   float: center;
+   margin-top: -200px;
+}

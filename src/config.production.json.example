@@ -1,0 +1,66 @@
+{
+  "api": "apiUrl",
+
+  "uploadDestinationForBlogs": "blogs",
+
+  "infiniteScroll": {
+    "throttle": 10,
+    "scrollDistance": 2
+  },
+
+  "typeRequestDesclength": 250,
+
+  "truncateLengthShotBlog" : 300,
+
+   "defaultBlogLogoUrl": "./assets/img/default_blog_logo.jpg",
+
+  "dateFormat": {
+    "month": "MMMM, YYYY",
+    "week": "w, YYYY",
+    "day": "dddd, D MMMM YYYY",
+    "fullDate": "HH:mm Do MMMM YYYY",
+    "fullWithoutHour": "Do MMMM YYYY",
+    "dateSlash": "DD/MM/YYYY",
+    "dateTraditional": "DD.MM.YYYY"
+  },
+
+  "commentsAndBlog": {
+      "throttleInfiniteScroll": 10,
+      "scrollDistanceInfiniteScroll": 0.1,
+      "commentsToShowScrollStep": 5,
+      "timeToEditCommentHours": 12,
+      "defaultAvatar": "./assets/img/default_avatar.png",
+      "commentsToShowScroll": 10
+    },
+
+  "editorConfig": {
+    "extraPlugins": "divarea",
+    "removePlugins": "elementspath",
+    "toolbarGroups": [
+        { "name": "clipboard", "groups": [ "undo", "clipboard" ] },
+        { "name": "editing", "groups": [ "find", "selection", "spellchecker", "editing" ] },
+        { "name": "forms", "groups": [ "forms" ] },
+        { "name": "basicstyles", "groups": [ "basicstyles", "cleanup" ] },
+        { "name": "paragraph", "groups": [ "list", "indent", "blocks", "align", "bidi", "paragraph" ] },
+        { "name": "links", "groups": [ "links" ] },
+        { "name": "insert", "groups": [ "insert" ] },
+        { "name": "colors", "groups": [ "colors" ] },
+        { "name": "tools", "groups": [ "tools" ] },
+        { "name": "others", "groups": [ "others" ] },
+        { "name": "about", "groups": [ "about" ] },
+        { "name": "document", "groups": [ "mode", "document", "doctools" ] },
+        { "name": "styles", "groups": [ "styles" ] }
+    ],
+    "removeButtons": "Save,NewPage,Print,Templates,Scayt,TextField,Textarea,Button,ImageButton,HiddenField,Radio,Checkbox,Form,Select,Blockquote,CreateDiv,BidiLtr,BidiRtl,Language,Anchor,Image,Flash,PageBreak,Iframe,ShowBlocks,About,Styles"
+  },
+
+  "google.oAuthEndpoint": "https://accounts.google.com/o/oauth2/auth",
+  "google.clientId": "clientId",
+  "google.redirectUri": "http://localhost:4200/oauth2callback",
+
+  "fb.oAuthEndpoint": "https://www.facebook.com/v2.8/dialog/oauth",
+  "fb.clientId": "clientId",
+  "fb.redirectUri": "http://localhost:4200/oauth2callback",
+
+  "reCaptchaSiteKey": "recaptchaKey"
+}

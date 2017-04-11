@@ -1,0 +1,73 @@
+<div class="container">
+  <div class="row">
+    <h2 class="element text-center col-12">{{'INPUT_CALCULATIONS' | translate}} ({{typeOfCalculation.name}},
+      {{building.streetName}} {{building.buildingNumber}})
+    </h2>
+    <div class="content-wrapper col-12 col-md-7 col-lg-6">
+      <div class="form-group input-group element">
+        <span class="input-group-addon"><i class="fa fa-search" aria-hidden="true"></i></span>
+        <input type="text" class="form-control" placeholder="{{'SEARCH_INHABITANT' | translate}}"
+               (keyup)="search($event.target.value)">
+      </div>
+    </div>
+    <table class="table table-striped">
+      <thead>
+      <tr>
+        <th>{{'APPARTMENT_INHABITANT' | translate}}</th>
+        <th>{{'LAST_INPUT_DATE' | translate}}</th>
+        <th>{{'TOTAL_SUM_TO_PAY' | translate}}</th>
+        <th>{{'CURRENT_SUM_TO_PAY' | translate}}</th>
+        <th>{{'PAYED_FOR_PREVIOUS' | translate}}</th>
+        <th>{{'SAVE' | translate}}</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngIf="allCalculations.length === 0">
+        <td colspan="6">
+          {{'NO_INHABITANTS' | translate}}
+        </td>
+      </tr>
+      <tr *ngIf="calculations.length === 0 && allCalculations.length !== 0">
+        <td colspan="6">
+          {{'NO_MATCHES' | translate}}
+        </td>
+      </tr>
+      <tr *ngFor="let calculation of calculations; let i = index">
+        <td>{{'APPARRTMENT_SHORT' | translate}} {{calculation.appartment}}, {{calculation.inhabitantName}}</td>
+        <td>{{displayLastDate(calculation.prevDate)}}</td>
+        <td>{{calculation.prevDebt}}</td>
+        <td>
+          <input type="number" #toPay class="form-control" class="to-pay"
+                 [style.borderColor]="(!checkValidity(calculation.toPayAmount) && calculation.beginToPay)?'red': ''"
+                 [tabindex]="2*i + 1" [value]="calculation.toPayAmount"
+                 (keyup)="calculation.toPayAmount = $event.target.value;calculation.beginToPay = true"
+                 (change)="calculation.beginToPay = true">
+        </td>
+        <td>
+          <input type="number" #payed class="form-control" class="payed"
+                 [style.borderColor]="(!checkValidity(calculation.payedAmount) && calculation.beginPayed)?'red': ''"
+                 [tabindex]="2*i + 2" [value]="calculation.payedAmount"
+                 (keyup)="calculation.payedAmount = $event.target.value;calculation.beginPayed = true"
+                 (change)="calculation.beginPayed = true">
+        </td>
+        <td>
+          <button type="button" class=" btn btn-success pointer"
+                  [disabled]="checkDisabled(toPay.value, payed.value, calculation)"
+                  (click)="saveCalculation(calculation)">
+            <i class="fa fa-floppy-o fa-lg"></i>
+          </button>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="6">
+          <button type="button" class="pull-right btn btn-success pointer"
+                  (click)="saveAllCalculations()"
+                  [disabled]="checkAllValidity()">
+            {{'SAVE_ALL' | translate}}
+          </button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

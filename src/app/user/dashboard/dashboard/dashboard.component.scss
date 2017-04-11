@@ -1,0 +1,121 @@
+@import "../../calculations/user-calculation/user-calculation.component";
+
+.pills {
+  margin-top: 50px;
+  margin-left: 50px;
+}
+
+.custom-title {
+  color: white;
+  font-weight: normal;
+  font-size: 20px;
+  letter-spacing: 3px;
+  margin: 0;
+}
+
+.padding-r-0 {
+  padding-right: 0;
+}
+
+.b-logo {
+  background: url("../../../../assets/img/b-logo.png") no-repeat;
+}
+
+.e-logo {
+  background: url("../../../../assets/img/e-logo.png") no-repeat;
+}
+
+.c-logo {
+  background: url("../../../../assets/img/c-logo.png") no-repeat;
+}
+
+.p-logo {
+  background: url("../../../../assets/img/p-logo.png") no-repeat;
+}
+
+.bip-btns {
+  width: 72px;
+  height: 72px;
+  margin-right: 10px;
+  &:hover {
+    cursor: pointer;
+    opacity: 0.6;
+  }
+}
+
+.bip-badges {
+  float: right;
+  background-color: black;
+  color: white;
+  border-radius: 50%;
+}
+
+.flexbox {
+  display: flex;
+  align-items: center;
+}
+
+.dashboard-date {
+  float: right;
+  margin: 0;
+  font-size: smaller;
+  color: slategrey;
+}
+
+.c-header {
+  height: 40px;
+}
+
+.card-li:hover {
+  background-color: #F4F4F9;
+}
+
+.spin:hover {
+  color: #5bc0de;
+}
+
+.card-custom {
+  margin-top: 10px;
+}
+
+.drop-select {
+  width: 40px;
+}
+
+.on-request {
+  color: lightslategrey;
+  opacity: 0.4;
+  z-index: 999999;
+  pointer-events: none;
+}
+
+.collapsing {
+  overflow: hidden;
+  transition: height .5s;
+}
+
+.padding-0 {
+  padding: 1%;
+}
+
+.settings:hover {
+  cursor: pointer;
+}
+
+.bepc-wrapper {
+  display: flex;
+}
+
+@media only screen and (max-width: 768px) {
+  .res {
+    width: 100%;
+  }
+
+  .nav-pills {
+    margin-left: 0;
+  }
+
+  .settings {
+    margin-right: 10px;
+  }
+}

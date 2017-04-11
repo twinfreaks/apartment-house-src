@@ -1,0 +1,169 @@
+body {
+  font-family: Georgia, "Times New Roman", Times, serif;
+  color: #555;
+}
+
+h1, .h1,
+h2, .h2,
+h3, .h3,
+h4, .h4,
+h5, .h5,
+h6, .h6 {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-weight: normal;
+  color: #333;
+}
+
+.container {
+  max-width: 60rem;
+}
+
+.blog-masthead {
+  margin-bottom: 3rem;
+  background-color: #428bca;
+  -webkit-box-shadow: inset 0 -.1rem .25rem rgba(0, 0, 0, .1);
+  box-shadow: inset 0 -.1rem .25rem rgba(0, 0, 0, .1);
+}
+
+.nav-link {
+  position: relative;
+  padding: 1rem;
+  font-weight: 500;
+  color: #cdddeb;
+}
+
+.nav-link:hover,
+.nav-link:focus {
+  color: #fff;
+  background-color: transparent;
+}
+
+.nav-link.active {
+  color: #fff;
+}
+
+.nav-link.active:after {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 0;
+  height: 0;
+  margin-left: -.3rem;
+  vertical-align: middle;
+  content: "";
+  border-right: .3rem solid transparent;
+  border-bottom: .3rem solid;
+  border-left: .3rem solid transparent;
+}
+
+.blog-header {
+  padding-bottom: 1.25rem;
+  margin-bottom: 2rem;
+  margin-top: 2rem;
+  border-bottom: .05rem solid #eee;
+}
+
+.blog-title {
+  margin-bottom: 0;
+  font-size: 2rem;
+  font-weight: normal;
+}
+
+.blog-description {
+  font-size: 1.1rem;
+  color: #999;
+}
+
+.sidebar-module {
+  padding: 1rem;
+}
+
+.sidebar-module-inset {
+  padding: 1rem;
+  background-color: #f5f5f5;
+  border-radius: .25rem;
+}
+
+.sidebar-module-inset p:last-child,
+.sidebar-module-inset ul:last-child,
+.sidebar-module-inset ol:last-child {
+  margin-bottom: 0;
+}
+
+.blog-pagination {
+  margin-bottom: 4rem;
+}
+
+.blog-pagination > .btn {
+  border-radius: 2rem;
+}
+
+.blog-post {
+  margin-bottom: 2rem;
+}
+
+.blog-post-title {
+  margin-bottom: .25rem;
+  font-size: 2.5rem;
+}
+
+.blog-post-meta {
+  margin-bottom: 1.25rem;
+  color: #999;
+}
+
+.media {
+  margin-top: 35px;
+}
+
+.media.mt-3 {
+  margin-top: 0;
+}
+
+.blog-img {
+  display: block;
+  width: auto;
+  max-width: 100%;
+  padding: 30px 0;
+  max-height: 28rem;
+  margin: auto auto;
+}
+
+.blog-img-container {
+  width: 100%;
+}
+
+.blog-text {
+  text-align: justify;
+  text-indent: 2em;
+}
+
+.blog-pagination {
+  margin-top: 50px;
+}
+
+footer {
+  background-color: whitesmoke;
+  height: 2em;
+  text-align: center;
+  vertical-align: center;
+  line-height: 2em;
+  color: black;
+}
+
+.gallery-container {
+  padding: 0 auto;
+  margin-top: 1.5em;
+}
+
+@media (min-width: 48em) {
+  html {
+    font-size: 18px;
+  }
+}
+
+@media (min-width: 40em) {
+  .blog-title {
+    font-size: 3.5rem;
+  }
+}

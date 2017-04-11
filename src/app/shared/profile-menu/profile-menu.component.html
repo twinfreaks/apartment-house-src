@@ -1,0 +1,10 @@
+<div ngbDropdown *ngIf="isLoggedIn" class="btn-group">
+  <button id="single-button" type="button" class="btn btn-primary" ngbDropdownToggle>
+    <i class="fa fa-user-o fa-fw" aria-hidden="true"></i> {{username}}<span class="caret"></span>
+  </button>
+  <ul role="menu" class="dropdown-menu dropdown-menu-right">
+    <li role="menuitem"><a class="dropdown-item" [routerLink]="['profile']"><i class="fa fa-address-card-o fa-fw" aria-hidden="true"></i> {{"USER_PROFILE" | translate}}</a></li>
+    <li class="divider dropdown-divider"></li>
+    <li role="menuitem"><a class="dropdown-item" (click)="logout()" [routerLink]="['']"><i class="fa fa-sign-out fa-fw" aria-hidden="true"></i>{{"LOGOUT" | translate}}</a></li>
+  </ul>
+</div>

@@ -1,0 +1,11 @@
+.img-fluid {
+  max-height: calc(100vh - 100px);
+}
+
+.modal {
+  text-align:center;
+}
+.modal-dialog {
+  display: inline-block;
+  width: auto;
+}

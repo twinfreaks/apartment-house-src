@@ -1,0 +1,18 @@
+<div class="header clearfix">
+  <nav class="navbar navbar-inverse bg-primary navbar-toggleable-md navbar-default">
+    <button class="navbar-toggler navbar-toggler-right" type="button" (click)="isNavbarCollapsed = !isNavbarCollapsed" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <a class="navbar-brand" [routerLink]="['']">
+      <img height="40" src="/assets/img/logo_{{currentLang}}.png">
+    </a>
+    <div [ngbCollapse]="isNavbarCollapsed" class="collapse navbar-collapse justify-content-end">
+      <div class="navbar-nav">
+        <app-langs class="col col-12"></app-langs>
+      </div>
+      <div class="navbar-nav">
+        <app-profile-menu></app-profile-menu>
+      </div>
+    </div>
+  </nav>
+</div>

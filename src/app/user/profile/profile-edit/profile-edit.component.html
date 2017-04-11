@@ -1,0 +1,72 @@
+<section class="userProfileEditCard">
+  <div class="container"> 
+    <div class="breadcrumb">
+      <h3> {{ "USER_PROFILE" | translate }} </h3> 
+    </div>
+    <form [formGroup]="myForm" (ngSubmit)="onSubmit(myForm.value, myForm.valid)" class="profileEditForm" novalidate>
+      <div class="form-group">
+        <label for="photo">{{ "PHOTO" | translate }}</label>
+          <div class="field-value">
+            <div class="aui-avatar aui-avatar-xxlarge userPhoto">
+              <div class="aui-avatar-inner">
+                <a class="hoverable"> 
+                  <span class="hoverable--overlay">
+                    {{ "CHANGE" | translate }} {{ "AVATAR" | translate }}
+                  </span>
+                  <img src="{{photosUrl + myForm.controls.photo.value}}" class="userPhoto" *ngIf="myForm.controls.photo.value !== null" height="200px" weight="200px"/>
+                  <img src="../../../../assets/img/dafaultProfileImage.png" class="userPhoto" *ngIf="myForm.controls.photo.value === null" height="200px" weight="200px"/>
+                  <input type="file" accept="image/*" class="form-control" (change)="photoUpload($event);" title='{{ "UPLOAD" | translate }}'>
+                </a>
+              </div>
+            </div>
+          </div>
+      </div>
+      <div class="form-group">
+        <label for="surname">{{ "SURNAME" | translate }}</label>
+        <input type="text" class="form-control" placeholder="{{'SURNAME' | translate}}" pattern="[A-Za-zА-Яа-яЁё]*" formControlName="surname">
+        <small [hidden]="myForm.controls.surname.valid || (myForm.controls.surname.pristine && !submitted)" class="text-danger">
+          {{ "YOU_MUST_SPECIFY_SURNAME" | translate }}
+        </small>
+      </div>
+      <div class="form-group">
+        <label for="name">{{ "NAME" | translate }}</label>
+        <input type="text" class="form-control" placeholder="{{'NAME' | translate}}" pattern="[A-Za-zА-Яа-яЁё]*" formControlName="name">
+        <small [hidden]="myForm.controls.name.valid || (myForm.controls.name.pristine && !submitted)" class="text-danger">
+          {{ "YOU_MUST_SPECIFY_NAME" | translate }}
+        </small>
+      </div>
+      <div class="form-group">
+        <label for="patronymic">{{ "PATRONIMIC" | translate }}</label>
+        <input type="text" class="form-control" placeholder="{{'PATRONIMIC' | translate}}" pattern="[A-Za-zА-Яа-яЁё]*" formControlName="patronymic">
+        <small [hidden]="myForm.controls.patronymic.valid || (myForm.controls.patronymic.pristine && !submitted)" class="text-danger">
+          {{ "YOU_MUST_SPECIFY_PATRONYMIC" | translate }}
+        </small>
+      </div>
+      <div class="form-group">
+        <label for="building">{{ "BUILDING" | translate }}</label>
+        <input type="text" class="form-control" placeholder="{{'BUILDING_NUMBER' | translate}}" formControlName="building">
+        <small [hidden]="myForm.controls.building.valid || (myForm.controls.building.pristine && !submitted)" class="text-danger">
+          {{ "YOU_MUST_SPECIFY_BUILDING" | translate }}
+        </small>
+      </div>
+      <div class="form-group">
+        <label for="appartment">{{ "APARTMENT" | translate }}</label>
+        <input type="text" class="form-control" placeholder="{{'YOUR_APPARTMENT_NUMBER' | translate}}" formControlName="appartment">
+        <small [hidden]="myForm.controls.appartment.valid || (myForm.controls.appartment.pristine && !submitted)" class="text-danger">
+          {{ "YOU_MUST_SPECIFY_APARTMENT" | translate }}
+        </small>
+      </div>
+      <div class="form-group">
+        <label for="phoneNumber">{{ "PHONE_NUMBER" | translate }}</label>
+        <input type="text" class="form-control" placeholder="(095)ХХ ХХ ХХХ" formControlName="phoneNumber" required>
+        <small [hidden]="myForm.controls.phoneNumber.valid || (myForm.controls.phoneNumber.hasError('minlength') && myForm.controls.phoneNumber.pristine && !submitted)" class="text-danger">
+          {{ "YOU_MUST_SPECIFY_PHONE_NUMBER" | translate }}
+        </small>
+      </div>
+      <div class="buttons">
+        <button type="submit" class="btn btn-success" [disabled]="!myForm.valid">{{ "SAVE" | translate }}</button>
+        <a [routerLink] = "['/user']" class="btn btn-danger">{{ "CANCEL" | translate }}</a>
+      </div>
+    </form>
+  </div>
+</section>

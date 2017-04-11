@@ -1,0 +1,123 @@
+.card {
+  margin-bottom: 15px;
+}
+
+.blogs {
+  height: 100%;
+}
+
+.line {
+  display: flex;
+  align-items: center;
+}
+
+.switch-container {
+  padding: 0 10px 4px 10px;
+}
+
+label[for="isActive"] {
+  margin-bottom: 0;
+}
+
+.button-control {
+  width: 51px;
+}
+
+.title {
+  display: inline-block;
+  line-height: 51px;
+  vertical-align: middle;
+  margin-bottom: 0;
+}
+
+.mobile-label {
+  display: none;
+}
+
+div.no-blogs-alert {
+  margin-top: 7px;
+}
+
+/* The switch - the box around the slider */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 54px;
+  height: 28px;
+  margin-bottom: 0;
+  top: 5px;
+
+  input {
+    display: none;
+
+    &:checked + .slider {
+      background-color: #2196F3;
+    }
+    &:focus + .slider {
+      box-shadow: 0 0 1px #2196F3;
+    }
+    &:checked + .slider:before {
+      transform: translateX(26px);
+    }
+  }
+}
+
+/* The slider */
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  transition: .4s;
+
+  &:before {
+    position: absolute;
+    content: "";
+    height: 20px;
+    width: 20px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    transition: .4s;
+  }
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+
+  &:before {
+    border-radius: 50%;
+  }
+}
+
+@media only screen and (max-width: 575px) {
+  .mobile-hide {
+    display: none;
+  }
+
+  .switch-container {
+    text-align: center;
+  }
+
+  .line {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .del-upd-controls {
+    button {
+      margin-top: 3px;
+      margin-bottom: 3px;
+    }
+  }
+
+  .mobile-label {
+    display: block;
+    text-align: center;
+  }
+}

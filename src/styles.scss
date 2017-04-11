@@ -1,0 +1,186 @@
+@import "../node_modules/bootstrap/scss/bootstrap.scss";
+@import "./app/shared/scss/calendar-style.scss";
+@import "../node_modules/ng2-image-gallery-fixed/ng2-image-gallery.scss";
+@import "../src/app/shared/scss/ng2-select.scss";
+
+.space-top {
+  margin-top: 25px;
+}
+
+.loading-spinner {
+  padding-top: 45vh;
+}
+
+.social-icons {
+  color: $brand-primary;
+}
+
+.social-icons-item {
+  text-align: center;
+  cursor: pointer;
+  &:hover {
+    background: rgba(0, 0, 0, 0.1);
+  }
+}
+
+.or-text {
+  width: 100%;
+  text-align: center;
+  border-bottom: 1px solid #000;
+  line-height: 0.1em;
+  margin: 25px 0 20px;
+  & span {
+    background: #fff;
+    padding: 0 10px;
+  }
+}
+
+button {
+  cursor: pointer;
+  &.btn:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+  }
+}
+
+div.ui-fileupload-files {
+  display: block;
+  overflow: auto;
+}
+
+.breadcrumb {
+  border-top-right-radius: 0;
+  border-top-left-radius: 0;
+}
+
+.navbar-inverse .navbar-nav .nav-link {
+  color: #eee;
+  opacity: 1;
+}
+
+.navbar-inverse .navbar-nav .nav-link:focus, .navbar-inverse .navbar-nav .nav-link:hover {
+  color: #eee;
+  opacity: 1;
+  background-color: #025aa5;
+}
+
+.navbar-inverse .navbar-nav .open > .nav-link,
+.navbar-inverse .navbar-nav .active > .nav-link,
+.navbar-inverse .navbar-nav .nav-link.open,
+.navbar-inverse .navbar-nav .nav-link.active {
+  background-color: #0250a0;
+}
+
+p-confirmdialog {
+  button.conf-dial-false {
+    background-color: #d9534f;
+    border-color: #d9534f;
+
+    &:enabled, &:active {
+      &:hover {
+        background-color: #c9302c;
+        border-color: #c12e2a;
+      }
+    }
+  }
+
+  button.conf-dial-true {
+    background-color: #5cb85c;
+    border-color: #5cb85c;
+
+    &:enabled, &:active {
+      &:hover {
+        background-color: #449d44;
+        border-color: #419641;
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 992px) {
+  .container {
+    width: 85%;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .container {
+    width: 90%;
+  }
+}
+
+@media only screen and (max-width: 576px) {
+  .container {
+    width: 100%;
+  }
+}
+
+.image-responsive {
+  width: 100%;
+}
+
+// styling ng2-image-gallery-fixed
+.ng2-igl-thumbnail {
+  border-radius: 3px;
+  max-width: 200px;
+  height: 70px;
+}
+
+.ng2-igl-img {
+  box-shadow: none;
+  max-width: calc(100% - 130px);
+}
+
+.ng2-igl-thumbnails {
+  width: 100%;
+  margin: 0 0;
+  left: 0;
+  bottom: 35px;
+}
+
+.ng2-image-gallery-thumbnail {
+  max-width: 200px;
+  height: 70px;
+  margin: 0 auto;
+  &:hover {
+    opacity: 0.8;
+  }
+}
+
+.ng2-image-gallery-thumbnail-container {
+  max-width: 200px;
+}
+
+@media (max-width: 991px) {
+  .ng2-igl-thumbnail {
+    border-radius: 1px;
+    max-width: 40px;
+    max-height: 40px;
+    margin-right: 1px;
+    margin-bottom: 1px;
+  }
+  .ng2-igl-thumbnails {
+    width: 100%;
+    margin: 0;
+    bottom: 28px;
+  }
+}
+
+// end of styling ng2-image-gallery-fixed
+@media only screen and (max-width: 992px) {
+  .container {
+    width: 85%;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .container {
+    width: 90%;
+  }
+}
+
+@media only screen and (max-width: 576px) {
+  .container {
+    width: 100%;
+  }
+}

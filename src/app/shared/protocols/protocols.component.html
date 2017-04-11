@@ -1,0 +1,116 @@
+<div class="container">
+  <ol class="breadcrumb flexbox">
+    <li class="pull-left col-6"><h3>{{'PROTOCOLS' | translate}}</h3></li>
+    <li class="pull-right col-6">
+      <button type="button" class="btn btn-success btn-lg pull-right"
+              *ngIf="!isInhabitant()"
+              (click)="openCollapse(); newProtocolModel();">
+        <i class="fa fa-plus" aria-hidden="true"></i>
+      </button>
+    </li>
+  </ol>
+  <div class="container-fluid">
+    <!--COLLAPSING FORM-->
+    <form #protocolForm="ngForm" class="collapsing" #addEl
+          [style.height]="collapseHeight + 'px'">
+      <div *ngIf="!isInhabitant()">
+        <p-fileUpload name="file" url="{{uploadUrl}}"
+                      (onBeforeUpload)="addDest($event.formData)"
+                      (onUpload)="filenameToModel($event.xhr)"
+                      chooseLabel="{{'CHOOSE' | translate}}"
+                      uploadLabel="{{'UPLOAD' | translate}}"
+                      cancelLabel="{{'CANCEL' | translate}}">
+          <template pTemplate="content">
+            <div>
+              {{protocolModel.fileUrl}}
+            </div>
+          </template>
+        </p-fileUpload>
+        <div class="card margin-top-5">
+          <div class="card-header">
+            <label for="title">{{'TITLE' | translate}}</label>
+            <input id="title" class="form-control" type="text" name="title"
+                   placeholder="{{'TITLE_IS_REQUIRED' | translate}}"
+                   [(ngModel)]="protocolModel.title">
+          </div>
+          <div class="card-block">
+            <label for="description">{{'DESCRIPTION' | translate}}</label>
+            <div>
+            <textarea name="description" id="description" class="form-control col-12" rows="10"
+                      [(ngModel)]="protocolModel.description"
+                      placeholder="{{'DESCRIPTION_IS_REQUIRED' | translate}}">
+            </textarea>
+            </div>
+          </div>
+          <div class="card-block">
+            <div class="pull-left active-label">{{'PUBLICATE' | translate}}</div>
+            <label class="switch pull-left margin-r">
+              <input id="cardCheckbox" type="checkbox" [checked]="protocolModel.isActive"
+                     (click)="onActive(protocolModel)">
+              <div class="slider round"></div>
+            </label>
+            <viber [viberData]="{'description': protocolModel.description}" #viber></viber>
+          </div>
+          <div class="card-footer">
+            <button *ngIf="!protocolModel.id" type="submit"
+                    [disabled]="!protocolModel.description || !protocolModel.title"
+                    (click)="onSubmit(); viber.shareViaViber(viber.viberData.description)"
+                    class="btn btn-success pull-right btn-margin-left">{{'SAVE' | translate}}
+            </button>
+            <button *ngIf="protocolModel.id" type="submit"
+                    (click)="onSubmit()"
+                    [disabled]="!protocolModel.description || !protocolModel.title"
+                    class="btn btn-warning pull-right btn-margin-left">{{'UPDATE' | translate}}
+            </button>
+            <button type="submit"
+                    (click)="closeCollapse(); newProtocolModel()"
+                    class="btn btn-primary pull-right btn-margin-left">{{'CANCEL' | translate}}
+            </button>
+          </div>
+        </div>
+      </div>
+    </form>
+    <!--PROTOCOLS OUTPUT-->
+    <div *ngFor="let protocol of protocols">
+      <div class="card card-outline-primary">
+        <div class="card-header" *ngIf="!isInhabitant()">
+          <div class="pull-left active-label">{{'UNPUBLICATED' | translate}}</div>
+          <label class="switch pull-left">
+            <input type="checkbox" [checked]="protocol.isActive"
+                   (click)="onActive(protocol); setIsActive(protocol)">
+            <div class="slider round"></div>
+          </label>
+          <div class="active-label-plus-right pull-left">{{'PUBLICATED' | translate}}</div>
+          <div class="pull-right">
+            <button type="button" class="btn btn-warning"
+                    (click)="collapseHeight = addEl.scrollHeight + 290; editProtocol(protocol)">
+              <i class="fa fa-pencil-square-o fa-lg" aria-hidden="true"></i>
+            </button>
+            <button type="button" class="btn btn-danger" (click)="deleteProtocol(protocol.id)">
+              <i class="fa fa-trash-o fa-lg" aria-hidden="true"></i>
+            </button>
+          </div>
+        </div>
+        <div class="card-block">
+          <div class="row">
+            <div class="col-xs-12 col-sm col-md col-lg col-xl">
+              <h4 class="card-title link pull-left col-9"
+                  (click)="setModalData(protocol); modal.showModal(); readProtocol(protocol)">
+                {{ protocol.title }}
+              </h4>
+              <p class="dashboard-date">{{format(protocol.updatedAt)}}</p>
+              <p class="card-text text-justify col-12 pull-left">{{ protocol.description | truncate : 300}}
+                <b class="link" *ngIf="protocol.description.length && protocol.description.length > 300"
+                   (click)="setModalData(protocol); modal.showModal(); readProtocol(protocol)">
+                  {{'READ_MORE' | translate}}
+                </b>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<dashboard-modal [modalData]="modalData" #modal></dashboard-modal>
+<user-request *ngIf="isInhabitant()"></user-request>

@@ -1,0 +1,96 @@
+<div class="container">
+  <div class="breadcrumb">
+    <h3 class="title" id="title">{{ "BLOG" | translate }}</h3>
+    <button *ngIf="!isInhabitant" type="button" id="add-blog-btn"
+            class="btn btn-success btn-lg pull-right" [routerLink] = "['/admin/blog-add']">
+      <i class="fa fa-plus" aria-hidden="true"></i>
+    </button>
+  </div>
+  <div class="no-blogs-alert" *ngIf="noBlogs">
+    <alert type="info">
+      <strong>{{ "NO_BLOGS" | translate }}</strong>
+    </alert>
+  </div>
+  <div class="blogs" infinite-scroll [infiniteScrollDistance]="scrollDistance"
+       [infiniteScrollThrottle]="throttle" (scrolled)="onScrollDown()">
+    <div class="blog" *ngFor="let blog of blogs">
+      <div class="card card-outline-primary">
+        <div class="card-header" *ngIf="!isInhabitant">
+          <div class="row">
+            <div class="col-9 col-sm-8 line">
+              <label for="isActive" class="mobile-hide">
+                <b>{{ "UNPUBLICATED" | translate }}</b>
+              </label>
+              <div class="switch-container">
+                <label class="switch">
+                  <input type="checkbox" [checked]="blog.isActive"
+                         (click)="changeActiveState(blog)" id="isActive">
+                  <div class="slider round"></div>
+                </label>
+              </div>
+              <label for="isActive" class="mobile-hide">
+                <b>{{ "PUBLICATED" | translate }}</b>
+              </label>
+              <label for="isActive" class="mobile-label">
+                <b>{{ "PUBLICATED_NO_YES" | translate }}</b>
+              </label>
+            </div>
+            <div class="col-3 col-sm-4 text-right del-upd-controls">
+              <button type="button" class="btn btn-warning button-control"
+                      [routerLink]="['/admin/blog-edit', blog.id]">
+                <i class="fa fa-pencil-square-o fa-lg" aria-hidden="true"></i>
+              </button>
+              <button type="button" class="btn btn-danger button-control"
+                      (click)="confirmBlogDeleting(blog.id)" [disabled]="sendingDeleteToServer">
+                <i class="fa fa-trash-o fa-lg" aria-hidden="true"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="card-block">
+          <div class="row">
+            <div class="col-xs-12 col-sm-4 col-md-3 col-xl-2 text-center">
+              <img class="rounded img-fluid" [src]="checkDefaultLogo(blog.photo)">
+            </div>
+            <div class="col-xs-12 col-sm">
+              <div class="text-right">
+                <p class="card-text" *ngIf="blog.createdAt === blog.updatedDate">
+                  <span class="text-muted">
+                    {{ "ADDED" | translate }} {{ blog.createdAt | date:"dd.MM.y" }}
+                  </span>
+                </p>
+                <p class="card-text" *ngIf="blog.createdAt < blog.updatedDate">
+                  <span class="text-muted">
+                    {{ "UPDATED" | translate }} {{ blog.updatedDate | date:"dd.MM.y" }}
+                  </span>
+                </p>
+              </div>
+              <h4 class="card-title">
+                <a class="underline-none" [routerLink] = "[blog.id]">
+                  {{ blog.title }}
+                </a>
+              </h4>
+              <p class="card-text text-justify">{{ blog.description | truncate : truncateLength }}
+                <a class="underline-none" [routerLink] = "[blog.id]">
+                  {{ "READ" | translate }}&nbsp;{{ "MORE" | translate }}
+                </a>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="isLoading" class="text-center">
+      <img src="/assets/img/loading.gif">
+    </div>
+  </div>
+</div>
+
+<p-confirmDialog header="{{ 'CONFIRMATION' | translate }}" icon="fa fa-question-circle" width="350" #cd>
+  <p-footer>
+    <button class="conf-dial-false" type="button" pButton icon="fa-close" label="{{ 'NO' | translate }}" (click)="cd.reject()"></button>
+    <button class="conf-dial-true" type="button" pButton icon="fa-check" label="{{ 'YES' | translate }}" (click)="cd.accept()"></button>
+  </p-footer>
+</p-confirmDialog>
+
+<user-request *ngIf="isInhabitant"></user-request>

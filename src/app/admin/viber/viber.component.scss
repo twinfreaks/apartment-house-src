@@ -1,0 +1,44 @@
+.collapsing {
+  overflow: hidden;
+  -webkit-transition: height .5s;
+  -moz-transition: height .5s;
+  -o-transition: height .5s;
+  transition: height .5s;
+}
+
+.card {
+  border: 1px solid rebeccapurple;
+}
+
+.cursor {
+  cursor: pointer;
+}
+
+button:disabled {
+  cursor: not-allowed;
+  opacity: 0.2;
+}
+
+.margin-right {
+  margin-right: 5px;
+}
+
+.viber-icon {
+  width: 40px;
+  height: 40px;
+  background: url("../../../assets/img/Viber-Icon.png") no-repeat;
+  background-size: 40px 40px;
+}
+
+.button-disabled {
+  opacity: 0.6;
+}
+
+.button-disabled:hover {
+  opacity: 1;
+}
+
+.flexbox {
+  display: flex;
+  align-items: center;
+}

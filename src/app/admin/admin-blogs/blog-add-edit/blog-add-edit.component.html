@@ -1,0 +1,96 @@
+<div class="container">
+  <div class="breadcrumb">
+    <h3>{{ title }}</h3>
+  </div>
+  <form [formGroup]="blogForm" (submit)="saveBlog()" novalidate>
+    <div class="form-group">
+      <label for="title"><b>{{ "TITLE" | translate }}</b></label>
+      <input class="form-control" type="text" id="title"
+             autocomplete="off" formControlName="title">
+    </div>
+    <div class="form-group">
+      <label for="description"><b>{{ "DESCRIPTION" | translate }}</b></label>
+      <textarea class="form-control" id="description"
+                formControlName="description" rows="5">
+      </textarea>
+      <small>
+        {{ "RECOMMENDED" | translate }}
+        {{blogForm.controls.description.value.length}}/{{recomDescrLength}}
+        {{ "SYMBOLS" | translate }}
+      </small>
+    </div>
+    <div class="form-group">
+      <label for="text"><b>{{ "TEXT" | translate }}</b></label>
+      <ckeditor id="text" formControlName="text" [config]="editorConfig" debounce="250"></ckeditor>
+    </div>
+    <div class="form-group">
+      <label><b>{{ "THUMBNAIL" | translate }}</b></label>
+      <app-logo-upload [logoUrl]="logoUrl"
+                       (logoUrlEmitted)="logoUrlEmitted($event)">
+      </app-logo-upload>
+    </div>
+    <div class="row">
+      <div class="col-lg-6 form-group line isActive">
+        <label for="isActive"><b>{{ "UNPUBLICATED" | translate }}</b></label>
+        <div class="switch-container">
+          <label class="switch">
+            <input type="checkbox" formControlName="isActive" id="isActive" class="form-control">
+            <div class="slider round"></div>
+          </label>
+        </div>
+        <label for="isActive"><b>{{ "PUBLICATED" | translate }}</b></label>
+      </div>
+      <div class="col-lg-6 form-group calendar-wrap">
+        <label for="publicatedFrom"><b>{{ "PUBLICATED_FROM" | translate }}</b></label>
+        <p-calendar [locale]="datePickerLang" formControlName="publicatedFrom"
+                    [showIcon]="true" dateFormat="dd.mm.yy" id="publicatedFrom">
+        </p-calendar>
+      </div>
+    </div>
+    <div class="form-group line isEvent">
+      <label for="event-check"><b>{{ "EVENT" | translate }}</b></label>
+      <div class="switch-container">
+        <label class="switch">
+          <input type="checkbox" [checked]="isEvent" (click)="changeIsEvent()"
+                 id="event-check" class="form-control">
+          <div class="slider round"></div>
+        </label>
+      </div>
+    </div>
+    <div class="form-group">
+      <p-dropdown [options]="events" id="event" formControlName="event" styleClass="full-width"
+                  (onChange)="addEventIsSelected($event.value)" [autoWidth]="false">
+      </p-dropdown>
+    </div>
+    <viber [viberData]="{'description': blogForm.controls.description.value}" #viber></viber>
+    <div class="form-group">
+      <label><b>{{ "GALLERY" | translate }}</b></label>
+      <app-blog-add-edit-gallery [id]="id"
+                                 (imagesForAdding)="imagesForAddingEmitted($event)"
+                                 (imagesForDeleting)="imagesForDeletingEmitted($event)">
+      </app-blog-add-edit-gallery>
+    </div>
+    <div class="clearfix">
+      <button type="button" class="btn btn-warning pull-left"
+              id="return-to-blogs" (click)="returnToBlogList()">
+        {{ "RETURN_TO_BLOGS" | translate }}
+      </button>
+      <button type="submit" class="btn btn-success pull-right" id="save-blog"
+              [disabled]="disableSaveButton()"
+              (click)="viber.shareViaViber(viber.viberData.description)">
+        {{ "SAVE" | translate }}
+      </button>
+    </div>
+  </form>
+</div>
+
+<app-add-event-from-blog-edit-modal #addEventModal (addEvent)="onAddEvent($event)"
+                                    (cancel)="onCloseAddEventModal()">
+</app-add-event-from-blog-edit-modal>
+
+<p-confirmDialog header="{{ 'CONFIRMATION' | translate }}" icon="fa fa-question-circle" width="350" #cd>
+  <p-footer>
+    <button class="conf-dial-false" type="button" pButton icon="fa-close" label="{{ 'NO' | translate }}" (click)="cd.reject()"></button>
+    <button class="conf-dial-true" type="button" pButton icon="fa-check" label="{{ 'YES' | translate }}" (click)="cd.accept()"></button>
+  </p-footer>
+</p-confirmDialog>

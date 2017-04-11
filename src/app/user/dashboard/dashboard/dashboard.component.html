@@ -1,0 +1,143 @@
+<div class="container">
+  <ol class="breadcrumb">
+    <li class="pull-left">
+      <h3 id="dashboardTitle">{{'DASHBOARD' | translate}}</h3>
+    </li>
+    <li class="pull-right col-1 settings">
+      <i class="fa fa-cog fa-2x fa-fw spin" id="settings" (click)="configHeight = configHeight ? 0 : el.scrollHeight"></i>
+    </li>
+  </ol>
+  <!-----Config----->
+  <div class="collapsing" [style.height]="configHeight + 'px'" #el>
+    <div class="card card-block card-header">
+      <div class="well well-lg">
+        <div><h5>{{'DASHBOARD_SETTINGS' | translate}}</h5></div>
+        <hr>
+        <form #configForm="ngForm">
+          <h6 class="col-3 float-left">{{'SHOW_BLOGS' | translate}}</h6>
+          <input type="checkbox" name="viewBlogs" [(ngModel)]="dashboardConfig.viewBlogs"
+                 class="col-1 float-left">
+          <h6 class="col-2 float-left">{{'LIMIT' | translate}}</h6>
+          <select [disabled]="!dashboardConfig.viewBlogs" [(ngModel)]="dashboardConfig.blogsCount"
+                  name="blogLimit">
+            <option *ngFor="let digit of digits">{{digit}}</option>
+          </select>
+          <hr class="col-11">
+          <h6 class="col-3 float-left">{{'SHOW_EVENTS' | translate}}</h6>
+          <input type="checkbox" name="viewEvents" [(ngModel)]="dashboardConfig.viewEvents"
+                 class="col-1 float-left">
+          <h6 class="col-2 float-left">{{'LIMIT' | translate}}</h6>
+          <select [disabled]="!dashboardConfig.viewEvents" [(ngModel)]="dashboardConfig.eventsCount"
+                  name="eventLimit">
+            <option *ngFor="let digit of digits">{{digit}}</option>
+          </select>
+          <hr class="col-11">
+          <h6 class="col-3 float-left">{{'SHOW_PROTOCOLS' | translate}}</h6>
+          <input type="checkbox" name="protocolCheck"
+                 [(ngModel)]="dashboardConfig.viewProtocols"
+                 class="col-1 float-left">
+          <h6 class="col-2 float-left">{{'LIMIT' | translate}}</h6>
+          <select [disabled]="!dashboardConfig.viewProtocols"
+                  [(ngModel)]="dashboardConfig.protocolsCount"
+                  name="protocolLimit">
+            <option *ngFor="let digit of digits">{{digit}}</option>
+          </select>
+          <hr class="col-11">
+          <h6 class="col-3 float-left">{{'SHOW_CALCULATIONS' | translate}}</h6>
+          <input type="checkbox" name="calculationCheck"
+                 [(ngModel)]="dashboardConfig.viewCalculations"
+                 class="col-1 float-left">
+          <hr class="col-11">
+          <div>
+            <button type="submit" name="saveCfg" class="btn btn-success pull-right"
+                    (click)="setUserConfig(); configHeight = 0">
+              {{'SAVE_CONFIG' | translate}}
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <!-----------------------BEPC BUTTONS---------------------->
+  <div class="container-fluid">
+    <ul class="pills nav nav-pills row">
+      <div class="bepc-wrapper">
+        <li class="bip-btns b-logo" [routerLink]="['blogs']">
+          <span class="bip-badges badge badge-inverse">{{unreadedBlogsCount}}</span>
+        </li>
+        <li class="bip-btns e-logo" [routerLink]="['events']">
+          <span class="bip-badges badge badge-inverse">{{unreadedEventsCount}}</span>
+        </li>
+      </div>
+      <div class="bepc-wrapper">
+        <li class="bip-btns p-logo" [routerLink]="['protocols']">
+          <span class="bip-badges badge badge-inverse">{{unreadedProtocolsCount}}</span>
+        </li>
+        <li class="bip-btns c-logo" [routerLink]="['calculations']">
+          <span *ngIf="checkNewCalcs()" class="bip-badges badge badge-inverse">!</span>
+        </li>
+      </div>
+    </ul>
+  </div>
+  <!-----------------------VIEW OF ITEMS---------------------->
+  <div [ngClass]="{'on-request': !requestEnd}">
+    <i class="fa fa-spinner fa-spin" *ngIf="!requestEnd"></i>
+    <div id="bagContainer" #bag [dragula]='"bag"' [dragulaModel]="viewOrderArr">
+      <div *ngFor="let n of viewOrderArr" id="divToDrag">
+        <div *ngIf="viewItems.get(n)" class="card card-custom" id="item-card"
+             [ngClass]="{
+               'card-outline-primary': n===1,
+               'card-outline-success': n===2,
+               'card-outline-info': n===3,
+               'card-outline-warning': n===4}">
+          <div class="card-header c-header flexbox"
+               [ngClass]="{
+                 'card-primary': n===1,
+                 'card-success': n===2,
+                 'card-info': n===3,
+                 'card-warning': n===4}">
+            <span class="pull-left card-title col-5 custom-title" id="itemTitle">{{itemsTitles.get(n) | translate}}</span>
+          </div>
+          <div class="card-block" id="drag-place">
+            <ul class="list-group list-group-flush" *ngFor="let item of lastItems.get(n)">
+              <li class="list-group-item card-li padding-0" id="item-li"
+                  (click)="!isCalculation(item) ? setModalData(item) + readItem(n, item) + modal.showModal() : ''">
+                <h5 *ngIf="!isCalculation(item)" class="pull-left col-9">{{item?.title}}</h5>
+                <p *ngIf="!isCalculation(item)" class="dashboard-date pull-right col-3">
+                  {{format(item?.updatedAt)}}</p>
+                <p *ngIf="item.description" class="card-text col-12">{{item.description | truncate:
+                  300}}</p>
+                <div class="row col-12 padding-r-0" *ngIf="isCalculation(item)">
+                  <div class="col-3 col-lg-2 overflow-auto text-center">
+                    <img class="rounded" src="{{imageUrl + '/' + getCalculationType(item).icon}}"
+                         width="50px" height="50px">
+                    <div class="calculation-title">
+                      {{getCalculationType(item).name}}
+                    </div>
+                  </div>
+                  <div class="col-9 col-lg-10 overflow-auto padding-r-0">
+                    <div class="calculation-data">
+                      {{'DATE_OF_INPUT' | translate}} - {{calcsDate(item?.date)}}
+                    </div>
+                    <div class="calculation-data">
+                      {{'CURRENT_SUM_TO_PAY' | translate}} - {{item?.toPayAmount}} {{'UAH' |
+                      translate}}
+                    </div>
+                    <div class="calculation-data">
+                      {{'PAYED' | translate}} - {{item?.payedAmount}} {{'UAH' | translate}}
+                    </div>
+                    <div class="calculation-data">
+                      {{'TOTAL_SUM_TO_PAY' | translate}} - {{item?.debt}} {{'UAH' | translate}}
+                    </div>
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <dashboard-modal [modalData]="modalData" #modal></dashboard-modal>
+  </div>
+</div>
+<user-request></user-request>

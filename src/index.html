@@ -1,0 +1,31 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>AppartmentHouse</title>
+  <base href="/">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/png" href="favicon.png">
+  <link rel="manifest" href="/manifest.json">
+  <script src="https://cdn.ckeditor.com/4.5.11/full-all/ckeditor.js"></script>
+</head>
+<script>window.__theme = 'bs4';</script>
+<body>
+  <app-root>
+    <div class="text-center loading-spinner">
+      <i class="fa fa-cog fa-spin fa-5x fa-fw"></i>
+      <span class="sr-only">Loading...</span>
+    </div>
+  </app-root>
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('/service-worker.js', {scope: './'}).then(function (registration) {
+        console.log('Service Worker registered');
+      }).catch(function (err) {
+        console.log('Service Worker registration failed: ', err);
+      });
+    }
+  </script>
+</body>
+</html>

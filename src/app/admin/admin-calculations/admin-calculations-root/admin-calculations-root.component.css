@@ -1,0 +1,18 @@
+.calculation-menu-item {
+  color: #666;
+}
+
+.margin-top {
+  margin: 50px auto;
+}
+
+h3.title {
+  display: inline-block;
+  line-height: 51px;
+  vertical-align: middle;
+  margin-bottom: 0;
+}
+
+.calculation-menu-item-wrap{
+  padding-right: 10px;
+}

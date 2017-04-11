@@ -1,0 +1,81 @@
+<div class="container">
+  <div class="breadcrumb">
+    <h3 class="title">{{ "REQUESTS" | translate }}</h3>
+    <span class="settings pull-right pointer" [routerLink] = "['/admin/request-types']">
+      <i class="fa fa-cog fa-2x" aria-hidden="true"></i>
+    </span>
+  </div>
+  <div class="btn-group" ngbDropdown>
+    <button id="requests-type-btn" type="button"
+            class="btn btn-primary dropdown-choise-button" ngbDropdownToggle>
+      {{ "REQUESTS_CATEGORY" | translate }} <span class="caret"></span>
+    </button>
+    <ul class="dropdown-request-type dropdown-menu" role="menu" aria-labelledby="single-button">
+      <li class="pointer dropdown-item dropdown-elem-align" *ngFor="let item of requests"
+          role="menuitem" (click)="changeReqType(item.requestId, item.requestType, item.count)">
+        <div class="use-space inline-wraper">
+          {{item?.requestType}}
+        </div>
+        <div class="inline-wraper request-counter">
+          <span class="badge badge-danger badge-in-list" *ngIf="item?.count !== 0">
+            {{ item?.count }}
+          </span>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <div class="inline-wraper">
+    <div class="current-request-title-wraper">
+      <span class="h6 current-request-title">{{ currentTypeRequest }}</span>
+      <span class="badge badge-danger" *ngIf="currentCount !== 0">{{ currentCount }}</span>
+    </div>
+  </div>
+  <div class="no-requests-alert" *ngIf="noRequests && !typeIsSet">
+    <alert type="info">
+      <strong>{{ "NO_REQUESTS" | translate }}!</strong>
+    </alert>
+  </div>
+  <div class="no-requests-alert" *ngIf="noRequestsByCategory">
+    <alert type="info">
+      <strong>{{ "NO_REQUESTS_BY_TYPE" | translate }}!</strong>
+    </alert>
+  </div>
+  <div class="card problem-list" *ngIf="currentRequests.length !== 0">
+    <div class="card-block">
+      <div class="table-responsive">
+        <table class="table table-striped text-center">
+          <tr>
+            <th class="text-left">{{ "PROBLEM" | translate }}</th>
+            <th class="text-center">{{ "DONE" | translate }}</th>
+            <th class="text-center">{{ "REGISTRATION_DATE" | translate }}</th>
+            <th class="text-center">{{ "ADRESS" | translate }}</th>
+            <th class="text-center">{{ "NAME_SURNAME" | translate }}</th>
+            <th class="text-center">{{ "PHONE_NUMBER" | translate }}</th>
+            <th class="text-center">{{ "EMAIL" | translate }}</th>
+          </tr>
+          <tr *ngFor="let item of currentRequests">
+            <td class="text-justify problem-width">{{ item.text }}</td>
+            <td>
+              <span *ngIf="item.isDone"><i class="fa fa-check" aria-hidden="true"></i></span>
+              <span *ngIf="!item.isDone">
+                <button type="button" class="btn btn-warning"
+                        (click)="confirmDone(item)" [disabled]="sendingToServer">
+                  {{ "CONFIRM" | translate }}
+                  <i class="fa fa-check-square-o  fa-lg" aria-hidden="true"></i>
+                </button>
+              </span>
+            </td>
+            <td>{{ item?.createdAt | date:"dd.MM.y" }}</td>
+            <td>{{ "STREET_SHORT" | translate }}&nbsp;{{ item?.streetName }},
+              {{ "BUILDING_SHORT" | translate }}&nbsp;{{ item?.buildingNumber }},&nbsp;{{ "APPARRTMENT_SHORT" |
+              translate }}&nbsp;{{ item?.appartment }}
+            </td>
+            <td>{{ item?.name }}, {{ item?.surname }}</td>
+            <td>{{ item?.phoneNumber }}</td>
+            <td>{{ item?.email }}</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

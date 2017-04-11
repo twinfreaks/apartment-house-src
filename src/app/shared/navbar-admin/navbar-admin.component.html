@@ -1,0 +1,42 @@
+<div class="header clearfix">
+  <nav class="navbar navbar-inverse bg-primary navbar-toggleable-md paddings-0 padding-l-0">
+    <button class="navbar-toggler navbar-toggler-right" type="button" (click)="isNavbarCollapsed = !isNavbarCollapsed"
+            aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <a class="navbar-brand paddings-0 margin-left-8" [routerLink]="['']">
+      <img height="40" src="/assets/img/logo_{{currentLang}}.png">
+    </a>
+    <div [ngbCollapse]="isNavbarCollapsed" class="collapse navbar-collapse">
+      <ul class="navbar-nav mr-auto mt-2 mt-md-0 nav-height">
+        <li *ngIf="role === 'adminBlog'" class="nav-item custom-item" routerLinkActive="active">
+          <a class="nav-link nav-a" [routerLink] = "['blogs']">{{"BLOG" | translate}}</a>
+        </li>
+        <li *ngIf="role === 'adminBlog'" class="nav-item custom-item" routerLinkActive="active">
+          <a class="nav-link nav-a" [routerLink]="['events']"> {{"USER_EVENTS" | translate}}</a>
+        </li>
+        <li *ngIf="role === 'adminAccountant'" class="nav-item custom-item" routerLinkActive="active">
+          <a class="nav-link nav-a" [routerLink]="['calculations']"> {{"CALCULATIONS" | translate}}</a>
+        </li>
+        <li *ngIf="role === 'adminAccountant'" class="nav-item custom-item" routerLinkActive="active">
+          <a class="nav-link nav-a" [routerLink]="['requests']"> {{"REQUESTS" | translate}}</a>
+        </li>
+        <li *ngIf="role === 'adminAccountant'" class="nav-item custom-item" routerLinkActive="active">
+          <a class="nav-link nav-a" [routerLink] = "['protocols']">{{"PROTOCOLS" | translate}}</a>
+        </li>
+        <li *ngIf="role === 'adminAccountant'" class="nav-item custom-item" routerLinkActive="active">
+          <a class="nav-link nav-a" [routerLink] = "['inhabitants']">{{"INHABITANTS" | translate}}</a>
+        </li>
+        <li *ngIf="role === 'superAdmin'" class="nav-item custom-item" routerLinkActive="active">
+          <a class="nav-link nav-a" [routerLink] = "['administrators']">{{"ADMINISTRATORS" | translate}}</a>
+        </li>
+      </ul>
+      <div class="navbar-nav">
+        <app-langs></app-langs>
+      </div>
+      <div class="navbar-nav">
+        <app-profile-menu class="flexbox"></app-profile-menu>
+      </div>
+    </div>
+  </nav>
+</div>

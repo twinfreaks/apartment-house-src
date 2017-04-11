@@ -1,0 +1,80 @@
+<h3 class="text-center">{{title}}</h3>
+
+<app-inhabitants-list-filter (searchInhabitants)="searchInhabitantsHandler($event)"></app-inhabitants-list-filter>
+
+<table *ngIf="inhabitantList.length" class="table table-bordered table-hover space-top">
+  <thead>
+  <tr>
+    <th>
+       <span placement="top" ngbTooltip='{{"SORT_BY" | translate}}' class="sortable" (click)="sortBy('surname', !sortDirection)">
+         <i *ngIf="sortField === 'surname' && sortDirection" class="fa fa-sort-amount-asc" aria-hidden="true"></i>
+         <i *ngIf="sortField === 'surname' && !sortDirection" class="fa fa-sort-amount-desc" aria-hidden="true"></i> {{"SURNAME_NAME_PATRONYMIC" | translate}}</span>
+    </th>
+    <th>
+      <span placement="top" ngbTooltip='{{"SORT_BY" | translate}}' class="sortable" (click)="sortBy('building', !sortDirection)">
+         <i *ngIf="sortField === 'building' && sortDirection" class="fa fa-sort-amount-asc" aria-hidden="true"></i>
+         <i *ngIf="sortField === 'building' && !sortDirection" class="fa fa-sort-amount-desc" aria-hidden="true"></i> {{"STREET_BUILDING"| translate}}</span>
+    </th>
+    <th>
+      <span placement="top" ngbTooltip='{{"SORT_BY" | translate}}' class="sortable" (click)="sortBy('appartment', !sortDirection)">
+         <i *ngIf="sortField === 'appartment' && sortDirection" class="fa fa-sort-amount-asc" aria-hidden="true"></i>
+         <i *ngIf="sortField === 'appartment' && !sortDirection" class="fa fa-sort-amount-desc" aria-hidden="true"></i> {{"APPARTMENT" | translate}}</span>
+    </th>
+    <th>
+      <span placement="top" ngbTooltip='{{"SORT_BY" | translate}}' class="sortable" (click)="sortBy('phoneNumber', !sortDirection)">
+         <i *ngIf="sortField === 'phoneNumber' && sortDirection" class="fa fa-sort-amount-asc" aria-hidden="true"></i>
+         <i *ngIf="sortField === 'phoneNumber' && !sortDirection" class="fa fa-sort-amount-desc" aria-hidden="true"></i> {{"PHONE_NUMBER" | translate}}</span>
+    </th>
+    <th>
+      <span placement="top" ngbTooltip='{{"SORT_BY" | translate}}' class="sortable" (click)="sortBy('email', !sortDirection)">
+         <i *ngIf="sortField === 'email' && sortDirection" class="fa fa-sort-amount-asc" aria-hidden="true"></i>
+         <i *ngIf="sortField === 'email' && !sortDirection" class="fa fa-sort-amount-desc" aria-hidden="true"></i> {{"EMAIL" | translate}}</span>
+    </th>
+    <th>
+      <span placement="top" ngbTooltip='{{"SORT_BY" | translate}}' class="sortable" (click)="sortBy('createdAt', !sortDirection)">
+         <i *ngIf="sortField === 'createdAt' && sortDirection" class="fa fa-sort-amount-asc" aria-hidden="true"></i>
+         <i *ngIf="sortField === 'createdAt' && !sortDirection" class="fa fa-sort-amount-desc" aria-hidden="true"></i>  {{"REGISTRATION_DATE" | translate}}</span>
+    </th>
+    <th>
+      <span placement="top" ngbTooltip='{{"SORT_BY" | translate}}' class="sortable" (click)="sortBy('isActive', !sortDirection)">
+         <i *ngIf="sortField === 'isActive' && sortDirection" class="fa fa-sort-amount-asc" aria-hidden="true"></i>
+         <i *ngIf="sortField === 'isActive' && !sortDirection" class="fa fa-sort-amount-desc" aria-hidden="true"></i>  {{"INHABITANT_STATE" | translate}}</span>
+    </th>
+    <th>{{"ACTIONS" | translate}}</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let inhabitant of inhabitantList | paginate: {itemsPerPage: itemsPerPage, currentPage: page }">
+    <td>{{inhabitant?.surname}} {{inhabitant?.name}} {{inhabitant?.patronymic}}</td>
+    <td>{{inhabitant.building?.streetName}} {{inhabitant.building?.buildingNumber}}</td>
+    <td>{{inhabitant?.appartment}}</td>
+    <td>{{inhabitant?.phoneNumber}}</td>
+    <td>{{inhabitant?.email}}</td>
+    <td>{{inhabitant?.createdAt | amDateFormat: dateFormat}}</td>
+    <td>
+      <span *ngIf="inhabitant.isActive" class="badge badge-success">{{"ACTIVATED" | translate}}</span>
+      <span *ngIf="!inhabitant.isActive" class="badge badge-danger">{{"INACTIVATED" | translate}}</span>
+    </td>
+    <td>
+      <div class="btn-group">
+        <button *ngIf="inhabitant.isActive" placement="top" ngbTooltip='{{"INACTIVATE" | translate}}' (click)="inactivateModal.inActivateConfirm(inhabitant)" class="btn btn-warning"><i class="fa fa-times fa-fw" aria-hidden="true"></i></button>
+        <button *ngIf="!inhabitant.isActive" placement="top" ngbTooltip='{{"ACTIVATE" | translate}}' (click)="activateModal.activateConfirm(inhabitant)" class="btn btn-success"><i class="fa fa-check fa-fw" aria-hidden="true"></i></button>
+        <button placement="top" ngbTooltip='{{"DELETE" | translate}}' (click)="deleteModal.deleteConfirm(inhabitant)" class="btn btn-danger"><i class="fa fa-times fa-fw" aria-hidden="true"></i></button>
+      </div>
+    </td>
+  </tr>
+  </tbody>
+</table>
+<div *ngIf="!inhabitantList.length" class="alert alert-warning space-top">{{noItems}}</div>
+<div class="text-center">
+  <pagination-controls
+    (pageChange)="page = $event"
+    autoHide="true"
+    previousLabel="{{'PREVIOUS' | translate}}"
+    nextLabel="{{'NEXT' | translate}}">
+  </pagination-controls>
+</div>
+
+<app-inhabitant-inactivate-modal (inActivateInhabitant)="inActivateInhabitantHandler($event)" #inactivateModal></app-inhabitant-inactivate-modal>
+<app-inhabitant-activate-modal (activateInhabitant)="activateInhabitantHandler($event)" #activateModal></app-inhabitant-activate-modal>
+<app-inhabitant-delete-modal (deleteInhabitant)="deleteInhabitantHandler($event)" #deleteModal></app-inhabitant-delete-modal>

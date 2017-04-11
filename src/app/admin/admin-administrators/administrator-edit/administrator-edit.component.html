@@ -1,0 +1,78 @@
+<div class="container space-top">
+  <div class="row">
+    <div class="col-12">
+      <h2> {{title}}</h2>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <form (ngSubmit)="saveAdmin()" [formGroup]="administratorForm">
+        <div class="form-group row" [ngClass]="{'has-danger': !administratorForm.get('surname').valid && administratorForm.get('surname').touched }">
+          <label class="col-md-4 col-form-label">{{"YOUR_SURNAME" | translate}} *</label>
+          <div class="col-md-8">
+            <input formControlName="surname" type="text" class="form-control" placeholder="{{'YOUR_SURNAME' | translate}}">
+            <app-validation-messages class="form-control-feedback" [control]="administratorForm.controls.surname"></app-validation-messages>
+          </div>
+        </div>
+        <div class="form-group row" [ngClass]="{'has-danger': !administratorForm.get('name').valid && administratorForm.get('name').touched }">
+          <label class="col-md-4 col-form-label">{{'YOUR_NAME' | translate}}*</label>
+          <div class="col-md-8">
+            <input formControlName="name" type="text" class="form-control" placeholder="{{'YOUR_NAME' | translate}}">
+            <app-validation-messages class="form-control-feedback" [control]="administratorForm.controls.name"></app-validation-messages>
+          </div>
+        </div>
+        <div class="form-group row" [ngClass]="{'has-danger': !administratorForm.get('patronymic').valid && administratorForm.get('patronymic').touched }">
+          <label class="col-md-4 col-form-label">{{"YOUR_PATRONYMIC" | translate}} *</label>
+          <div class="col-md-8">
+            <input formControlName="patronymic" type="text" class="form-control" placeholder="{{'YOUR_PATRONYMIC' | translate}}">
+            <app-validation-messages class="form-control-feedback" [control]="administratorForm.controls.patronymic"></app-validation-messages>
+          </div>
+        </div>
+          <div class="form-group row" [ngClass]="{'has-danger': !administratorForm.get('username').valid && administratorForm.get('username').touched }">
+              <label class="col-md-4 col-form-label">{{"USERNAME" | translate}} *</label>
+              <div class="col-md-8">
+                  <input formControlName="username" type="text" class="form-control" placeholder="{{'USERNAME' | translate}}">
+                  <app-validation-messages class="form-control-feedback" [control]="administratorForm.controls.username"></app-validation-messages>
+              </div>
+          </div>
+        <div class="form-group row" [ngClass]="{'has-danger': !administratorForm.get('role').valid && administratorForm.get('role').touched}">
+          <label class="col-md-4 col-form-label">{{'ROLE' | translate}} *</label>
+          <div class="col-md-8">
+            <ng-select formControlName="role" [items]="roles" placeholder="{{'ROLE' | translate}}"></ng-select>
+            <span *ngIf="administratorForm.get('role').hasError('required') && administratorForm.get('role').touched" class="form-control-feedback">{{'MUST_SELECT_ROLE' | translate}}</span>
+          </div>
+        </div>
+        <div class="form-check">
+          <h5 class="text-info">
+          <label class="form-check-label">
+            <input formControlName="createPassword" type="checkbox" class="form-check-input">
+            {{"CHANGE_PASSWORD" | translate}}
+          </label>
+          </h5>
+        </div>
+        <fieldset *ngIf="changePassword" [formGroup]="administratorForm.controls.userData">
+          <legend>{{"ACCOUNT_DATA" | translate}}</legend>
+          <div class="form-group row" [ngClass]="{'has-danger': !administratorForm.get('userData').get('password').valid && administratorForm.get('userData').get('password').touched }">
+            <label class="col-md-4 col-form-label">{{"CHOOSE_PASSWORD" | translate}} *</label>
+            <div class="col-md-8">
+              <input formControlName="password" type="text" class="form-control" placeholder="{{'CHOOSE_PASSWORD' | translate}}">
+              <app-validation-messages class="form-control-feedback" [control]="administratorForm.controls.userData.controls.password"></app-validation-messages>
+            </div>
+          </div>
+          <div class="form-group row" [ngClass]="{'has-danger': !administratorForm.get('userData').get('passwordRepeat').valid && administratorForm.get('userData').get('passwordRepeat').touched}">
+            <label class="col-md-4 col-form-label">{{"REPEAT_PASSWORD" | translate}} *</label>
+            <div class="col-md-8">
+              <input formControlName="passwordRepeat" type="text" class="form-control" placeholder="{{'REPEAT_PASSWORD' | translate}}">
+              <app-validation-messages class="form-control-feedback" [control]="administratorForm.controls.userData.controls.passwordRepeat"></app-validation-messages>
+            </div>
+          </div>
+        </fieldset>
+          <div class="form-group row">
+              <div class="col-md-8 offset-md-4">
+                 <button [disabled]="!administratorForm.valid || loading" class="btn btn-success">{{"SAVE" | translate}}</button>
+              </div>
+          </div>
+      </form>
+    </div>
+  </div>
+</div>

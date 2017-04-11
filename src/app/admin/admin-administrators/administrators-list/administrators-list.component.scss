@@ -1,0 +1,7 @@
+@import "~bootstrap/scss/_variables.scss";
+
+.sortable {
+  cursor: pointer;
+  color: $brand-primary;
+  user-select: none;
+}

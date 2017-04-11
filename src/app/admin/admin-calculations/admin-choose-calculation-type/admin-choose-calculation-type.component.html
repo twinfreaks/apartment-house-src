@@ -1,0 +1,47 @@
+<div class="container">
+  <div class="row">
+    <div class="content-wrapper col-12 col-md-7 col-lg-6" *ngIf="!addType">
+      <h2 class="element text-center">{{'CHOOSE_CALCULATION_TYPE' | translate}}</h2>
+      <div class="form-group input-group element">
+        <span class="input-group-addon"><i class="fa fa-search" aria-hidden="true"></i></span>
+        <input type="text" class="form-control" placeholder="{{'SEARCH' | translate}}"
+               (keyup)="search($event.target.value)">
+      </div>
+      <ul class="list-group element">
+        <li class="list-group-item list-group-item-action" *ngIf="activeTypes.length === 0">
+          {{'NO_MATCHES' | translate}}
+        </li>
+        <li *ngFor="let type of activeTypes; let i = index"
+            [class]="(choosen == type.id)?'list-group-item list-group-item-action pointer active font-lg': 'list-group-item list-group-item-action pointer font-lg'"
+            (click)="emitChooseType(type.id)">
+          <img [src]="(type?.icon)?imageUrl + '/' + type?.icon:'assets/img/default_calculation_type_icon.png'" alt="" width="50" height="50" class="type-icon">
+          {{type?.name}}
+          <button type="button" class="btn btn-warning button-control btn-sm edit-btn" (click)="editType(type)" tooltip="{{'EDIT' | translate}}">
+            <i  class="fa fa-pencil-square-o fa-lg" aria-hidden="true"></i>
+          </button>
+          <button type="button" class="btn btn-danger button-control btn-sm remove-btn" (click)="deleteType(type)" tooltip="{{'DELETE' | translate}}">
+            <i class="fa fa-trash-o fa-lg" aria-hidden="true"></i>
+          </button>
+        </li>
+      </ul>
+      <div class="text-center">
+        <button type="button" class="btn btn-primary pointer btn-lg" (click)="emitChangeStep(1)">
+          {{'BACK' | translate}}
+        </button>
+        <button type="button" class="btn btn-success pointer btn-lg" (click)="addType = true">
+          <i class="fa fa-plus" aria-hidden="true"></i>
+        </button>
+        <button type="button" class="btn btn-primary pointer btn-lg" [disabled]="!choosen" (click)="emitChangeStep(3)">
+          {{'NEXT' | translate}}
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<app-add-edit-calculation-type [calculationType]="activeType" *ngIf="addType" (updateCalculationType)="updateCalculationType($event)" (cancel)="addType = false; activeType = null"></app-add-edit-calculation-type>
+<p-confirmDialog header="{{ 'CONFIRMATION' | translate }}" icon="fa fa-question-circle" width="350" #cd>
+  <p-footer>
+    <button class="conf-dial-false" type="button" pButton icon="fa-close" label="{{ 'NO' | translate }}" (click)="cd.reject()"></button>
+    <button class="conf-dial-true" type="button" pButton icon="fa-check" label="{{ 'YES' | translate }}" (click)="cd.accept()"></button>
+  </p-footer>
+</p-confirmDialog>

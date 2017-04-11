@@ -1,0 +1,18 @@
+.to-up {
+  width: 55px;
+  height: 55px;
+  text-align: center;
+  border-radius: 10px;
+  position: fixed;
+  bottom: 1%;
+  right: 100px;
+  cursor: pointer;
+}
+
+.to-up:hover {
+  background-color: #f1f1fa;
+}
+
+.text{
+  display: block;
+}

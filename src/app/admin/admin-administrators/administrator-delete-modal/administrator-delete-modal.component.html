@@ -1,0 +1,19 @@
+<div bsModal #lgModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">{{"CONFIRM_ADMIN_DELETE" | translate}}</h5>
+        <button type="button" class="close" (click)="lgModal.hide()" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <span>{{"ARE_YOU_SURE_TO_DELETE_ADMINISTRATOR" | translate}}</span>
+      </div>
+      <div class="modal-footer">
+        <button (click)="doDeleteAdministrator(administrator)" type="button" class="btn btn-danger">{{"YES" | translate}}</button>
+        <button type="button" class="btn btn-secondary"  (click)="lgModal.hide()">{{"NO" | translate}}</button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,61 @@
+<div class="container space-top">
+  <div class="row">
+    <div class="col-12">
+      <a [routerLink]="['/admin/administrators/add']" class="btn btn-success"><i class="fa fa-plus"></i> {{"ADD" |
+        translate}}</a>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <table *ngIf="administrators.length" class="table table-bordered table-hover space-top">
+        <thead>
+        <tr>
+          <th>
+             <span placement="top" ngbTooltip='{{"SORT_BY" | translate}}' class="sortable" (click)="sortBy('surname', !sortDirection)">
+                 <i *ngIf="sortField === 'surname' && sortDirection" class="fa fa-sort-amount-asc" aria-hidden="true"></i>
+                 <i *ngIf="sortField === 'surname' && !sortDirection" class="fa fa-sort-amount-desc" aria-hidden="true"></i> {{"SURNAME_NAME_PATRONYMIC" | translate}}
+             </span>
+          </th>
+          <th>
+            <span placement="top" ngbTooltip='{{"SORT_BY" | translate}}' class="sortable" (click)="sortBy('username', !sortDirection)">
+               <i *ngIf="sortField === 'username' && sortDirection" class="fa fa-sort-amount-asc" aria-hidden="true"></i>
+               <i *ngIf="sortField === 'username' && !sortDirection" class="fa fa-sort-amount-desc" aria-hidden="true"></i> {{"USERNAME" | translate}}
+            </span>
+          </th>
+          <th>
+           <span placement="top" ngbTooltip='{{"SORT_BY" | translate}}' class="sortable" (click)="sortBy('roleName', !sortDirection)">
+               <i *ngIf="sortField === 'roleName' && sortDirection" class="fa fa-sort-amount-asc" aria-hidden="true"></i>
+               <i *ngIf="sortField === 'roleName' && !sortDirection" class="fa fa-sort-amount-desc" aria-hidden="true"></i> {{"ROLE_NAME" | translate}}
+           </span>
+          </th>
+          <th>{{"ACTIONS" | translate}}</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let administrator of administrators | paginate: {itemsPerPage: itemsPerPage, currentPage: page }">
+          <td>{{administrator?.surname}} {{administrator?.name}} {{administrator?.patronymic}}</td>
+          <td>{{administrator?.username}}</td>
+          <td>{{administrator?.roleName}}</td>
+          <td>
+            <div class="btn-group">
+              <a [routerLink]="['/admin/administrators/edit', administrator.id]" placement="top" ngbTooltip='{{"EDIT" | translate}}' class="btn btn-primary"><i class="fa fa-pencil fa-fw" aria-hidden="true"></i></a>
+              <button placement="top" ngbTooltip='{{"DELETE" | translate}}' (click)="deleteModal.deleteConfirm(administrator)" class="btn btn-danger"><i class="fa fa-times fa-fw" aria-hidden="true"></i></button>
+            </div>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+      <div *ngIf="!administrators.length" class="alert alert-warning space-top">{{"NO_ITEMS" | translate}}</div>
+      <div class="text-center">
+        <pagination-controls
+                (pageChange)="page = $event"
+                autoHide="true"
+                previousLabel="{{'PREVIOUS' | translate}}"
+                nextLabel="{{'NEXT' | translate}}">
+        </pagination-controls>
+      </div>
+    </div>
+  </div>
+</div>
+
+<app-administrator-delete-modal (deleteAdministrator)="deleteAdministratorHandler($event)" #deleteModal></app-administrator-delete-modal>

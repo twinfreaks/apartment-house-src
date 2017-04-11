@@ -1,0 +1,16 @@
+.content-wrapper {
+  margin: auto;
+}
+
+.pointer {
+  cursor: pointer;
+}
+
+.element {
+  margin: 20px 0;
+}
+
+button:disabled {
+  cursor: not-allowed;
+  opacity: 0.2;
+}

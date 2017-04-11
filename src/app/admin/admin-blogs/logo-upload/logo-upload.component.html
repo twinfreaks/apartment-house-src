@@ -1,0 +1,22 @@
+<p-fileUpload name="file" url="{{uploadUrl}}" accept="image/*"
+              maxFileSize="10000000" previewWidth="100"
+              invalidFileSizeMessageSummary="{0}: {{translateService.instant('INVALID_MAX_SIZE')}}, "
+              invalidFileSizeMessageDetail="{{translateService.instant('MAX_SIZE')}} {0}."
+              chooseLabel="{{translateService.instant('CHOOSE')}}"
+              uploadLabel="{{translateService.instant('UPLOAD')}}"
+              cancelLabel="{{translateService.instant('CANCEL')}}"
+              (onBeforeUpload)="addDestination($event.formData)"
+              (onUpload)="onUploadImages($event.xhr)"
+              (onError)="onErrorUploadImages()">
+</p-fileUpload>
+<div class="text-center gallery" *ngIf="logoUrl">
+  <div class="thumbnails-container">
+    <img class="thumbnails-image" [src]="apiUrl + '/' + uploadDestination + '/' + logoUrl" alt="">
+    <div class="overlay">
+      <div class="text" (click)="onDeleteLogo()"><i class="fa fa-trash-o fa-5x" aria-hidden="true"></i></div>
+      <div class="text" (click)="zoomImage(apiUrl + '/' + uploadDestination + '/' + logoUrl)"><i class="fa fa-search-plus fa-5x" aria-hidden="true"></i></div>
+    </div>
+  </div>
+</div>
+
+<app-gallery-modal [photoUrl]="imageToShow" #galleryModal></app-gallery-modal>

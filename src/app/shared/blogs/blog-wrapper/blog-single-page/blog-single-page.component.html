@@ -1,0 +1,55 @@
+<div class="blog-header">
+  <div class="container">
+    <h1 class="blog-title">{{ "OSBB_BLOG" | translate }}</h1>
+    <p class="lead blog-description">{{ "OSBB_ABBR" | translate }}</p>
+  </div>
+</div>
+<div class="container">
+  <div class="row">
+    <div class="col-md-8 blog-main">
+      <div class="blog-post">
+        <h2 class="blog-post-title">{{singleBlog?.title}}</h2>
+        <p class="blog-post-meta">{{singleBlog?.updatedDate | amDateFormat:'LLL' }}
+        </p>
+        <hr/>
+        <button *ngIf="isAdmin && !showAllBlog" class="btn btn-default btn-block" (click)="showAllBlogToggle()">{{
+          "BLOG_TEXT_SHOW" | translate }}
+        </button>
+        <button *ngIf="isAdmin && showAllBlog" class="btn btn-default btn-block" (click)="showAllBlogToggle()">{{
+          "BLOG_TEXT_HIDE" | translate }}
+        </button>
+        <div *ngIf="showAllBlog || !isAdmin">
+          <div class="blog-img-container">
+            <img class="blog-img" [src]="checkDefaultLogo(singleBlog?.photo)"/>
+          </div>
+          <div class="blog-text" [innerHTML]="singleBlog?.text"></div>
+          <div class="gallery-container">
+            <ng2-image-gallery [images]="galleryImages"></ng2-image-gallery>
+          </div>
+        </div>
+      </div>
+      <nav class="blog-pagination">
+        <button class="btn btn-outline-secondary" (click)="changeBlog('prev')" [disabled]="!blogPrev"
+                title="{{blogPrev?.title}}">{{ "PREV_BLOG" | translate }}
+        </button>
+        <button class="btn btn-outline-primary pull-right" (click)="changeBlog('next')" [disabled]="!blogNext"
+                title="{{blogNext?.title}}">{{ "NEXT_BLOG" | translate }}
+        </button>
+      </nav>
+    </div>
+    <div class="col-md-3 offset-sm-1 blog-sidebar">
+      <div class="sidebar-module sidebar-module-inset">
+        <h4>{{ "ABOUT_US" | translate }}</h4>
+        <p>{{ "ABOUT_TEXT" | translate }}</p>
+      </div>
+      <div class="sidebar-module">
+        <h4>{{ "IN_SOCIAL" | translate }}</h4>
+        <ol class="list-unstyled">
+          <li><a href="#">GitHub</a></li>
+          <li><a href="#">Twitter</a></li>
+          <li><a href="#">Facebook</a></li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</div>

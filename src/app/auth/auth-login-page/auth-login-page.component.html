@@ -1,0 +1,37 @@
+<app-navbar-default></app-navbar-default>
+
+<div class="container space-top">
+  <div class="row justify-content-center">
+    <div class="col col-12 col-md-4">
+      <div class="container">
+        <form [formGroup]="loginForm" (ngSubmit)="login()" novalidate>
+          <h2 style="text-align: center;" class="form-signin-heading">{{"ENTER_TO" | translate}} ОСББ</h2>
+
+          <app-oauth-butons-partial></app-oauth-butons-partial>
+
+          <div class="form-group row" [ngClass]="{'has-danger': (
+              loginForm.get('username').hasError('required')) &&
+              loginForm.get('username').touched}">
+            <input formControlName="username" name="username" placeholder="{{'LOGIN' | translate}}" class="form-control" type="text">
+          </div>
+          <div class="form-group row" [ngClass]="{'has-danger': (
+              loginForm.get('password').hasError('required')) &&
+              loginForm.get('password').touched}">
+            <input formControlName="password" name="password" placeholder="{{'PASSWORD' | translate}}" class="form-control" type="password">
+          </div>
+          <div class="form-group row">
+            <button [disabled]="!loginForm.valid || loading" type="submit" class="btn btn-primary btn-block" name="submit">{{"LOG_IN" | translate}}
+            </button>
+          </div>
+          <div class="form-group row">
+             <a [routerLink]="['/registration']"><i class="fa fa-sign-in" aria-hidden="true"></i> {{"REGISTER_ACCOUNT" | translate}}</a>
+          </div>
+          <hr>
+          <div class="form-group row">
+            <a [routerLink]="['/passwordRestore']"><i class="fa fa-reply-all" aria-hidden="true"></i> {{"RESTORE_PASSWORD" | translate}}</a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

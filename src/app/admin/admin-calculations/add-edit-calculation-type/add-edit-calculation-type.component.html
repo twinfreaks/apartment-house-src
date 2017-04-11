@@ -1,0 +1,52 @@
+<div class="col-md-6 container">
+  <h1>{{'ADD_CALCULATIO_TYPE' | translate}}</h1>
+  <form #addType="ngForm" (ngSubmit)="onSubmit()" id="add-edit-calculation-type">
+    <div class="form-group">
+      <label for="name">{{'CALCULATION_TYPE_NAME' | translate}}</label>
+      <input type="text" id="name" class="form-control"
+             required minlength="3"
+             name="name" [(ngModel)]="newCalculationType.name"
+             #name="ngModel">
+      <div *ngIf="name.errors && (name.dirty || name.touched)"
+           class="alert alert-danger">
+        <div [hidden]="!name.errors.required">
+          {{'REQUIRED' | translate}}
+        </div>
+        <div [hidden]="!name.errors.minlength">
+          {{'MIN_THREE_CHARACTERS' | translate}}
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="type-description">{{'DESCRIPTION' | translate}}</label>
+      <input type="text" id="type-description" class="form-control"
+             name="type-description"
+             [(ngModel)]="newCalculationType.description" #description="ngModel">
+    </div>
+    <div class="form-group">
+      <label for="icon">{{'CALCULATION_TYPE_ICON' | translate}}</label>
+      <p-fileUpload [disabled]="uploaded" name="file" accept="image/*"
+                    url="{{uploadUrl}}" maxFileSize="1000000"
+                    chooseLabel="{{translateService.instant('CHOOSE')}}"
+                    uploadLabel="{{translateService.instant('UPLOAD')}}"
+                    cancelLabel="{{translateService.instant('CANCEL')}}"
+                    (onBeforeUpload)="addDestination($event.formData)"
+                    (onUpload)="onUpload($event.xhr)">
+        <template pTemplate type="content">
+          <div *ngIf="uploaded">
+            <img [src]="imageUrl + '/' + imageName" alt="" width="50" height="50">
+            {{imageName}}
+          </div>
+          <div *ngIf="!uploaded && calculationType">
+            <img [src]="(calculationType.icon)?imageUrl + '/' + calculationType.icon:'assets/img/default_calculation_type_icon.png'" alt="" width="50" height="50">
+            {{calculationType.icon}}
+          </div>
+        </template>
+      </p-fileUpload>
+    </div>
+    <button type="submit" class="btn btn-success"
+            [disabled]="!addType.form.valid">{{'SAVE' | translate}}
+    </button>
+    <button class="btn btn-primary" (click)="emitCancel()">{{'BACK' | translate}}</button>
+  </form>
+</div>

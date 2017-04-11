@@ -1,0 +1,125 @@
+.comments-button {
+  display: block;
+}
+
+textarea.comments-input {
+  border: 1px solid lightgrey;
+  margin: 15px 0 0 80px;
+}
+
+.comments-header {
+  margin-bottom: 20px;
+}
+
+.comment-text, a.answer {
+  font-size: .8em;
+}
+
+.comment-text {
+  text-align: justify;
+  text-indent: 2em;
+}
+
+.media-body {
+  overflow-x: hidden;
+}
+
+h5 {
+  font-size: 1em;
+}
+
+.publicated-date {
+  font-size: 0.75em;
+  font-weight: 400;
+}
+
+/* parent comment-single styles */
+.parent-comment {
+  margin: 0;
+  clear: both;
+}
+
+.parent-comment > img {
+  height: 3em;
+  width: 3em;
+}
+
+/* child comment-single styles */
+.child-comment > img {
+  height: 2em;
+  width: 2em;
+}
+
+.child-comment {
+  clear: both;
+  margin-top: 1rem;
+}
+
+.non-visible {
+  visibility: hidden;
+}
+
+.show-more {
+  clear: both;
+  margin-top: 1.5em;
+  margin-bottom: 0em;
+  border: none;
+  color: #2196F3;
+}
+
+.show-more:hover {
+  color: #085391;
+  background-color: #e7f3fe;
+  cursor: pointer;
+}
+
+.answer {
+  font-size: .6em;
+  &:hover {
+    text-decoration: none;
+  }
+}
+
+.back-button:hover {
+  background-color: #f2f2f2;
+  cursor: pointer;
+}
+
+.comment-deleted-frame {
+  width: 100%;
+  line-height: 3em;
+  background-color: beige;
+  vertical-align: middle;
+  text-align: center;
+  margin: .5em 0;
+  border-radius: 3px;
+}
+
+.comment-deleted {
+  color: #bfbfbf;
+  border-radius: 3px;
+}
+
+.delete-button {
+  margin: 5px;
+  width: 32px;
+  height: 32px;
+}
+
+.edit-button {
+  margin-top: 5px;
+  width: 32px;
+  height: 32px;
+}
+
+.editing-now {
+  color: #8b0000;
+}
+
+.back-button-child {
+  margin-top: 1em;
+}
+
+.fa-margin {
+  margin-right: 2px;
+}

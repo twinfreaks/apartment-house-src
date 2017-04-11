@@ -1,0 +1,16 @@
+<form [formGroup]="searchForm" (submit)="search()" class="form-inline">
+  <label class="sr-only">{{"NAME_SURNAME" | translate}}</label>
+  <input formControlName="surname" type="text" class="form-control mb-2 mr-sm-2 mb-sm-0" placeholder="{{'NAME_SURNAME' | translate}}">
+  <label class="sr-only">{{"PHONE_NUMBER" | translate}}</label>
+  <input formControlName="phone" type="text" class="form-control mb-2 mr-sm-2 mb-sm-0" id="inlineFormInputGroup"
+         placeholder="{{'PHONE_NUMBER' | translate}}">
+  <label class="sr-only">{{"BUILDING" | translate}}</label>
+  <span class="mb-2 mr-sm-2 mb-sm-0">
+    <ng-select formControlName="building" [items]="buildings" placeholder="{{'SELECT_BUILDING' | translate}}"></ng-select>
+  </span>
+  <span class="mb-2 mr-sm-2 mb-sm-0">
+    <button type="submit" class="btn btn-primary"><i class="fa fa-search" aria-hidden="true"></i></button>
+  </span>
+  <button (click)="clearForm()" type="button" class="btn btn-secondary"><i class="fa fa-recycle" aria-hidden="true"></i></button>
+</form>
+

@@ -1,0 +1,42 @@
+.margin-top {
+  margin: 50px auto;
+}
+
+.content-wrapper {
+  margin: auto;
+}
+
+.pointer {
+  cursor: pointer;
+}
+
+.element {
+  margin: 20px 0;
+}
+
+button:disabled {
+  cursor: not-allowed;
+  opacity: 0.2;
+}
+
+.type-icon {
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.remove-btn, .edit-btn {
+  position: absolute;
+  top: 33%;
+}
+
+.remove-btn {
+  right: 5px;
+}
+
+.edit-btn {
+  right: 40px;
+}
+
+.font-lg {
+  font-size: 1.25rem;
+}

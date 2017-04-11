@@ -1,0 +1,22 @@
+<div class="container">
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="alert alert-success">
+        <div [innerHTML]="pswdCodeInstructionsEmailString"></div>
+      </div>
+    </div>
+  </div>
+  <div class="row space-top">
+    <div class="col-sm-12">
+      <form [formGroup]="emailCodeForm" (submit)="emailCodeSend()">
+        <div class="form-group">
+          <label>{{'EMAIL_CODE' | translate}}</label>
+          <p-inputMask formControlName="code" placeholder="{{'EMAIL_CODE' | translate}}" styleClass="form-control" mask="99-99-99-99"></p-inputMask>
+        </div>
+        <div class="form-group">
+          <button type="submit" [disabled]="!emailCodeForm.valid" class="btn btn-success">{{"SEND" | translate}}</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

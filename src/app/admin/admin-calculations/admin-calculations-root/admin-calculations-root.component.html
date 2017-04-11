@@ -1,0 +1,39 @@
+<div class="container">
+    <div class="breadcrumb">
+        <h3 class="title">{{ "CALCULATIONS" | translate }}</h3>
+    </div>
+    <div class="calculation-menu margin-top">
+        <span class="calculation-menu-item-wrap">
+            <a class="calculation-menu-item" href="#" (click)="changeStep(1)">
+                {{'ADDRESS' | translate}}
+            </a>
+        </span>
+        <span *ngIf="step > 1" class="calculation-menu-item-wrap"> > </span>
+        <span *ngIf="step > 1" class="calculation-menu-item-wrap">
+            <a class="calculation-menu-item" href="#" (click)="changeStep(2)">
+                {{'CALCULATION_TYPE' | translate}}
+            </a>
+        </span>
+        <span *ngIf="step > 2" class="calculation-menu-item-wrap"> > </span>
+        <span *ngIf="step > 2" class="calculation-menu-item-wrap">
+            <a class="calculation-menu-item" href="#" (click)="changeStep(3)">
+                {{'CALCULATIONS' | translate}}
+            </a>
+        </span>
+    </div>
+</div>
+<app-admin-choose-building *ngIf="step == 1"
+                           (changeStep)="changeStep($event)"
+                           (chooseBuilding)="setBuilding($event)"
+                           [choosenBuilding]="building">
+</app-admin-choose-building>
+<app-admin-choose-calculation-type *ngIf="step == 2"
+                                   (changeStep)="changeStep($event)"
+                                   (chooseCalculationType)="setCalculationType($event)"
+                                   [choosenType]="calculationType">
+</app-admin-choose-calculation-type>
+<app-admin-add-calculations *ngIf="step == 3"
+                            (changeStep)="changeStep($event)"
+                            [typeOfCalculation]="calculationType"
+                            [building]="building">
+</app-admin-add-calculations>

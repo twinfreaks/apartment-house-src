@@ -1,0 +1,55 @@
+<div *ngIf="inhabitantInfo" class="container">
+  <div class="row">
+    <div class="col-lg-6 offset-lg-1 col-md-8 offset-md-0">
+      <h3>{{ "COMMENTS" | translate }}</h3>
+      <button *ngIf="!showAddComment && showAnswerButtonParent"
+              (click)="showAddComments(); resetCommentId()"
+              class="btn btn-link comments-button">
+        {{ "WRITE_COMMENT" | translate }}
+      </button>
+      <button *ngIf="showAddComment"
+              (click)="hideAddComments()"
+              class="back-button btn btn-default btn-block btn-sm">
+        <i class="fa fa-angle-double-up"></i>
+        {{ "COMMENT_ADD_BACK" | translate }}
+        <i class="fa fa-angle-double-up"></i>
+      </button>
+      <div [@signal]="signal"
+           *ngIf="showAddComment">
+
+        <app-add-comment
+            (newAnswer)="newAnswer($event); hideAddComments()">
+        </app-add-comment>
+
+      </div>
+      <div class="comments-scroll"
+           infinite-scroll
+           [infiniteScrollDistance]="scrollDistance"
+           [infiniteScrollThrottle]="throttle"
+           (scrolled)="onScrollDown()">
+        <div *ngFor="let comment of comments; let i = index">
+          <div *ngIf="i < commentsHttpService.commentsToShow" [@signal2]="signal">
+            <div class="comment-margin-top"></div>
+            <div *ngIf="i !== 0 && !comment.isDeleted" class="comment-border-top"></div>
+
+            <app-single-comment
+                (newAnswer)="newAnswer($event)"
+                (showAnswerButtonParentEmit)="showAnswerButtonParentEmit()"
+                (hideAnswerButtonParentEmit)="hideAnswerButtonParentEmit()"
+                [comment]="comment"
+                [showAnswerButtonParent]="showAnswerButtonParent">
+            </app-single-comment>
+
+          </div>
+          <div *ngIf="(comments?.length - 1) === i"
+               class="comments-end">{{ 'NO_MORE_COMMENTS' | translate }}
+          </div>
+        </div>
+      </div>
+      <div *ngIf="comments == 0" class="no-comments">
+        <h6>{{ "COMMENTS_ABSENT" | translate }}</h6>
+      </div>
+      <div class="margin-end"></div>
+    </div>
+  </div>
+</div>

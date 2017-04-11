@@ -1,0 +1,51 @@
+<div class="container space-top">
+  <div class="row">
+    <div class="col-12">
+      <div class="card">
+        <h3 class="card-header">{{"ADMIN_MENU" | translate}}</h3>
+        <div class="card-block">
+          <div class="row">
+            <div class="col-6 col-sm-4 text-center space-top">
+              <a [routerLink] = "['blogs']">
+                <i class="fa fa-newspaper-o fa-3x fa-fw" aria-hidden="true"></i>
+                <h4>{{"BLOG" | translate}}</h4>
+              </a>
+            </div>
+            <div class="col-6 col-sm-4 text-center space-top">
+              <a [routerLink]="['events']">
+                <i class="fa fa-calendar fa-3x fa-fw" aria-hidden="true"></i>
+                <h4>{{"USER_EVENTS" | translate}}</h4>
+              </a>
+            </div>
+            <div class="col-6 col-sm-4 text-center space-top">
+              <a [routerLink]="['calculations']">
+                <i class="fa fa-calculator fa-3x fa-fw" aria-hidden="true"></i>
+                <h4>{{"CALCULATIONS" | translate}}</h4>
+              </a>
+            </div>
+            <div class="col-6 col-sm-4 text-center space-top">
+              <a [routerLink]="['requests']">
+                <i class="fa fa-hand-pointer-o fa-3x fa-fw" aria-hidden="true"></i>
+                <h4>{{"REQUESTS" | translate}}</h4>
+              </a>
+              <span *ngIf="requestsNotDoneCount !== 0" class="badge badge-danger counter">{{requestsNotDoneCount}}</span>
+            </div>
+            <div class="col-6 col-sm-4 text-center space-top">
+              <a [routerLink]="['protocols']">
+                <i class="fa fa-file-text-o fa-3x fa-fw" aria-hidden="true"></i>
+                <h4>{{"PROTOCOLS" | translate}}</h4>
+              </a>
+            </div>
+            <div class="col-6 col-sm-4 text-center space-top">
+              <a [routerLink]="['inhabitants']">
+                <i class="fa fa-users fa-3x fa-fw" aria-hidden="true"></i>
+                <h4>{{"INHABITANTS" | translate}}</h4>
+              </a>
+              <span *ngIf="inhabitantsInactiveCount !== 0" class="badge badge-danger counter">{{inhabitantsInactiveCount}}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

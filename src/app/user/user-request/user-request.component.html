@@ -1,0 +1,32 @@
+<button class="collapse-button btn btn-info"
+        (click)="openRequest()">{{"USER_REQUEST" | translate}}
+</button>
+<div class="custom-collapse" [style.width]="reqWidth + '%'" #reqEl>
+  <div class="card-header card-primary pull-left w-100">
+    <span class="pull-left custom-title">{{"USER_REQUEST" | translate}}</span>
+    <div class="pull-right">
+      <span class="top-button" id="closeRequest" (click)="closeRequest()"><i class="fa fa-remove icons"></i></span>
+    </div>
+  </div>
+  <form #configForm="ngForm">
+    <div class="card card-block margin-auto col-12" id="userReqBody">
+      <div>
+        <h5 class="col-4 pull-left">{{"CATEGORY" | translate}}</h5>
+        <select id="categories" class="col-5 pull-right" (change)="categoryIndex = request.requestType" [(ngModel)]="request.requestType" name="requestType">
+          <option *ngFor="let category of categories; let i=index" value="{{i+1}}">{{category?.name}}</option>
+        </select>
+      </div>
+      <div *ngIf="request.requestType" class="breadcrumb">{{categories[request.requestType-1]?.description}}</div>
+      <textarea name="text" maxlength="255" [(ngModel)]="request.text" id="message" class="form-control" rows="6" #reqText
+                placeholder="{{'DESCRIPTION_IS_REQUIRED' | translate}}">
+      </textarea>
+      <div><span class="pull-right">{{reqText.value.length+'/'+255}}</span></div>
+      <div class="margin-top-20">
+        <button type="submit" class="btn btn-success pull-right"
+                [disabled]="!isReqValid()"
+                (click)="sendRequest(); clearRequest(); closeRequest()">{{"SEND_REQUEST" | translate}}
+        </button>
+      </div>
+    </div>
+  </form>
+</div>

@@ -1,0 +1,103 @@
+<!--Floating button-->
+<div [@buttonVisibility]="showWindowAnimation">
+    <div class="col-3 col-sm-2 col-md-1 col-lg-1 chat-window-button">
+      <div class="panel panel-default">
+        <div class="col-xs-12">
+          <div (click)="openChat()" class="panel-heading top-bar pointer">
+            <i class="fa fa-weixin" aria-hidden="true"></i> <span *ngIf="unreadedMessages !== 0" class="badge badge-danger">{{unreadedMessages}}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
+<!--Chat window-->
+<div class="container">
+  <div [@windowVisibility]="showWindowAnimation" class="row chat-window col-12 col-sm-8 col-md-5 col-lg-4 col-xl-3 margin-left-chat-window">
+    <div [ng2-draggable]="isDraggable" [ng2DraggableHandle]="dragBy" class="col-xs-12 col-md-12">
+      <div class="panel panel-default chat-header">
+        <!--Chat window bar-->
+        <div class="panel-heading top-bar">
+          <div class="container">
+            <div class="row align-content-end">
+              <div class="col">
+                <h3 #dragBy class="panel-title chat-title draggable"><span class="glyphicon glyphicon-comment"></span>
+                  <i [ngClass]="{'chat-online': connectionState, 'chat-offline': !connectionState}" class="fa fa-circle" aria-hidden="true"></i> {{"APP_TITLE" | translate}} {{"CHAT" | translate}}
+                </h3>
+              </div>
+              <div class="col-xs-2 top-buttons">
+                <span *ngIf="isSound" (click)="isSoundToogle()" class="top-button"><i class="fa fa-volume-up icons" aria-hidden="true"></i></span>
+                <span *ngIf="!isSound" (click)="isSoundToogle()" class="top-button icons"><i class="fa fa-volume-off" aria-hidden="true"></i></span>
+                <span *ngIf="showFullWindow" (click)="minimizeChat()" class="top-button"><i class="fa fa-minus icons"></i></span>
+                <span *ngIf="!showFullWindow" (click)="maximizeChat()" class="top-button"><i class="fa fa-window-maximize icons"></i></span>
+                <span (click)="closeChat()" class="top-button"><i class="fa fa-remove icons"></i></span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!--Chat main window-->
+        <div [@chatVisibility]="showFullWindowAnimation">
+          <div #scroll class="panel-body msg-container-base" (isScrolledUp)="isScrolledUpHandler($event)" [scrollChat]="100">
+            <div *ngIf="isLoadingEnd || isEmptyChat" class="chat-begin text-center">
+              <i class="fa fa-align-center fa-2x fa-fw" aria-hidden="true"></i>
+              <h4>{{"COMMON_CHAT" | translate}}</h4>
+            </div>
+            <div *ngIf="isLoadingLazy" class="chat-loader">
+              <i class="fa fa-spinner fa-spin fa-3x fa-fw"></i>
+            </div>
+            <div *ngFor="let message of messages | async">
+              <div *ngIf="inhabitantId === message?.sender.id" class="row msg-container base-sent">
+                <div class="col-md-10 col-10 message-holder">
+                  <div class="messages msg-sent" [ngClass]="{'msg-not-readed': message.messageReaded !== true}">
+                    <p>{{message.messageBody}}</p>
+                    <div class="message-info">
+                      <span class="chat-time">{{message.messageTime | amTimeAgo}}</span>
+                      <span class="chat-username">{{message.sender.surname}} {{message.sender.name}}</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-2 col-2 avatar">
+                  <img *ngIf="message.sender.photo === null" src="/assets/img/default_avatar.png" class="img-responsive">
+                  <img *ngIf="message.sender.photo !== null" src="{{imgProfilePath + message.sender.photo}}" class="img-responsive">
+                </div>
+              </div>
+              <div *ngIf="inhabitantId !== message?.sender.id" class="row msg-container base-receive">
+                <div class="col-md-2 col-2 avatar">
+                  <img *ngIf="message.sender.photo === null" src="/assets/img/default_avatar.png" class="img-responsive">
+                  <img *ngIf="message.sender.photo !== null" src="{{imgProfilePath + message.sender.photo}}" class="img-responsive">
+                </div>
+                <div class="col-md-10 col-10 message-holder">
+                  <div class="messages msg-receive" [ngClass]="{'msg-not-readed': message.messageReaded !== true}">
+                    <p>{{message.messageBody}}</p>
+                    <div class="message-info">
+                      <span class="chat-username">{{message.sender.surname}} {{message.sender.name}}</span>
+                      <span class="chat-time">{{message.messageTime | amTimeAgo}}</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!--SHow new messages button-->
+          <div *ngIf="isNewMessagesUnread" (click)="goToBottom()" class="chat-at-end text-center">
+            <button class="btn btn-warning"><i class="fa fa-angle-double-down" aria-hidden="true"></i> {{"NEW_MESSAGE" | translate}}</button>
+          </div>
+          <!--Connection error message-->
+          <div *ngIf="!connectionState" class="chat-error-connection">
+              <div class="alert alert-danger">{{"ERROR_CONNECTION_WITH_SERVER" | translate}}</div>
+          </div>
+          <!--Chat window footer with input-->
+          <div class="panel-footer">
+            <form (submit)="sendMessage()" [formGroup]="chatForm">
+              <div class="input-group">
+                <input formControlName="message" (focus)="setReaded()" type="text" class="form-control input-sm chat_input" placeholder="{{'WRITE_HERE' | translate}}"/>
+                <span class="input-group-btn">
+                  <button [disabled]="!chatForm.valid || !connectionState" class="btn btn-primary btn-sm">{{"SEND" | translate}}</button>
+                </span>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,80 @@
+table {
+  margin-bottom: 0;
+}
+
+.card-block {
+  padding: 8px;
+}
+
+table td, table th {
+  vertical-align: middle;
+}
+
+.pointer:hover {
+  cursor: pointer;
+}
+
+.current-request-title-wraper {
+  display: flex;
+  align-items: flex-start;
+}
+
+.inline-wraper {
+  display: inline-block;
+}
+
+.problem-width {
+  min-width: 400px;
+}
+
+.problem-list {
+  margin-top: 8px;
+}
+
+.dropdown-choise-button {
+  margin-right: 8px;
+  margin-bottom: 5px;
+}
+
+.dropdown-elem-align {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.current-request-title {
+  margin-right: 10px;
+}
+
+.request-counter {
+  margin-left: 10px;
+}
+
+.dropdown-request-type li:hover {
+  background-color: rgba(0, 0, 0, 0.10);
+}
+
+.badge-in-list {
+  margin-bottom: 5px;
+}
+
+.title, .settings {
+  display: inline-block;
+  line-height: 51px;
+  vertical-align: middle;
+  margin-bottom: 0;
+}
+
+.settings i {
+  vertical-align: sub;
+}
+
+div.no-requests-alert {
+  margin-top: 7px;
+}
+
+@media only screen and (max-width: 576px) {
+  .use-space {
+    white-space: normal;
+  }
+}

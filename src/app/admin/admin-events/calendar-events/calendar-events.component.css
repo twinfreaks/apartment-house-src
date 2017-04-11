@@ -1,0 +1,30 @@
+.cursor {
+  cursor: pointer;
+}
+
+.cal-month-view .cal-event {
+  width: 15px;
+  height: 15px;
+}
+
+div.calendar {
+  margin-bottom: 20px;
+}
+
+div.calendar-header {
+  margin-top: 30px;
+}
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+}
+
+h3.title {
+  display: inline-block;
+  line-height: 51px;
+  vertical-align: middle;
+  margin-bottom: 0;
+}

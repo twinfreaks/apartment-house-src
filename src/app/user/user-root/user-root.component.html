@@ -1,0 +1,4 @@
+<app-navbar-user *ngIf="isInhabitantActive"></app-navbar-user>
+<app-navbar-default *ngIf="!isInhabitantActive"></app-navbar-default>
+<router-outlet></router-outlet>
+<app-chat-dialog *ngIf="isInhabitantActive"></app-chat-dialog>

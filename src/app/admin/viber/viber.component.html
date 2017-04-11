@@ -1,0 +1,20 @@
+<div class="flexbox pull-left">
+  <label for="viber-icon">{{'SHARE_VIA' | translate}}</label>
+  <span id="viber-icon" class="pull-left btn viber-icon"
+        (click)="viberHeight ? closeViberWindow() : viberHeight = viberCard.scrollHeight;"
+        [ngClass]="{'button-disabled': !viberHeight}">
+  </span>
+</div>
+<br>
+<div class="collapsing w-100" [style.height]="viberHeight + 'px'" #viberCard>
+  <div class="card card-block card-header col-12 top">
+    <div class="well well-lg">
+      <form #configForm="ngForm">
+        <label for="message">{{'SHARE_MESSAGE' | translate}}</label>
+        <textarea #message id="message" class="col-12 form-control pull-left" rows="8" name="description"
+                  [(ngModel)]="viberData.description">
+        </textarea>
+      </form>
+    </div>
+  </div>
+</div>
