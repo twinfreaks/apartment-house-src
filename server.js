@@ -7,7 +7,7 @@ var express = require('express'),
 
 app.set('port', (process.env.PORT || 3009));
 
-app.use(express.static(__dirname + '/dist'));
+app.use(express.static(__dirname + '/build/dist'));
 
 // views is directory for all template files
 app.set('views', __dirname + '/app');
@@ -18,7 +18,7 @@ app.set('view engine', 'html');
 // });
 
 app.get('/*', function(req, res) {
-  res.sendFile(path.join(__dirname + '/dist/index.html'));
+  res.sendFile(path.join(__dirname + '/build/dist/index.html'));
 });
 
 app.listen(app.get('port'), function() {
