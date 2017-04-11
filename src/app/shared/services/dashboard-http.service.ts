@@ -10,7 +10,7 @@ import {Blog} from "../models/blog";
 import {DashboardConfig} from "../../user/dashboard/dashboard-config";
 import {CalendarEvent} from "../models/calendar-event";
 import {Calculation} from "../models/calculation.model";
-import Any = jasmine.Any;
+// import Any = jasmine.Any;
 
 @Injectable()
 export class DashboardHttpService {
