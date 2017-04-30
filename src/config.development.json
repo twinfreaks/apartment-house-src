@@ -1,6 +1,6 @@
 {
-  "api": "http://localhost:9009",
-  "files": "http://localhost:9009/userfiles",
+  "api": "https://apartment-house-server.herokuapp.com",
+  "files": "https://apartment-house-server.herokuapp.com/userfiles",
   
   "uploadDestinationForBlogs": "blogs",
   
@@ -63,12 +63,12 @@
   
   "google.oAuthEndpoint": "https://accounts.google.com/o/oauth2/auth",
   "google.clientId": "clientId",
-  "google.redirectUri": "http://localhost:4200/oauth2callback",
+  "google.redirectUri": "http://apartment-house.herokuapp.com/oauth2callback",
   "google.calendar": "https://www.googleapis.com/calendar/v3/calendars",
   
   "fb.oAuthEndpoint": "https://www.facebook.com/v2.8/dialog/oauth",
   "fb.clientId": "clientId",
-  "fb.redirectUri": "http://localhost:4200/oauth2callback",
+  "fb.redirectUri": "http://apartment-house.herokuapp.com/oauth2callback",
   
   "reCaptchaSiteKey": "recaptchaKey"
 }
