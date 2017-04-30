@@ -1,0 +1,29 @@
+.dropdown-menu li:hover {
+  background-color: rgba(0, 0, 0, 0.10);
+}
+
+.pointer:hover {
+  cursor: pointer;
+}
+
+.d-down-wrapper, .export {
+  margin-bottom: 10px;
+
+  .d-down-btn {
+    margin-right: 10px;
+  }
+}
+
+div.no-data-alert {
+  margin-top: 7px;
+}
+
+.wrapper-big {
+  margin-bottom: 30px;
+}
+
+form {
+  [class*="col-"] {
+    margin-bottom: 10px;
+  }
+}

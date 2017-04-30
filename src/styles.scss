@@ -1,7 +1,10 @@
+@import "../node_modules/bootstrap/scss/_variables.scss";
 @import "../node_modules/bootstrap/scss/bootstrap.scss";
 @import "./app/shared/scss/calendar-style.scss";
 @import "../node_modules/ng2-image-gallery-fixed/ng2-image-gallery.scss";
 @import "../src/app/shared/scss/ng2-select.scss";
+@import "./app/themes/_theme.scss";
+
 
 .space-top {
   margin-top: 25px;
@@ -97,26 +100,19 @@ p-confirmdialog {
   }
 }
 
-@media only screen and (max-width: 992px) {
-  .container {
-    width: 85%;
-  }
+p-calendar button.ui-datepicker-trigger {
+  border-radius: 0 0.25em 0.25em 0;
 }
 
-@media only screen and (max-width: 768px) {
-  .container {
-    width: 90%;
-  }
+p-calendar.validation.ng-dirty.ng-invalid input.ui-inputtext {
+  border: solid #d9534f 2px;
+  border-right: 0;
 }
 
-@media only screen and (max-width: 576px) {
-  .container {
-    width: 100%;
+p-calendar.p-c-range {
+  .ui-datepicker-title {
+    margin: 0 0.5em;
   }
-}
-
-.image-responsive {
-  width: 100%;
 }
 
 // styling ng2-image-gallery-fixed
@@ -167,15 +163,16 @@ p-confirmdialog {
 }
 
 // end of styling ng2-image-gallery-fixed
+
 @media only screen and (max-width: 992px) {
   .container {
-    width: 85%;
+    width: 90%;
   }
 }
 
 @media only screen and (max-width: 768px) {
   .container {
-    width: 90%;
+    width: 92%;
   }
 }
 

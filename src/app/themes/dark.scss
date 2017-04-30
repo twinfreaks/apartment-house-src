@@ -1,0 +1,16 @@
+@import "../../../node_modules/bootstrap/scss/_variables.scss";
+@include theme(
+                dark,
+                #222222,
+                $red,
+                $white,
+                #222222,
+                #222222,
+                #292b2c,
+                #fff
+);
+
+@include theme_preview(
+                dark_preview,
+                #222222
+);

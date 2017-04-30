@@ -6,7 +6,7 @@ import {TranslateService} from "@ngx-translate/core";
   template: `<div class="container space-top">
                 <div class="row text-center vertical-center">
                     <div class="col-md-4 offset-md-4 col-12">
-                        <img class="image-responsive" src="./../../assets/img/access_denied.png">
+                        <img class="img-fluid" src="./../../assets/img/access_denied.png">
                     </div>
                 </div>
                 <div class="row space-top">

@@ -14,7 +14,7 @@ import * as _ from "lodash";
 @Component({
   selector: 'app-admin-add-calculations',
   templateUrl: './admin-add-calculations.component.html',
-  styleUrls: ['./admin-add-calculations.component.css']
+  styleUrls: ['./admin-add-calculations.component.scss']
 })
 
 export class AdminAddCalculationsComponent implements OnInit {

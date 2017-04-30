@@ -3,11 +3,11 @@ import {CommonModule} from "@angular/common";
 import {AdministratorsListComponent} from "./administrators-list/administrators-list.component";
 import {TranslateModule} from "@ngx-translate/core";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
-import {Ng2PaginationModule} from "ng2-pagination";
+import {NgxPaginationModule} from "ngx-pagination";
 import {NgbTooltipModule} from "@ng-bootstrap/ng-bootstrap";
 import {AdministratorsService} from "./administrators.service";
 import {AdministratorDeleteModalComponent} from "./administrator-delete-modal/administrator-delete-modal.component";
-import {ModalModule} from "ng2-bootstrap";
+import {ModalModule} from "ngx-bootstrap";
 import {AdministratorEditComponent} from "./administrator-edit/administrator-edit.component";
 import {RoutingModule} from "../../routing/routing.module";
 import {CoreModule} from "../../core/core.module";
@@ -21,7 +21,7 @@ import {RolesService} from "./roles.service";
     FormsModule,
     ReactiveFormsModule,
     TranslateModule,
-    Ng2PaginationModule,
+    NgxPaginationModule,
     SelectModule,
     TranslateModule,
     NgbTooltipModule,

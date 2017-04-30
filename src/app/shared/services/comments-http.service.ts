@@ -1,5 +1,4 @@
 import {Injectable} from "@angular/core";
-import {Http} from "@angular/http";
 import {Response, Headers} from "@angular/http";
 import {Observable} from "rxjs/Observable";
 import "rxjs/add/operator/map";
@@ -9,6 +8,7 @@ import {CommentsModel} from "../models/comments.model";
 import {AppConfig} from "../../app.config";
 import {AuthAppService} from "app/auth/services/auth-app.service";
 import * as _ from "lodash";
+import {AuthHttp} from "angular2-jwt";
 
 @Injectable()
 export class CommentsHttpService {
@@ -20,9 +20,9 @@ export class CommentsHttpService {
   public commentText: string;
   public commentsToShow: number = this.config.getConfig('commentsAndBlog').commentsToShowScroll;
   public userRole: string;
-  private userRolesArray: [string] = ['adminBlog', 'adminAccountant'];
+  private userRolesArray: [string] = this.config.getConfig('commentsAndBlog').adminRoles;
   
-  constructor(private http: Http,
+  constructor(private http: AuthHttp,
               private config: AppConfig,
               private authAppService: AuthAppService) {
   }
@@ -59,6 +59,15 @@ export class CommentsHttpService {
                });
   }
   
+  getAdminInfo(id: string) {
+    const url = this.blogUrl + `/adminInfo/${id}`;
+    return this.http.get(url)
+               .map((resp: Response) => resp.json())
+               .catch((error: any) => {
+                 return Observable.throw(error);
+               });
+  }
+  
   updateComments(obj: CommentsModel): Observable<[CommentsModel]> {
     const body = JSON.stringify(obj);
     return this.http.put(this.blogUrl, body, {headers: this.headers})
@@ -67,4 +76,5 @@ export class CommentsHttpService {
                  return Observable.throw(error);
                });
   }
+
 }

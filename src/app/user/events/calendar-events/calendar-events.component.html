@@ -9,20 +9,20 @@
              mwlCalendarPreviousView
              [view]="view" tooltip="{{'PREVIOUS' | translate}}"
              [(viewDate)]="viewDate"
-             (click)="renewPeriodTitle()">
+             (click)="renewPeriodTitle(); renewGoogleEvents()">
           &laquo;
         </div>
         <div id="date-nav-today" class="btn btn-secondary cursor"
              mwlCalendarToday
              [(viewDate)]="viewDate"
-             (click)="renewPeriodTitle()">
+             (click)="renewPeriodTitle(); renewGoogleEvents()">
               {{"TODAY" | translate}}
         </div>
         <div id="date-nav-next" class="btn btn-primary cursor"
              mwlCalendarNextView
              [view]="view" tooltip="{{'NEXT' | translate}}"
              [(viewDate)]="viewDate"
-             (click)="renewPeriodTitle()">
+             (click)="renewPeriodTitle(); renewGoogleEvents()">
           &raquo;
         </div>
       </div>
@@ -33,17 +33,17 @@
     <div class="col-lg-4 col-md-12">
       <div class="btn-group" id="view-nav">
         <div class="btn btn-primary cursor" id="view-nav-month"
-             (click)="view = 'month'; renewPeriodTitle()"
+             (click)="view = 'month'; renewPeriodTitle(); renewGoogleEvents()"
              [class.active]="view === 'month'">
               {{"MONTH" | translate}}
         </div>
         <div class="btn btn-primary cursor" id="view-nav-week"
-             (click)="view = 'week'; renewPeriodTitle()"
+             (click)="view = 'week'; renewPeriodTitle(); renewGoogleEvents()"
              [class.active]="view === 'week'">
               {{"WEEK" | translate}}
         </div>
         <div class="btn btn-primary cursor" id="view-nav-day"
-             (click)="view = 'day'; renewPeriodTitle()"
+             (click)="view = 'day'; renewPeriodTitle(); renewGoogleEvents()"
              [class.active]="view === 'day'">
               {{"DAY" | translate}}
         </div>
@@ -56,17 +56,32 @@
       [locale]="locale" [viewDate]="viewDate"
       [events]="events" [activeDayIsOpen]="activeDayIsOpen"
       (dayClicked)="dayClicked($event.day)"
+      [refresh]="refresh"
       (eventClicked)="handleEvent('Clicked', $event.event);modal.showModal()">
     </mwl-calendar-month-view>
     <mwl-calendar-week-view *ngSwitchCase="'week'"
-      [locale]="locale" [viewDate]="viewDate"
+      [locale]="locale" [viewDate]="viewDate" [refresh]="refresh"
       [events]="events" (eventClicked)="handleEvent('Clicked', $event.event);modal.showModal()">
     </mwl-calendar-week-view>
     <mwl-calendar-day-view *ngSwitchCase="'day'"
-      [locale]="locale" [viewDate]="viewDate"
+      [locale]="locale" [viewDate]="viewDate" [refresh]="refresh"
       [events]="events" (eventClicked)="handleEvent('Clicked', $event.event);modal.showModal()">
     </mwl-calendar-day-view>
   </div>
 </div>
 <app-event-details-modal [modalData]="modalData" #modal></app-event-details-modal>
 <user-request></user-request>
+<div class="container add-height" (click)="getGoogleEvetns()" *ngIf="isOAuth && !googleEventsShow">
+  <span class="show-events">{{"SHOW_YOUR_EVENTS" | translate}}</span>
+</div>
+<div class="container add-height" *ngIf="googleEventsShow">
+  <span class="show-events" (click)="hideGoogleEvents(true)">{{"HIDE_YOUR_EVENTS" | translate}}</span>
+  <div class="events-explain"><span class="explain-color osbb-events"></span><span class="explain-text"> - {{"OSBB_EVENTS" | translate}}</span></div>
+  <div class="events-explain"><span class="explain-color google-events"></span><span class="explain-text"> - {{"GOOGLE_EVENTS" | translate}} ({{periodTitle}})</span></div>
+</div>
+<p-confirmDialog header="{{ 'CONFIRMATION' | translate }}" icon="fa fa-question-circle" width="350" #cd>
+  <p-footer>
+    <button class="conf-dial-false" type="button" pButton icon="fa-close" label="{{ 'NO' | translate }}" (click)="cd.reject()"></button>
+    <button class="conf-dial-true" type="button" pButton icon="fa-check" label="{{ 'YES' | translate }}" (click)="cd.accept()"></button>
+  </p-footer>
+</p-confirmDialog>

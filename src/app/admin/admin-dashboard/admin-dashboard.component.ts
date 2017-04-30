@@ -3,6 +3,7 @@ import {InhabitantsService} from "../admin-inhabitants/services/inhabitants.serv
 import {RequestHttpService} from "app/shared/services/request-http.service";
 import {ToastrService} from "ngx-toastr";
 import {TranslateService} from "@ngx-translate/core";
+import {AuthAppService} from "../../auth/services/auth-app.service";
 
 @Component({
   selector: 'app-admin-dashboard',
@@ -12,11 +13,13 @@ import {TranslateService} from "@ngx-translate/core";
 export class AdminDashboardComponent implements OnInit {
   inhabitantsInactiveCount: number;
   requestsNotDoneCount: number;
+  role: string;
 
   constructor(private inhabitantsService: InhabitantsService,
               private requestHttpService: RequestHttpService,
               private toastrService: ToastrService,
-              private translateService: TranslateService
+              private translateService: TranslateService,
+              private authAppService: AuthAppService
   ) { }
 
   getRequestsNotDoneCount() {
@@ -36,6 +39,7 @@ export class AdminDashboardComponent implements OnInit {
             (data) => {
               this.inhabitantsInactiveCount = data;
             }
-        )
+        );
+    this.role = this.authAppService.getRoles()[0];
   }
 }

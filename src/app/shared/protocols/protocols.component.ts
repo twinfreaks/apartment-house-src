@@ -18,7 +18,7 @@ export class ProtocolsComponent implements OnInit {
   protocolModel = new Protocol();
   modalData: any;
   uploadUrl = this.config.getConfig('api') + `/upload`;
-  apiFiles = this.config.getConfig('api') + '/protocols/';
+  apiFiles = this.config.getConfig('files') + '/protocols/';
   dateFormatter = this.config.getConfig('dateFormat');
   collapseHeight = 0;
   inhabitantId: number = null;

@@ -5,11 +5,13 @@ import {SharedModule} from "app/shared/shared.module";
 import {RoutingModule} from "app/routing/routing.module";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {ConfirmDialogModule} from "primeng/primeng";
-import { AlertModule } from "ng2-bootstrap/alert";
+import {AlertModule} from "ngx-bootstrap/alert";
+import {NgxPaginationModule} from 'ngx-pagination';
+
 import {RequestsComponent} from "./requests/requests.component";
 import {ManageRequestTypesComponent} from "./manage-request-types/manage-request-types.component";
 import {AddEditTypeComponent} from "./add-edit-type/add-edit-type.component";
-import {BsDropdownModule} from "ng2-bootstrap";
+import {BsDropdownModule} from "ngx-bootstrap";
 import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
 
 @NgModule({
@@ -23,7 +25,8 @@ import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
     FormsModule,
     ReactiveFormsModule,
     ConfirmDialogModule,
-    AlertModule.forRoot()
+    AlertModule,
+    NgxPaginationModule
   ],
   declarations: [
     RequestsComponent,

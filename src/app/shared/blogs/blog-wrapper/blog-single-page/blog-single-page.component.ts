@@ -6,8 +6,8 @@ import {Blog} from "../../../models/blog";
 import {CommentsHttpService} from "../../../services/comments-http.service";
 import * as _ from "lodash";
 import {AppConfig} from "../../../../app.config";
-import {ImageInterface} from "../../../models/gallery";
 import {GalleryHttpService} from "../../../services/gallery-http.service";
+import {toString} from "@ng-bootstrap/ng-bootstrap/util/util";
 
 @Component({
   selector:    'app-blog-single-page',
@@ -26,12 +26,13 @@ export class BlogSinglePageComponent implements OnInit {
   isAdmin: boolean;
   error: any;
   currentUrl: string;
-  apiUrl: string = this.config.getConfig('api');
+  filesUrl: string = this.config.getConfig('files');
   uploadDestination: string = this.config.getConfig('uploadDestinationForBlogs');
   defaultBlogLogo: string = this.config.getConfig('defaultBlogLogoUrl');
   galleryImages = [];
-  photoPath = this.config.getConfig('api') + '/blogs/';
+  photoPath = this.config.getConfig('files') + '/blogs/';
   photoUrls = [];
+  author: any;
   
   constructor(private blogHttpService: BlogHttpService,
               private router: Router,
@@ -75,6 +76,7 @@ export class BlogSinglePageComponent implements OnInit {
               this.singleBlog = this.blogs['blog'];
               this.blogPrev = this.blogs['blogPrev'];
               this.blogNext = this.blogs['blogNext'];
+              this.getAuthorInfo();
             },
             (error) => {
               this.error = error;
@@ -99,6 +101,18 @@ export class BlogSinglePageComponent implements OnInit {
     this.commentsHttpService.commentsToShow = this.config.getConfig('commentsAndBlog').commentsToShowScrollStep;
   }
   
+  getAuthorInfo() {
+    this.commentsHttpService.getAdminInfo(toString(this.singleBlog.admin))
+        .subscribe(
+            (data) => {
+                this.author = data['data'][0];
+            },
+            (error) => {
+              this.error = error;
+              console.log(error);
+            })
+  }
+  
   changePageEmit() {
     this.changePage.emit();
   }
@@ -113,7 +127,7 @@ export class BlogSinglePageComponent implements OnInit {
   
   checkDefaultLogo(logoUrl: any) {
     if (logoUrl) {
-      return this.apiUrl + '/' + this.uploadDestination + '/' + logoUrl;
+      return this.filesUrl + '/' + this.uploadDestination + '/' + logoUrl;
     }
     return this.defaultBlogLogo;
   };

@@ -7,6 +7,7 @@ import "rxjs/add/operator/catch";
 import "rxjs/add/observable/throw";
 import {AppConfig} from "../../app.config";
 import {Protocol} from "../models/protocol";
+import {AuthHttp} from "angular2-jwt";
 
 @Injectable()
 export class ProtocolHttpService {
@@ -14,7 +15,7 @@ export class ProtocolHttpService {
   private headers = new Headers({'Content-Type': 'application/json;charset=utf-8'});
   private protocolUrl = this.config.getConfig('api') + `/protocol`;
 
-  constructor(private http: Http,
+  constructor(private http: AuthHttp,
               private config: AppConfig) {
   }
 

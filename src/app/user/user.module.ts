@@ -11,6 +11,8 @@ import {ProfileModule} from "app/user/profile/profile.module";
 import {ProtocolsModule} from "../shared/protocols/protocols.module";
 import {ChatModule} from "app/chat/chat.module";
 import { UserInactiveComponent } from "./user-inactive.component";
+import {UserSettingsModule} from "./user-settings/user-settings.module";
+import {UserLogsService} from "./user-settings/user-logs.service";
 
 @NgModule({
   imports: [
@@ -23,7 +25,8 @@ import { UserInactiveComponent } from "./user-inactive.component";
     ProfileModule,
     ProtocolsModule,
     ChatModule,
-    BlogsModule
+    BlogsModule,
+    UserSettingsModule
   ],
   declarations: [
     UserRootComponent,
@@ -33,6 +36,9 @@ import { UserInactiveComponent } from "./user-inactive.component";
     DashboardModule,
     EventsModule,
     ProtocolsModule
+  ],
+  providers: [
+    UserLogsService
   ]
 })
 export class UserModule {

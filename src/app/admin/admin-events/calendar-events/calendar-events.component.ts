@@ -29,7 +29,7 @@ const colors: any = [
 @Component({
   selector: 'app-calendar-events',
   templateUrl: './calendar-events.component.html',
-  styleUrls: ['./calendar-events.component.css']
+  styleUrls: ['./calendar-events.component.scss']
 })
 export class CalendarEventsComponent implements OnInit {
   @ViewChild(EventDetailsModalComponent) eventModal: EventDetailsModalComponent;
@@ -80,7 +80,7 @@ export class CalendarEventsComponent implements OnInit {
       });
     this.locale = this.translateService.currentLang;
     this.periodTitle = moment(this.viewDate).format(this.dateFormat.month);
-    this.eventsHttpService.getAllEvents()
+    this.eventsHttpService.getAllEvents(false)
       .subscribe(
         (data) => {
           this.events = this.setEvents(data['data']);

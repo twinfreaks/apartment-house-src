@@ -30,6 +30,7 @@ export class AuthAppService {
   public adminIdSub: Subject<any> = new BehaviorSubject<any>(null);
   public inhabitantIdSub: Subject<any> = new BehaviorSubject<any>(null);
   public isInhabitantActiveSub: Subject<boolean> = new BehaviorSubject<boolean>(null);
+  public isOAuthSub: Subject<boolean> = new BehaviorSubject<boolean>(null);
 
   jwtHelper: JwtHelper = new JwtHelper();
 
@@ -51,6 +52,7 @@ export class AuthAppService {
     this.adminIdSub.next(parseInt(localStorage.getItem("adminId")));
     this.inhabitantIdSub.next(parseInt(localStorage.getItem("inhabitantId")));
     this.isInhabitantActiveSub.next((localStorage.getItem("isInhabitantActive") == 'true'));
+    this.isOAuthSub.next(localStorage.getItem("isOAuth") == 'true');
   }
 
   login(userData: UserData): Observable<Response> {
@@ -78,6 +80,7 @@ export class AuthAppService {
     this.adminIdSub.next(decodedToken.admin);
     this.inhabitantIdSub.next(decodedToken.inhabitant);
     this.isInhabitantActiveSub.next(decodedToken.isInhabitantActive);
+    this.isOAuthSub.next(localStorage.getItem("isOAuth") == 'true');
 
     this.setUserId(decodedToken.sub);
     this.setUsername(decodedToken.username);
@@ -86,6 +89,7 @@ export class AuthAppService {
     this.setInhabitantId(decodedToken.inhabitant);
     this.setLoggedIn(true);
     this.setIsInhabitantActive(decodedToken.isInhabitantActive);
+    this.setOAuth(decodedToken.isOauth);
   }
 
   logout(): void {
@@ -176,6 +180,18 @@ export class AuthAppService {
   setIsInhabitantActive(isActive: boolean) {
     this.isInhabitantActive = isActive;
     localStorage.setItem("isInhabitantActive", isActive.toString());
+  }
+
+  setOAuth(isOAuth: boolean) {
+    this.isOAuthSub.next(isOAuth);
+    localStorage.setItem("isOAuth", isOAuth.toString())
+  }
+
+  serverValidationPassword(password: string): Observable<Response> {
+    //noinspection TypeScriptUnresolvedFunction
+    return this.authHttp.post(this.config.getConfig('api') + `/validation-password`, {password: password}, this.options)
+      .map((res: Response) => res.json())
+      .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
   }
 
   serverValidation(value: string, type: string, valueAdd: string = ''): Observable<Response> {

@@ -1,0 +1,54 @@
+.userProfileEditCard {
+    margin: 0 auto;
+    width: 95%;
+    float: none;
+    margin-top: 20px;
+}
+
+.profileEditForm {
+    margin: 0 auto;
+    width: 60%;
+}
+
+.userPhoto {
+    height:200px;
+    width:200px;
+}
+
+.file-upload {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+}
+
+#custom-input {
+    display: none;
+}
+
+.result {
+    margin-top: 30px;
+    border: 1px solid rgba(125, 125, 125, 0.6);
+    display: inline-block;
+    padding: 1px;
+}
+
+.adressDiv{
+    margin-top: 5px;
+}
+
+.col-form-label {
+    text-align: right;
+    font-weight: 500;
+}
+
+.buttons{
+    text-align: center;
+}
+
+@media (max-width: 767px) {
+    .col-form-label {
+        text-align: left;
+    }
+}

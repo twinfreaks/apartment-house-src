@@ -6,7 +6,7 @@ var blogsList = require('./shared/blogs-list.ts'),
     returnToBlogList = require('./admin/return-to-blog-list.ts');
 
 blogsList.test('user', 'user', 'user');
-blogsList.test('superadmin', 'superadmin', 'admin');
+blogsList.test('adminReceptionist', 'user', 'admin');
 returnToBlogList.test();
 manageBlogGallery.test();
 addBlog.test();

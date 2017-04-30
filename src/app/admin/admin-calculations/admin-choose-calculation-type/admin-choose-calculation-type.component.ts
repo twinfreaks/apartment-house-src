@@ -10,14 +10,14 @@ import * as _ from "lodash";
 @Component({
   selector: 'app-admin-choose-calculation-type',
   templateUrl: './admin-choose-calculation-type.component.html',
-  styleUrls: ['./admin-choose-calculation-type.component.css']
+  styleUrls: ['./admin-choose-calculation-type.component.scss']
 })
 export class AdminChooseCalculationTypeComponent implements OnInit {
   @Input() choosenType: CalculationType = null;
   @Output() changeStep: EventEmitter<number> = new EventEmitter<number>();
   @Output() chooseCalculationType: EventEmitter<CalculationType> = new EventEmitter<CalculationType>();
 
-  imageUrl = `${this.config.getConfig('api')}/calculation-types`;
+  imageUrl = `${this.config.getConfig('files')}/calculation-types`;
   choosen: number;
   addType: boolean = false;
   calculationTypes: CalculationType[] = [];

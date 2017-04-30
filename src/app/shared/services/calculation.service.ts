@@ -14,8 +14,7 @@ export class CalculationService {
   private calculationUrl = this.config.getConfig('api') + `/calculations`;
   private calculationTypeUrl = this.config.getConfig('api') + `/calculation-types`;
 
-  constructor(private http: Http,
-              private authHttp: AuthHttp,
+  constructor(private http: AuthHttp,
               private config: AppConfig) {
   }
 

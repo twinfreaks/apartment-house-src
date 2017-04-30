@@ -8,7 +8,7 @@ import * as _ from "lodash";
 @Component({
   selector: 'app-admin-choose-building',
   templateUrl: './admin-choose-building.component.html',
-  styleUrls: ['./admin-choose-building.component.css']
+  styleUrls: ['./admin-choose-building.component.scss']
 })
 export class AdminChooseBuildingComponent implements OnInit {
   @Input() choosenBuilding: Building = null;

@@ -23,6 +23,7 @@ import {PswdPhonesentPartialComponent} from "./password-restore/pswd-phonesent-p
 import {ReCaptchaModule} from "angular2-recaptcha";
 import {RestorePasswordService} from "app/auth/services/restore-password.service";
 import {PswdRestoreResultPageComponent} from "./password-restore/pswd-restore-result-page/pswd-restore-result-page.component";
+import {BuildingsRegistrationService} from "./services/buildings-registration.service";
 
 export function authHttpServiceFactory(http: Http, options: RequestOptions) {
   return new AuthHttp(new AuthConfig(), http, options);
@@ -60,6 +61,7 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions) {
   providers: [
     AuthGuardService,
     RestorePasswordService,
+    BuildingsRegistrationService,
     {
       provide: AuthHttp,
       useFactory: authHttpServiceFactory,

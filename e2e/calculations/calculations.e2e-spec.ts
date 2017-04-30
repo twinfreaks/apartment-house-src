@@ -18,7 +18,7 @@ describe('Calculations e2e test', () => {
   describe('Admin part calculations e2e test', () => {
 
     beforeAll(() => {
-      loginHelpers.loginToPageFunc('superadmin', 'superadmin');
+      loginHelpers.loginToPageFunc('adminReceptionist', 'user');
     });
 
     afterAll(() => {
@@ -47,7 +47,7 @@ describe('Calculations e2e test', () => {
 
   describe('Admin part calculations e2e test', () => {
     beforeAll(() => {
-      loginHelpers.loginToPageFunc('superadmin', 'superadmin');
+      loginHelpers.loginToPageFunc('adminReceptionist', 'user');
     });
 
     afterAll(() => {

@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, Output} from "@angular/core";
+import {Component, EventEmitter, Output} from "@angular/core";
 import {CommentsHttpService} from "../../services/comments-http.service";
 import {FormGroup, Validators, FormBuilder} from "@angular/forms";
 import {TranslateService} from "@ngx-translate/core";
@@ -27,7 +27,7 @@ export class EditCommentComponent {
   }
   
   onSubmit() {
-    this.updatedComment.text = this.commentsHttpService.commentText + '<p></br><small>' + this.translateService.instant('COMMENT_UPDATED_TEXT') + moment(this.dateToday).format('LLL') + '</small></br><i>' + this.myForm.value['text'] + '</i></p>';
+    this.updatedComment.text = this.commentsHttpService.commentText + '<p></br><small>' + this.translateService.instant('COMMENT_UPDATED_TEXT') + moment(this.dateToday).format('LLL') + '</small></br><i> ' + this.myForm.value['text'] + ' </i></p>';
     this.updatedComment.editedAt = this.dateToday;
     this.updatedComment.id = this.commentsHttpService.commentId;
     this.changeComment();
@@ -36,14 +36,17 @@ export class EditCommentComponent {
   changeComment() {
     this.commentsHttpService.updateComments(this.updatedComment).subscribe(
         (data) => {
+          if (data['code'] === 201) {
+            this.newAnswer.emit("profanity");
+            return;
+          } else if (data['code'] === 200) {
+            this.newAnswer.emit("COMMENT_EDITED_SUCCESS");
+          }
         },
         (error) => {
           this.error = error;
           console.log(error);
           this.newAnswer.emit("error");
-        },
-        () => {
-          this.newAnswer.emit("COMMENT_EDITED_SUCCESS");
         });
   }
 }

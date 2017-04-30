@@ -14,7 +14,7 @@ describe('Calendar events e2e tests', () => {
   describe('admin events calendar', () => {
 
     beforeAll(() => {
-      loginHelpers.loginToPageFunc('superadmin', 'superadmin');
+      loginHelpers.loginToPageFunc('adminReceptionist', 'user');
     });
 
     afterAll(() => {

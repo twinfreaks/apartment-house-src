@@ -7,6 +7,7 @@ import {AuthAppService} from "app/auth/services/auth-app.service";
 import {BuildingService} from "app/shared/services/building.service";
 import {TranslateService} from "@ngx-translate/core";
 import {ValidationService} from "app/core/validation-messages/validation.service";
+import {BuildingsRegistrationService} from "../services/buildings-registration.service";
 
 @Component({
   selector: 'app-profile-registration',
@@ -29,7 +30,7 @@ export class ProfileRegistrationPageComponent implements OnInit {
   constructor(private formBuilder: FormBuilder,
               private authService: AuthAppService,
               private toastrService: ToastrService,
-              private buildingService: BuildingService,
+              private buildingService: BuildingsRegistrationService,
               private translateService: TranslateService) {
     this.loading = false;
     this.created = false;
@@ -64,7 +65,7 @@ export class ProfileRegistrationPageComponent implements OnInit {
         'name': [null, Validators.required],
         'patronymic': [null, Validators.required],
         'email': [this.oAuthEmail, Validators.compose([Validators.required, CustomValidators.email]), ValidationService.emailExist(this.authService)],
-        'phone': [null, Validators.compose([Validators.required, Validators.minLength(8), Validators.maxLength(32)]), ValidationService.phoneExist(this.authService)]
+        'phone': [null, Validators.compose([Validators.required, Validators.minLength(8), Validators.maxLength(32)]), ValidationService.phoneExist(this.authService, 0)]
       })
     });
     if (this.registrationType === "native") {

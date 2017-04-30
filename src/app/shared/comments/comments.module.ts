@@ -8,8 +8,9 @@ import {ReactiveFormsModule} from "@angular/forms";
 import {AuthAppService} from "../../auth/services/auth-app.service";
 import {MomentModule} from "angular2-moment";
 import {CoreModule} from "../../core/core.module";
-import {InfiniteScrollModule} from "angular2-infinite-scroll";
+import {InfiniteScrollModule} from "ngx-infinite-scroll";
 import {EditCommentComponent} from "./edit-comment/edit-comment.component";
+import {ModalModule} from "ngx-bootstrap";
 
 @NgModule({
   imports:      [
@@ -18,7 +19,8 @@ import {EditCommentComponent} from "./edit-comment/edit-comment.component";
     TranslateModule,
     ReactiveFormsModule,
     MomentModule,
-    InfiniteScrollModule
+    InfiniteScrollModule,
+    ModalModule
   ],
   exports:      [CommentsComponent],
   providers:    [AuthAppService],

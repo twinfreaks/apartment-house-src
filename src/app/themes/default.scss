@@ -1,0 +1,16 @@
+@import "../../../node_modules/bootstrap/scss/_variables.scss";
+@include theme(
+                default,
+                $brand-primary,
+                $brand-inverse,
+                $btn-primary-color,
+                $btn-primary-bg,
+                $btn-primary-border,
+                #fff,
+                #292b2c
+);
+
+@include theme_preview(
+                default_preview,
+                $brand-primary
+);

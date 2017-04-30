@@ -30,7 +30,7 @@ export class UserCalculationComponent implements OnInit {
   page: number = 1;
   totalPage: number;
   isLoading: boolean = true;
-  imageUrl = `${this.config.getConfig('api')}/calculation-types`;
+  imageUrl = `${this.config.getConfig('files')}/calculation-types`;
   defaultValue: any = {"id": "0", "text": ''};
   typeId: any = 0;
   types: any = [];

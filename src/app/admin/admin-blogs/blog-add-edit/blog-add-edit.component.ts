@@ -6,7 +6,7 @@ import {TranslateService} from "@ngx-translate/core";
 import * as _ from 'lodash';
 import {SelectItem, ConfirmationService} from 'primeng/primeng';
 import * as moment from 'moment';
-import {ModalDirective} from 'ng2-bootstrap';
+import {ModalDirective} from 'ngx-bootstrap';
 
 import {BlogHttpService} from 'app/shared/services/blog-http.service';
 import {EventsHttpService} from 'app/shared/services/events-http.service';
@@ -47,7 +47,7 @@ export class BlogAddEditComponent implements OnInit {
   sendingToServer:boolean = false;
   recomDescrLength = this.config.getConfig('truncateLengthShotBlog');
 
-  constructor(private translateService: TranslateService,
+  constructor(public translateService: TranslateService,
               private blogHttpService: BlogHttpService,
               private authAppService: AuthAppService,
               private toastrService: ToastrService,

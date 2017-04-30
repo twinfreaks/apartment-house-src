@@ -1,0 +1,103 @@
+<div class="container wrapper-big">
+  <div class="breadcrumb">
+    <h3>{{ "STATISTICS" | translate }}</h3>
+  </div>
+  <div class="row">
+    <div class="d-down-wrapper col-md-6">
+      <div class="btn-group d-down-btn" ngbDropdown>
+        <button id="stat-type" type="button"
+                class="btn btn-primary dropdown-choise-button" ngbDropdownToggle>
+          {{ "STAT_TYPE" | translate }} <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu" role="menu">
+          <li class="pointer dropdown-item" role="menuitem"
+              *ngFor="let type of statTypeArr, let i = index"
+              (click)="changeStatType(type.name, i)">
+            {{ type.name }}
+          </li>
+        </ul>
+      </div>
+      <div class="d-inline-block">
+        <div>
+          <span class="h6">{{ currentStatType }}</span>
+        </div>
+      </div>
+    </div>
+    <div class="d-down-wrapper col-md-6">
+      <div class="btn-group d-down-btn" ngbDropdown>
+        <button id="period-type" type="button" [disabled]="currentStatType === null"
+                class="btn btn-primary dropdown-choise-button" ngbDropdownToggle>
+          {{ "PERIOD" | translate }} <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu" role="menu">
+          <li class="pointer dropdown-item" role="menuitem" *ngFor="let period of datePeriodArr" (click)="changePeriod(period)">
+            {{period.name}}
+          </li>
+        </ul>
+      </div>
+      <div class="d-inline-block">
+        <div>
+          <span class="h6">{{ currentPeriod }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <form [formGroup]="datePeriodForm" (submit)="datepickerPeriodIsSet()" novalidate *ngIf="showDatePicker">
+    <div class="row">
+      <div class="col-lg-5 col-md-6 form-group">
+        <label for="dateFrom"><b>{{ "FROM" | translate }}</b></label>
+        <p-calendar [locale]="datePickerLang" formControlName="dateFrom"
+                    [showIcon]="true" dateFormat="dd.mm.yy" id="dateFrom"
+                    [monthNavigator]="true" [yearNavigator]="true"
+                    yearRange="2015:2030" [maxDate]="maxDateFrom"
+                    (onSelect)="setValidDateTo($event)" class="validation p-c-range"
+                    placeholder="{{translateService.instant('DATE_PLACEHOLDER')}}">
+        </p-calendar>
+      </div>
+      <div class="col-lg-5 col-md-6 form-group">
+        <label for="dateTo"><b>{{ "TO" | translate }}</b></label>
+        <p-calendar [locale]="datePickerLang" formControlName="dateTo"
+                    [showIcon]="true" dateFormat="dd.mm.yy" id="dateTo"
+                    [monthNavigator]="true" [yearNavigator]="true"
+                    yearRange="2015:2030" [maxDate]="maxDateTo"
+                    [minDate]="minDateTo" class="validation p-c-range"
+                    placeholder="{{translateService.instant('DATE_PLACEHOLDER')}}">
+        </p-calendar>
+      </div>
+      <div class="col-lg-2 col-md-3">
+        <button type="submit" class="btn btn-success"
+                [disabled]="!datePeriodForm.valid">
+          {{ "SHOW" | translate }}
+        </button>
+      </div>
+    </div>
+  </form>
+  <button class="btn btn-warning export" type="button"
+          *ngIf="showBarChart || showPieChart"
+          (click)="downloadExcel()">
+    {{ "EXPORT_IN" | translate }} <i class="fa fa-file-excel-o" aria-hidden="true"></i>
+  </button>
+  <div class="no-data-alert" *ngIf="noDataAlert">
+    <alert type="info">
+      <strong>{{ "NO_DATA_IN_THIS_PERIOD" | translate }}!</strong>
+    </alert>
+  </div>
+  <div *ngIf="showPieChart">
+    <canvas baseChart
+            [data]="pieChartData"
+            [labels]="pieChartLabels"
+            [chartType]="'pie'"
+            [options]="pieChartOptions"
+            [colors]="colors">
+    </canvas>
+  </div>
+  <div *ngIf="showBarChart">
+    <canvas baseChart
+            [datasets]="barChartData"
+            [labels]="barChartLabels"
+            [options]="barChartOptions"
+            [legend]="true"
+            [chartType]="'bar'">
+    </canvas>
+  </div>
+</div>

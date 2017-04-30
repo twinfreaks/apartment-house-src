@@ -37,10 +37,12 @@ export class CommentSingleComponent implements OnInit {
   editedId: number;
   timeDiff = {};
   timeToEdit: string = this.config.getConfig('commentsAndBlog').timeToEditCommentHours;
-  photoUrl: string = this.config.getConfig('api') + '/userProfile/';
+  photoUrl: string = this.config.getConfig('files') + '/userProfile/';
   defaultAvatar: string = this.config.getConfig('commentsAndBlog').defaultAvatar;
   private inhabitantId: number;
+  private adminId: number;
   private showEditChildComment: boolean;
+  author: any;
   
   constructor(private commentsHttpService: CommentsHttpService,
               private authAppService: AuthAppService,
@@ -48,11 +50,23 @@ export class CommentSingleComponent implements OnInit {
   }
   
   ngOnInit() {
+    if (this.comment.inhabitant) {
+      this.author = 'inhabitant';
+    } else {
+      this.author = 'admin';
+    }
     this.isAdmin = this.commentsHttpService.isAdmin();
     this.timeDifference();
     this.authAppService.inhabitantIdSub.subscribe(
         (id) => {
           this.inhabitantId = id;
+          if (!this.inhabitantId) {
+            this.authAppService.adminIdSub.subscribe(
+                (id) => {
+                  this.adminId = id;
+                }
+            );
+          }
         }
     );
     this.commentsHttpService.isAdmin();

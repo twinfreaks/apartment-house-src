@@ -7,6 +7,7 @@ import "rxjs/add/observable/throw";
 import {AppConfig} from "../../app.config";
 import {RequestType} from "../models/request-type.model";
 import {Request} from "../models/request.model";
+import {AuthHttp} from "angular2-jwt";
 
 @Injectable()
 export class RequestHttpService {
@@ -15,7 +16,7 @@ export class RequestHttpService {
     private requestsUrl = this.config.getConfig('api') + `/requests`;
     private requestsTypeUrl = this.config.getConfig('api') + `/requests-type`;
 
-    constructor(private http: Http,
+    constructor(private http: AuthHttp,
                 private config: AppConfig) {
     }
 

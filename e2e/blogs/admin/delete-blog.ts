@@ -15,7 +15,7 @@ exports.test = () => {
         blogsList = element(by.css('.blogs'));
 
     beforeAll(() => {
-      loginHelpers.loginToPageFunc('superadmin', 'superadmin');
+      loginHelpers.loginToPageFunc('adminReceptionist', 'user');
     });
 
     afterAll(() => {

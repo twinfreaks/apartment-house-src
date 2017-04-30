@@ -10,7 +10,8 @@ import {Blog} from "../models/blog";
 import {DashboardConfig} from "../../user/dashboard/dashboard-config";
 import {CalendarEvent} from "../models/calendar-event";
 import {Calculation} from "../models/calculation.model";
-// import Any = jasmine.Any;
+import Any = jasmine.Any;
+import {AuthHttp} from "angular2-jwt";
 
 @Injectable()
 export class DashboardHttpService {
@@ -18,7 +19,7 @@ export class DashboardHttpService {
   private headers = new Headers({'Content-Type': 'application/json;charset=utf-8'});
   private dashboardUrl = this.config.getConfig('api') + `/dashboard`;
 
-  constructor(private http: Http,
+  constructor(private http: AuthHttp,
               private config: AppConfig) {
   }
 

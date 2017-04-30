@@ -1,6 +1,6 @@
 import {NgModule} from "@angular/core";
 import {CommonModule} from "@angular/common";
-import {ModalModule} from "ng2-bootstrap";
+import {ModalModule} from "ngx-bootstrap";
 import {RoutingModule} from "../../routing/routing.module";
 import {TranslateModule} from "@ngx-translate/core";
 import {FormsModule} from "@angular/forms";

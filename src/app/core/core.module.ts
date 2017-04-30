@@ -6,6 +6,7 @@ import {TranslateModule} from "@ngx-translate/core";
 import {ValidationMessagesComponent} from "./validation-messages/validation-messages.component";
 import {ValidationService} from "app/core/validation-messages/validation.service";
 import {RoutingModule} from "app/routing/routing.module";
+import {SettingsService} from "./settings.service";
 
 @NgModule({
   imports: [
@@ -24,7 +25,8 @@ import {RoutingModule} from "app/routing/routing.module";
     ValidationMessagesComponent
   ],
   providers: [
-    ValidationService
+    ValidationService,
+    SettingsService
   ]
 })
 export class CoreModule {

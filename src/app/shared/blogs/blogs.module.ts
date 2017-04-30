@@ -1,7 +1,7 @@
 import {NgModule} from "@angular/core";
 import {CommonModule} from "@angular/common";
 import {TranslateModule} from "@ngx-translate/core";
-import {InfiniteScrollModule} from "angular2-infinite-scroll";
+import {InfiniteScrollModule} from "ngx-infinite-scroll";
 import {RoutingModule} from "app/routing/routing.module";
 import {AuthAppService} from "app/auth/services/auth-app.service";
 import {ConfirmDialogModule} from "primeng/primeng";
@@ -13,7 +13,7 @@ import {BlogSinglePageComponent} from "./blog-wrapper/blog-single-page/blog-sing
 import {CommentsModule} from "app/shared/comments/comments.module";
 import {MomentModule} from "angular2-moment";
 import {Ng2ImageGalleryModule} from "ng2-image-gallery-fixed";
-import { AlertModule } from "ng2-bootstrap/alert";
+import {AlertModule} from "ngx-bootstrap/alert";
 
 @NgModule({
   imports: [
@@ -27,7 +27,7 @@ import { AlertModule } from "ng2-bootstrap/alert";
     CommentsModule,
     MomentModule,
     Ng2ImageGalleryModule,
-    AlertModule.forRoot()
+    AlertModule
   ],
   exports: [
     BlogListComponent,

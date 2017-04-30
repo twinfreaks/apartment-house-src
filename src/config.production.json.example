@@ -1,6 +1,7 @@
 {
   "api": "apiUrl",
-
+  "files": "apiUrl/userfiles",
+  
   "uploadDestinationForBlogs": "blogs",
 
   "infiniteScroll": {
@@ -8,11 +9,16 @@
     "scrollDistance": 2
   },
 
+  "requestPagination": {
+      "itemsPerPage": 10,
+      "currentPage": 1
+    },
+
   "typeRequestDesclength": 250,
 
   "truncateLengthShotBlog" : 300,
 
-   "defaultBlogLogoUrl": "./assets/img/default_blog_logo.jpg",
+  "defaultBlogLogoUrl": "./assets/img/default_blog_logo.jpg",
 
   "dateFormat": {
     "month": "MMMM, YYYY",
@@ -30,7 +36,8 @@
       "commentsToShowScrollStep": 5,
       "timeToEditCommentHours": 12,
       "defaultAvatar": "./assets/img/default_avatar.png",
-      "commentsToShowScroll": 10
+      "commentsToShowScroll": 10,
+      "adminRoles": ["adminBlog", "adminAccountant", "adminReceptionist"]
     },
 
   "editorConfig": {
@@ -57,6 +64,7 @@
   "google.oAuthEndpoint": "https://accounts.google.com/o/oauth2/auth",
   "google.clientId": "clientId",
   "google.redirectUri": "http://localhost:4200/oauth2callback",
+  "google.calendar": "https://www.googleapis.com/calendar/v3/calendars",
 
   "fb.oAuthEndpoint": "https://www.facebook.com/v2.8/dialog/oauth",
   "fb.clientId": "clientId",

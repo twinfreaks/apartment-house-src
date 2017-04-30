@@ -18,8 +18,9 @@ export class AddCommentComponent implements OnInit {
   inhabitant: any;
   error: any;
   myForm: FormGroup;
-  photoUrl: string = this.config.getConfig('api') + '/userProfile/';
+  photoUrl: string = this.config.getConfig('files') + '/userProfile/';
   defaultAvatar: string = this.config.getConfig('commentsAndBlog').defaultAvatar;
+  authorId: any;
   
   constructor(private commentsHttpService: CommentsHttpService,
               private authAppService: AuthAppService,
@@ -28,12 +29,13 @@ export class AddCommentComponent implements OnInit {
               private config: AppConfig) {
     this.myForm = this.formBuilder.group({
       'text':       ['', Validators.compose([Validators.required, Validators.maxLength(500)])],
-      'inhabitant': [this.authAppService.getInhabitantId(), CustomValidators.number]
+      'author':     [this.authorId, CustomValidators.number]
     });
   }
   
   onSubmit() {
     this.myForm.value['blog'] = this.commentsHttpService.blogComments;
+    this.myForm.value['admin'] = this.authAppService.getAdminId();
     this.myForm.value['inhabitant'] = this.authAppService.getInhabitantId();
     this.myForm.value['parentCommentId'] = this.commentsHttpService.parentCommentId;
     this.postComment();
@@ -41,13 +43,22 @@ export class AddCommentComponent implements OnInit {
   
   ngOnInit() {
     this.getInhabitantInfo();
+    if (this.authAppService.getInhabitantId()) {
+      this.authorId = this.authAppService.getInhabitantId();
+    } else {
+      this.authorId = this.authAppService.getAdminId();
+    }
   }
   
   getInhabitantInfo() {
     this.commentsHttpService.getInhabitantInfo(this.authAppService.getUserId())
         .subscribe(
             (data) => {
-              this.inhabitant = data['data'][0]['inhabitants'][0];
+              if (data['data'][0]['inhabitants'].length) {
+                this.inhabitant = data['data'][0]['inhabitants'][0];
+              } else {
+                this.inhabitant = data['data'][0]['admins'][0];
+              }
             },
             (error) => {
               this.error = error;
@@ -61,15 +72,18 @@ export class AddCommentComponent implements OnInit {
             (data) => {
               this.comments = data['data'];
               this.commentsHttpService.parentCommentId = null;
+              if (data['code'] === 201) {
+                this.newAnswer.emit("profanity");
+                return;
+              } else if (data['code'] === 200) {
+                this.newAnswer.emit("COMMENT_ADDED_SUCCESS");
+              }
             },
             (error) => {
               this.error = error;
               console.log(error);
               this.newAnswer.emit("error");
-            },
-            () => {
-              this.newAnswer.emit("COMMENT_ADDED_SUCCESS");
-            })
+            });
   }
   
   checkDefaultAvatar(logoUrl: any) {

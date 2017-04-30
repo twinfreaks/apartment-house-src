@@ -20,7 +20,7 @@ exports.test = () => {
         notDoneRequestsCount = element(by.css('.current-request-title-wraper span:last-child'));
 
     beforeAll(() => {
-      loginHelpers.loginToPageFunc('superadmin', 'superadmin');
+      loginHelpers.loginToPageFunc('adminReceptionist', 'user');
     });
 
     afterAll(() => {

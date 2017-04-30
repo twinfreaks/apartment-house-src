@@ -4,6 +4,7 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {Router} from "@angular/router";
 import {ToastrService} from "ngx-toastr";
 import {TranslateService} from "@ngx-translate/core";
+import {SettingsService} from "../../core/settings.service";
 
 
 @Component({
@@ -19,7 +20,8 @@ export class AuthLoginPageComponent implements OnInit {
               private router: Router,
               private authService: AuthAppService,
               private toastrService: ToastrService,
-              private translateService: TranslateService) {
+              private translateService: TranslateService,
+              private settingsService: SettingsService) {
   }
 
   ngOnInit() {
@@ -28,7 +30,12 @@ export class AuthLoginPageComponent implements OnInit {
       if (roles.indexOf('inhabitant') != -1) {
         this.router.navigate(['user']);
       }
-      else if (roles.indexOf('superAdmin') != -1 || roles.indexOf('adminBlog') != -1 || roles.indexOf('adminAccountant') != -1) {
+      else if (
+        roles.indexOf('superAdmin') != -1 ||
+        roles.indexOf('adminBlog') != -1 ||
+        roles.indexOf('adminAccountant') != -1 ||
+        roles.indexOf('adminReceptionist') != -1
+      ) {
         this.router.navigate(['admin']);
       }
     }
@@ -46,9 +53,10 @@ export class AuthLoginPageComponent implements OnInit {
           this.loading = false;
           if (res.code == 200) {
             this.toastrService.success(this.translateService.instant('SUCESS_LOGIN'), this.translateService.instant('LOGIN_NAME'));
+            this.settingsService.getTheme();
             let roles = this.authService.getRoles();
             if (roles.length == 1) {
-              if (roles[0] === "superAdmin" || roles[0] === "adminBlog" || roles[0] === "adminAccountant") {
+              if (roles[0] === "superAdmin" || roles[0] === "adminBlog" || roles[0] === "adminAccountant" || roles[0] === "adminReceptionist") {
                 this.router.navigate(['admin']);
               }
               else {

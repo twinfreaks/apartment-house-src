@@ -18,7 +18,7 @@ exports.test = () => {
       returnToBlogsBtn = element(by.id('return-to-blogs'));
 
     beforeAll(() => {
-      loginHelpers.loginToPageFunc('superadmin', 'superadmin');
+      loginHelpers.loginToPageFunc('adminReceptionist', 'user');
     });
 
     afterAll(() => {
@@ -156,7 +156,7 @@ exports.test = () => {
         returnToBlogsBtn = element(by.id('return-to-blogs'));
 
     beforeAll(() => {
-      loginHelpers.loginToPageFunc('superadmin', 'superadmin');
+      loginHelpers.loginToPageFunc('adminReceptionist', 'user');
     });
 
     afterAll(() => {

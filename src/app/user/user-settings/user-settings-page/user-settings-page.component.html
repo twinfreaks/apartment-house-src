@@ -1,0 +1,77 @@
+<div class="container space-top">
+  <div class="row">
+    <div class="col-12">
+      <button (click)="changePswdModal.openPasswordChange()" class="btn btn-lg btn-secondary">{{"CHANGE_PASSWORD" | translate}}</button>
+    </div>
+  </div>
+</div>
+
+<div class="container space-top">
+  <div class="row">
+    <div class="col-12">
+      <h4>{{"LOGS" | translate}}</h4>
+    </div>
+    <div class="col-12">
+      <table class="table table-bordered table-hover table-responsive">
+        <thead>
+          <tr>
+            <th>{{"LAST_LOGIN" | translate}}</th>
+            <th>{{"IP_ADDRESS" | translate}}</th>
+            <th>{{"BROWSER" | translate}}</th>
+            <th>{{"OPERATING_SYSTEM" | translate}}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let log of logs">
+            <td>{{log.lastLogin | amDateFormat: dateFormat}}</td>
+            <td>{{log.ipAddress}}</td>
+            <td>{{log.browser}}</td>
+            <td>{{log.operatingSystem}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<div class="container space-top">
+  <div class="row">
+    <div class="col-12">
+      <h4>{{"CHOOSE_THEME" | translate}}</h4>
+    </div>
+  </div>
+  <div class="row">
+    <div class="card-deck">
+      <div class="card">
+        <div class="card-img-top theme-preview default_preview"></div>
+        <div class="card-block">
+          <h4 class="card-title">{{"THEME" | translate}} "Default"</h4>
+          <p class="card-text">Default theme is a theme in blue colors.</p>
+          <button *ngIf="currentTheme !== 'default'" (click)="setTheme('default')" class="btn btn-primary">{{"SET_THEME" | translate}}</button>
+          <div class="alert alert-info" *ngIf="currentTheme === 'default'">{{"THIS_THEME_IS_CURRENT" | translate}}</div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-img-top theme-preview orange_preview"></div>
+        <div class="card-block">
+          <h4 class="card-title">{{"THEME" | translate}} "Orange"</h4>
+          <p class="card-text">Default theme is a theme in orange colors.</p>
+          <button *ngIf="currentTheme !== 'orange'" (click)="setTheme('orange')" class="btn btn-primary">{{"SET_THEME" | translate}}</button>
+          <div class="alert alert-info" *ngIf="currentTheme === 'orange'">{{"THIS_THEME_IS_CURRENT" | translate}}</div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-img-top theme-preview dark_preview"></div>
+        <div class="card-block">
+          <h4 class="card-title">{{"THEME" | translate}} "Dark"</h4>
+          <p class="card-text">Dark theme is a theme in black color.</p>
+          <button *ngIf="currentTheme !== 'dark'" (click)="setTheme('dark')" class="btn btn-primary">{{"SET_THEME" | translate}}</button>
+          <div class="alert alert-info" *ngIf="currentTheme === 'dark'">{{"THIS_THEME_IS_CURRENT" | translate}}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="space-top"></div>
+</div>
+
+<app-change-password-modal #changePswdModal></app-change-password-modal>

@@ -33,7 +33,7 @@ exports.test = () => {
         blogsTitles = element.all(by.css('.blogs .blog h4'));
 
     beforeAll(() => {
-      loginHelpers.loginToPageFunc('superadmin', 'superadmin');
+      loginHelpers.loginToPageFunc('adminReceptionist', 'user');
     });
 
     afterAll(() => {

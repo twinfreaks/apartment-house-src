@@ -6,7 +6,7 @@ import {TranslateService} from "@ngx-translate/core";
 @Component({
   selector: 'app-admin-calculations-root',
   templateUrl: './admin-calculations-root.component.html',
-  styleUrls: ['./admin-calculations-root.component.css']
+  styleUrls: ['./admin-calculations-root.component.scss']
 })
 export class AdminCalculationsRootComponent implements OnInit {
 

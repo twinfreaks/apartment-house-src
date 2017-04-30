@@ -1,5 +1,5 @@
 import {Component, OnInit, ViewChild, EventEmitter, Output} from "@angular/core";
-import {ModalDirective} from "ng2-bootstrap";
+import {ModalDirective} from "ngx-bootstrap";
 import * as moment from "moment";
 
 import {CalendarEvent} from "app/shared/models/calendar-event";

@@ -5,8 +5,7 @@ import * as _ from "lodash";
 
 @Component({
   selector: 'app-add-edit-building',
-  templateUrl: './add-edit-building.component.html',
-  styleUrls: ['./add-edit-building.component.css']
+  templateUrl: './add-edit-building.component.html'
 })
 export class AddEditBuildingComponent implements OnInit {
 

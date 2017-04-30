@@ -43,7 +43,8 @@
       <div class="col-lg-6 form-group calendar-wrap">
         <label for="publicatedFrom"><b>{{ "PUBLICATED_FROM" | translate }}</b></label>
         <p-calendar [locale]="datePickerLang" formControlName="publicatedFrom"
-                    [showIcon]="true" dateFormat="dd.mm.yy" id="publicatedFrom">
+                    [showIcon]="true" dateFormat="dd.mm.yy" id="publicatedFrom"
+                    class="validation" placeholder="{{translateService.instant('DATE_PLACEHOLDER')}}">
         </p-calendar>
       </div>
     </div>

@@ -17,7 +17,8 @@ export class ValidationService {
       'uniqueEmail': this.translateService.instant("EMAIL_ALREADY_EXIST"),
       'uniquePhone': this.translateService.instant("PHONE_NUMBER_ALREADY_USED"),
       'uniqueUsername': this.translateService.instant("USER_ALREADY_USED"),
-      'equalTo': this.translateService.instant("PASSWORDS_DOESNT_COINCIDE")
+      'equalTo': this.translateService.instant("PASSWORDS_DOESNT_COINCIDE"),
+      'correctPassword': this.translateService.instant("PASSWORD_NOT_CORRECT")
     };
     return config[validatorName];
   }
@@ -71,12 +72,36 @@ export class ValidationService {
     };
   }
 
-  static phoneExist(service: any): any {
+  static passwordCorrect(service: any): any {
+    return (control: AbstractControl): {[key: string]: any} => {
+      //noinspection TypeScriptUnresolvedFunction
+      return new Promise((resolve, reject) => {
+        service.serverValidationPassword(control.value)
+          .subscribe(
+            (res) => {
+              if (res.data) {
+                resolve(null);
+                return;
+              }
+              else {
+                resolve({correctPassword: true});
+                return;
+              }
+            },
+            (err) => {
+              resolve({correctPassword: true});
+            }
+          );
+      });
+    };
+  }
+
+  static phoneExist(service: any, inhabitantId: number): any {
     return (control: AbstractControl): {[key: string]: any} => {
       //noinspection TypeScriptUnresolvedFunction
       return new Promise((resolve, reject) => {
         let checkVal = control.value.replace(/[^0-9.]/g, "");
-        service.serverValidation(checkVal, 'phone')
+        service.serverValidation(checkVal, 'phone', inhabitantId)
           .subscribe(
             (res) => {
               if (res.data) {

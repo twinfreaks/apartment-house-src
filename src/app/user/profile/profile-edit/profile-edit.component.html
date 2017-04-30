@@ -1,71 +1,90 @@
 <section class="userProfileEditCard">
-  <div class="container"> 
+  <div class="container">
     <div class="breadcrumb">
-      <h3> {{ "USER_PROFILE" | translate }} </h3> 
+      <h3>{{"USER_PROFILE" | translate}}</h3>
     </div>
-    <form [formGroup]="myForm" (ngSubmit)="onSubmit(myForm.value, myForm.valid)" class="profileEditForm" novalidate>
-      <div class="form-group">
-        <label for="photo">{{ "PHOTO" | translate }}</label>
-          <div class="field-value">
-            <div class="aui-avatar aui-avatar-xxlarge userPhoto">
-              <div class="aui-avatar-inner">
-                <a class="hoverable"> 
-                  <span class="hoverable--overlay">
-                    {{ "CHANGE" | translate }} {{ "AVATAR" | translate }}
-                  </span>
-                  <img src="{{photosUrl + myForm.controls.photo.value}}" class="userPhoto" *ngIf="myForm.controls.photo.value !== null" height="200px" weight="200px"/>
-                  <img src="../../../../assets/img/dafaultProfileImage.png" class="userPhoto" *ngIf="myForm.controls.photo.value === null" height="200px" weight="200px"/>
-                  <input type="file" accept="image/*" class="form-control" (change)="photoUpload($event);" title='{{ "UPLOAD" | translate }}'>
-                </a>
+    <form [formGroup]="myForm" (ngSubmit)="onSubmit()" class="profileEditForm">
+      <div class="form-group row">
+        <label class="col-md-4 col-form-label">{{"PHOTO" | translate}}:</label>
+        <div class="col-md-8">
+          <img src="../../../../assets/img/dafaultProfileImage.png" class="userPhoto" *ngIf="myForm.controls.photo.value === null && !data2.image "/>
+          <img src="{{photosUrl + myForm.controls.photo.value}}" class="userPhoto" *ngIf="!data2.image && myForm.controls.photo.value"/>
+          <img src="{{data2.image}}" [width]="cropperSettings2.croppedWidth" [height]="cropperSettings2.croppedHeight" *ngIf="data2.image">
+          <br><br>
+          <button type="button" class="btn btn-primary" (click)="lgModal.show(); fileInput.click()">{{"CHOOSE_PHOTO" | translate}}</button><br>
+          <div bsModal #lgModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title">{{"CHOOSE_PHOTO" | translate}}</h5>
+                  <button type="button" class="close" (click)="lgModal.hide()" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <div class="file-upload">
+                    <span class="text">{{"CHOOSE_PHOTO" | translate}}</span>
+                  </div>
+                  <input id="custom-input" type="file" (change)="fileChangeListener($event)" #fileInput>
+                  <img-cropper #cropper [image]="data2" [settings]="cropperSettings2"></img-cropper><br>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-danger"  (click)="lgModal.hide()">{{"YES" | translate}}</button>
+                  <button type="button" class="btn btn-secondary" (click)="lgModal.hide()">{{"NO" | translate}}</button>
+                </div>
               </div>
             </div>
           </div>
+        </div>
       </div>
-      <div class="form-group">
-        <label for="surname">{{ "SURNAME" | translate }}</label>
-        <input type="text" class="form-control" placeholder="{{'SURNAME' | translate}}" pattern="[A-Za-zА-Яа-яЁё]*" formControlName="surname">
-        <small [hidden]="myForm.controls.surname.valid || (myForm.controls.surname.pristine && !submitted)" class="text-danger">
-          {{ "YOU_MUST_SPECIFY_SURNAME" | translate }}
-        </small>
+      <div class="form-group row" [ngClass]="{'has-danger': !myForm.get('surname').valid && myForm.get('surname').touched}">
+        <label class="col-md-4 col-form-label">{{"YOUR_SURNAME" | translate}}:</label>
+        <div class="col-md-8">
+          <input formControlName="surname" type="text" class="form-control" placeholder="{{'YOUR_SURNAME' | translate}}">
+          <app-validation-messages class="form-control-feedback" [control]="myForm.controls.surname"></app-validation-messages>
+        </div>
       </div>
-      <div class="form-group">
-        <label for="name">{{ "NAME" | translate }}</label>
-        <input type="text" class="form-control" placeholder="{{'NAME' | translate}}" pattern="[A-Za-zА-Яа-яЁё]*" formControlName="name">
-        <small [hidden]="myForm.controls.name.valid || (myForm.controls.name.pristine && !submitted)" class="text-danger">
-          {{ "YOU_MUST_SPECIFY_NAME" | translate }}
-        </small>
+      <div class="form-group row" [ngClass]="{'has-danger': !myForm.get('name').valid && myForm.get('name').touched}">
+        <label class="col-md-4 col-form-label">{{"YOUR_NAME" | translate}}:</label>
+        <div class="col-md-8">
+          <input formControlName="name" type="text" class="form-control" placeholder="{{'YOUR_NAME' | translate}}">
+          <app-validation-messages class="form-control-feedback" [control]="myForm.controls.name"></app-validation-messages>
+        </div>
       </div>
-      <div class="form-group">
-        <label for="patronymic">{{ "PATRONIMIC" | translate }}</label>
-        <input type="text" class="form-control" placeholder="{{'PATRONIMIC' | translate}}" pattern="[A-Za-zА-Яа-яЁё]*" formControlName="patronymic">
-        <small [hidden]="myForm.controls.patronymic.valid || (myForm.controls.patronymic.pristine && !submitted)" class="text-danger">
-          {{ "YOU_MUST_SPECIFY_PATRONYMIC" | translate }}
-        </small>
+      <div class="form-group row" [ngClass]="{'has-danger': !myForm.get('patronymic').valid && myForm.get('patronymic').touched}">
+        <label class="col-md-4 col-form-label">{{"YOUR_PATRONYMIC" | translate}}:</label>
+        <div class="col-md-8">
+          <input formControlName="patronymic" type="text" class="form-control" placeholder="{{'YOUR_PATRONYMIC' | translate}}">
+          <app-validation-messages class="form-control-feedback" [control]="myForm.controls.patronymic"></app-validation-messages>
+        </div>
       </div>
-      <div class="form-group">
-        <label for="building">{{ "BUILDING" | translate }}</label>
-        <input type="text" class="form-control" placeholder="{{'BUILDING_NUMBER' | translate}}" formControlName="building">
-        <small [hidden]="myForm.controls.building.valid || (myForm.controls.building.pristine && !submitted)" class="text-danger">
-          {{ "YOU_MUST_SPECIFY_BUILDING" | translate }}
-        </small>
+      <div class="form-group row">
+        <label class="col-md-4 col-form-label"> {{"ADRESS" | translate}}:</label>  
+        <div class="col-md-8">
+          <div class="adressDiv">
+           {{"STREET_SHORT" | translate}} {{myForm.controls["building"].value["streetName"]}}, 
+           {{"BUILDING_SHORT" | translate}} {{myForm.controls["building"].value["buildingNumber"]}}, 
+           {{"APPARRTMENT_SHORT" | translate}} {{appartment}}
+          </div>
+        </div>
       </div>
-      <div class="form-group">
-        <label for="appartment">{{ "APARTMENT" | translate }}</label>
-        <input type="text" class="form-control" placeholder="{{'YOUR_APPARTMENT_NUMBER' | translate}}" formControlName="appartment">
-        <small [hidden]="myForm.controls.appartment.valid || (myForm.controls.appartment.pristine && !submitted)" class="text-danger">
-          {{ "YOU_MUST_SPECIFY_APARTMENT" | translate }}
-        </small>
+      <div class="form-group row" [ngClass]="{'has-danger': !myForm.get('phoneNumber').valid && myForm.get('phoneNumber').touched}">
+        <label class="col-md-4 col-form-label">{{"PHONE_NUMBER" | translate}}:</label>
+        <div class="col-md-8">
+          <p-inputMask formControlName="phoneNumber" placeholder="{{'PHONE_NUMBER' | translate}}" styleClass="form-control" mask="(999) 999-999?9"></p-inputMask>
+          <app-validation-messages class="form-control-feedback" [control]="myForm.controls.phoneNumber"></app-validation-messages>
+        </div>
       </div>
-      <div class="form-group">
-        <label for="phoneNumber">{{ "PHONE_NUMBER" | translate }}</label>
-        <input type="text" class="form-control" placeholder="(095)ХХ ХХ ХХХ" formControlName="phoneNumber" required>
-        <small [hidden]="myForm.controls.phoneNumber.valid || (myForm.controls.phoneNumber.hasError('minlength') && myForm.controls.phoneNumber.pristine && !submitted)" class="text-danger">
-          {{ "YOU_MUST_SPECIFY_PHONE_NUMBER" | translate }}
-        </small>
+      <div class="form-group row" [ngClass]="{'has-danger': (!myForm.get('email').valid) && myForm.get('email').touched}">
+        <label class="col-md-4 col-form-label">{{"EMAIL" | translate}}:</label>
+        <div class="col-md-8">
+          <input type="text" class="form-control" placeholder="{{'EMAIL' | translate}}" formControlName="email">
+          <app-validation-messages class="form-control-feedback" [control]="myForm.controls.email"></app-validation-messages>
+        </div>
       </div>
       <div class="buttons">
-        <button type="submit" class="btn btn-success" [disabled]="!myForm.valid">{{ "SAVE" | translate }}</button>
-        <a [routerLink] = "['/user']" class="btn btn-danger">{{ "CANCEL" | translate }}</a>
+        <button type="submit" class="btn btn-success" [disabled]="!myForm.valid">{{"SAVE" | translate}}</button>
+        <a [routerLink] = "['/user']" class="btn btn-danger">{{"CANCEL" | translate}}</a>
       </div>
     </form>
   </div>

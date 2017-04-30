@@ -9,23 +9,26 @@
     </a>
     <div [ngbCollapse]="isNavbarCollapsed" class="collapse navbar-collapse">
       <ul class="navbar-nav mr-auto mt-2 mt-md-0 nav-height">
-        <li *ngIf="role === 'adminBlog'" class="nav-item custom-item" routerLinkActive="active">
+        <li *ngIf="role === 'adminBlog' || role === 'adminReceptionist'" class="nav-item custom-item" routerLinkActive="active">
           <a class="nav-link nav-a" [routerLink] = "['blogs']">{{"BLOG" | translate}}</a>
         </li>
-        <li *ngIf="role === 'adminBlog'" class="nav-item custom-item" routerLinkActive="active">
+        <li *ngIf="role === 'adminBlog' || role === 'adminReceptionist'" class="nav-item custom-item" routerLinkActive="active">
           <a class="nav-link nav-a" [routerLink]="['events']"> {{"USER_EVENTS" | translate}}</a>
         </li>
-        <li *ngIf="role === 'adminAccountant'" class="nav-item custom-item" routerLinkActive="active">
+        <li *ngIf="role === 'adminAccountant' || role === 'adminReceptionist'" class="nav-item custom-item" routerLinkActive="active">
           <a class="nav-link nav-a" [routerLink]="['calculations']"> {{"CALCULATIONS" | translate}}</a>
         </li>
-        <li *ngIf="role === 'adminAccountant'" class="nav-item custom-item" routerLinkActive="active">
+        <li *ngIf="role === 'adminReceptionist'" class="nav-item custom-item" routerLinkActive="active">
           <a class="nav-link nav-a" [routerLink]="['requests']"> {{"REQUESTS" | translate}}</a>
         </li>
-        <li *ngIf="role === 'adminAccountant'" class="nav-item custom-item" routerLinkActive="active">
+        <li *ngIf="role === 'adminAccountant' || role === 'adminReceptionist'" class="nav-item custom-item" routerLinkActive="active">
           <a class="nav-link nav-a" [routerLink] = "['protocols']">{{"PROTOCOLS" | translate}}</a>
         </li>
-        <li *ngIf="role === 'adminAccountant'" class="nav-item custom-item" routerLinkActive="active">
+        <li *ngIf="role === 'adminReceptionist'" class="nav-item custom-item" routerLinkActive="active">
           <a class="nav-link nav-a" [routerLink] = "['inhabitants']">{{"INHABITANTS" | translate}}</a>
+        </li>
+        <li *ngIf="role === 'adminAccountant' || role === 'adminReceptionist'" class="nav-item custom-item" routerLinkActive="active">
+            <a class="nav-link nav-a" [routerLink]="['statistics']">{{"STATISTICS" | translate}}</a>
         </li>
         <li *ngIf="role === 'superAdmin'" class="nav-item custom-item" routerLinkActive="active">
           <a class="nav-link nav-a" [routerLink] = "['administrators']">{{"ADMINISTRATORS" | translate}}</a>

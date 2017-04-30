@@ -116,7 +116,7 @@ it('should delete first comment', () => {
   let a = null;
   element.all(by.css('.parent-comment')).each((el, index) => {
            el.element(by.css('.parent-comment-text')).getText().then((text) => {
-             if (text === 'first comment') {
+             if (text === 'test comment 5') {
                a = index;
                return a;
              }
@@ -138,7 +138,7 @@ it('should undo delete first comment', () => {
   let a = null;
   element.all(by.css('.parent-comment')).each((el, index) => {
            el.element(by.css('.parent-comment-text')).getText().then((text) => {
-             if (text === 'first comment') {
+             if (text === 'test comment 5') {
                a = index;
                return a;
              }

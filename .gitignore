@@ -38,6 +38,8 @@ testem.log
 #System Files
 /.DS_Store
 Thumbs.db
+/src/config.production.json
+/src/config.development.json
 /build/dist/
 
 /config/

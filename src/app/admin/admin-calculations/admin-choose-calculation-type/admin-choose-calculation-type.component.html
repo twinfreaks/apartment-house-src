@@ -12,7 +12,7 @@
           {{'NO_MATCHES' | translate}}
         </li>
         <li *ngFor="let type of activeTypes; let i = index"
-            [class]="(choosen == type.id)?'list-group-item list-group-item-action pointer active font-lg': 'list-group-item list-group-item-action pointer font-lg'"
+            [class]="(choosen == type.id)?'list-group-item list-group-item-action pointer active font-lg calculation': 'list-group-item list-group-item-action pointer font-lg calculation'"
             (click)="emitChooseType(type.id)">
           <img [src]="(type?.icon)?imageUrl + '/' + type?.icon:'assets/img/default_calculation_type_icon.png'" alt="" width="50" height="50" class="type-icon">
           {{type?.name}}

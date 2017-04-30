@@ -1,0 +1,16 @@
+@import "../../../node_modules/bootstrap/scss/_variables.scss";
+@include theme(
+                orange,
+                $orange,
+                $red,
+                $white,
+                $orange,
+                $orange,
+                #fff,
+                #292b2c
+);
+
+@include theme_preview(
+                orange_preview,
+                $orange
+);

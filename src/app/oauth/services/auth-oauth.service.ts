@@ -28,9 +28,9 @@ export class AuthOauthService {
           "client_id": this.clientId,
           "redirect_uri": this.config.getConfig('google.redirectUri'),
           "response_type": "token",
-          "scope": "https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email",
+          "scope": "https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/calendar",
           "include_granted_scopes": "true",
-          "state": "pass-through value",
+          "state": "pass-through value"
         };
         localStorage.setItem('oauthProvider', this.google);
         this.setQueryString(this.queryString, this.OathLoginEndPointUrl);

@@ -11,7 +11,7 @@
         <app-langs class="col col-12"></app-langs>
       </div>
       <div class="navbar-nav">
-        <app-profile-menu></app-profile-menu>
+        <app-profile-menu *ngIf="isLoggedIn"></app-profile-menu>
       </div>
     </div>
   </nav>

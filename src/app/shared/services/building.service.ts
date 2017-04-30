@@ -11,7 +11,7 @@ export class BuildingService {
   headers = new Headers({'Content-Type': 'application/json'});
   options = new RequestOptions({headers: this.headers});
 
-  constructor(private http: Http,
+  constructor(private http: AuthHttp,
               private authHttp: AuthHttp,
               private config: AppConfig) {
   }

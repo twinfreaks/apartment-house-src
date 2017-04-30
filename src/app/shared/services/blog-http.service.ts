@@ -7,6 +7,7 @@ import "rxjs/add/observable/throw";
 
 import {Blog} from "../models/blog";
 import {AppConfig} from "../../app.config";
+import {AuthHttp} from "angular2-jwt";
 
 @Injectable()
 
@@ -14,7 +15,7 @@ export class BlogHttpService {
   private headers = new Headers({'Content-Type': 'application/json;charset=utf-8'});
   private blogUrl = this.config.getConfig('api') + `/blogs`;
 
-  constructor(private http: Http,
+  constructor(private http: AuthHttp,
               private config: AppConfig) {
   }
 

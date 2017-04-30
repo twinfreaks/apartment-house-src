@@ -1,0 +1,60 @@
+.cursor {
+  cursor: pointer;
+}
+
+.cal-month-view .cal-event {
+  width: 15px;
+  height: 15px;
+}
+
+.wrapper {
+  margin: auto;
+}
+
+h3.title {
+  display: inline-block;
+  line-height: 51px;
+  vertical-align: middle;
+  margin-bottom: 0;
+}
+
+.show-events {
+  cursor: pointer;
+  padding: 10px 0;
+  display: inline-block;
+}
+
+.show-events:hover {
+  text-decoration: underline;
+}
+
+.explain-color {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  position: absolute;
+}
+
+.osbb-events {
+  background-color: #ad2121;
+}
+
+.google-events {
+  background-color: #1e90ff;
+}
+
+.events-explain {
+  position: relative;
+  height: 25px;
+}
+
+.explain-text {
+  position: absolute;
+  left: 30px;
+  top: -3px;
+}
+
+.add-height {
+  height: 150px;
+}

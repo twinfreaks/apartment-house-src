@@ -5,14 +5,15 @@ import "rxjs/add/operator/map";
 import "rxjs/add/operator/catch";
 import "rxjs/add/observable/throw";
 import {AppConfig} from "../../app.config";
-// import Any = jasmine.Any;
+import Any = jasmine.Any;
+import {AuthHttp} from "angular2-jwt";
 
 @Injectable()
 export class ViberService {
 
   private viberUrl = this.config.getConfig('api') + `/viber`;
 
-  constructor(private http: Http,
+  constructor(private http: AuthHttp,
               private config: AppConfig) {
   }
 

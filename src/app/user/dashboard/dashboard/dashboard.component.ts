@@ -1,4 +1,4 @@
-import {Component, OnInit} from "@angular/core";
+import {Component, OnInit, OnDestroy} from "@angular/core";
 import {DragulaService} from "ng2-dragula";
 import * as moment from "moment";
 import {Blog} from "../../../shared/models/blog";
@@ -10,6 +10,8 @@ import {DashboardConfig} from "../dashboard-config";
 import {DashboardHttpService} from "../../../shared/services/dashboard-http.service";
 import {AuthAppService} from "../../../auth/services/auth-app.service";
 import {AppConfig} from "../../../app.config";
+import {CookieService} from "ngx-cookie";
+import {Observable} from "rxjs";
 
 @Component({
   selector: 'app-dashboard',
@@ -17,7 +19,7 @@ import {AppConfig} from "../../../app.config";
   styleUrls: ['dashboard.component.scss']
 })
 
-export class DashboardComponent implements OnInit {
+export class DashboardComponent implements OnInit, OnDestroy {
   digits = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
   modalData: any;
   configHeight = 0;
@@ -39,19 +41,45 @@ export class DashboardComponent implements OnInit {
   dashboardConfig = new DashboardConfig();
   dateFormatter = this.config.getConfig('dateFormat');
   apiFiles = this.config.getConfig('api') + '/protocols/';
-  imageUrl = `${this.config.getConfig('api')}/calculation-types`;
+  imageUrl = `${this.config.getConfig('files')}/calculation-types`;
+  online: Observable<boolean>;
 
   constructor(private dashboardService: DashboardHttpService,
               private authService: AuthAppService,
               private dragulaService: DragulaService,
-              private config: AppConfig) {
+              private config: AppConfig,
+              private cookieService: CookieService) {
+    this.online = Observable.merge(
+        Observable.of(navigator.onLine),
+        Observable.fromEvent(window, 'online').map(() => true),
+        Observable.fromEvent(window, 'offline').map(() => false)
+    );
     dragulaService.dropModel.subscribe((value) => {
       this.setUserConfig();
-      this.requestEnd = false;
-    })
+      this.requestEnd = !navigator.onLine;
+    });
+    if ('ontouchstart' in window) {
+      dragulaService.setOptions('bag', {moves: false});
+    }
   }
 
   ngOnInit() {
+    this.online.subscribe((data) => {
+      console.log(data?'online':'offline');
+      if (data === false) {
+        this.cookieService.putObject('dbCfg', this.dashboardConfig);
+      }
+      if (data === true) {
+        this.dashboardService.setUserConfig(this.cookieService.getObject('dbCfg')).subscribe(
+            (res) => {
+              if (res.code === 200) {
+                this.cookieService.remove('dbCfg');
+              }
+              this.getUserConfig()
+            }
+        );
+      }
+    });
     this.getUserId();
     this.getInhabitantId();
     this.getUserConfig();
@@ -59,6 +87,10 @@ export class DashboardComponent implements OnInit {
     this.getUnreadedEventsCount(this.inhabitantId);
     this.getUnreadedProtocolsCount(this.inhabitantId);
     this.getUnreadedCalculationsCount(this.inhabitantId);
+  }
+
+  ngOnDestroy() {
+
   }
 
   getUserConfig() {
@@ -193,7 +225,10 @@ export class DashboardComponent implements OnInit {
 
   readBlog(blog: Blog) {
     this.dashboardService.setStatusReaded('viewBlog', this.inhabitantId, blog.id).subscribe(
-        (data) => this.getUnreadedBlogsCount(this.inhabitantId)
+        (data) => {
+          console.log(data);
+          this.getUnreadedBlogsCount(this.inhabitantId)
+        }
     )
   }
 
@@ -225,10 +260,14 @@ export class DashboardComponent implements OnInit {
 
   setUserConfig() {
     this.dashboardConfig.viewOrder = JSON.stringify(this.viewOrderArr);
+    this.cookieService.remove('dbCfg');
+    this.cookieService.putObject('dbCfg', this.dashboardConfig);
     this.dashboardService.setUserConfig(this.dashboardConfig).subscribe(
         (data) => {
-          this.requestEnd = false;
-          this.getUserConfig()
+          if (data.code === 200) {
+            this.requestEnd = false;
+            this.getUserConfig()
+          }
         }
     )
   }

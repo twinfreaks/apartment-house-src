@@ -2,7 +2,8 @@ import {BrowserModule} from "@angular/platform-browser";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {HttpModule, Http} from "@angular/http";
 import {NgModule, APP_INITIALIZER} from "@angular/core";
-import {ModalModule} from "ng2-bootstrap/modal";
+import {ModalModule} from "ngx-bootstrap/modal";
+import {AlertModule} from "ngx-bootstrap/alert";
 import {AppConfig} from "./app.config";
 import {AuthModule} from "app/auth/auth.module";
 import {CoreModule} from "app/core/core.module";
@@ -17,7 +18,7 @@ import {BlogHttpService} from "./shared/services/blog-http.service";
 import {EventsHttpService} from "app/shared/services/events-http.service";
 import {ToastrModule} from "ngx-toastr";
 import {ProfileService} from "./shared/services/profile.service";
-import {CookieModule} from 'ngx-cookie';
+import {CookieModule} from "ngx-cookie";
 import {BuildingService} from "app/shared/services/building.service";
 import {ProtocolHttpService} from "./shared/services/protocol-http.service";
 import {DashboardHttpService} from "./shared/services/dashboard-http.service";
@@ -27,10 +28,11 @@ import {RequestHttpService} from "./shared/services/request-http.service";
 import {NgbTooltipModule, NgbDropdownModule} from "@ng-bootstrap/ng-bootstrap";
 import {GalleryHttpService} from "./shared/services/gallery-http.service";
 import {CommentsHttpService} from './shared/services/comments-http.service';
-import {BsDropdownModule, TabsModule} from "ng2-bootstrap";
+import {BsDropdownModule, TabsModule} from "ngx-bootstrap";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {TranslateModule, TranslateService, TranslateLoader} from "@ngx-translate/core";
 import {TranslateHttpLoader} from "@ngx-translate/http-loader";
+import {ProfanityHttpService} from "./shared/services/profanity-http.service";
 
 export function initConfig(config: AppConfig) {
   return () => config.load();
@@ -58,12 +60,14 @@ export function translateLoader(http: Http) {
     ReactiveFormsModule,
     CustomFormsModule,
     HttpModule,
-    ModalModule,
     ToastrModule.forRoot(),
     BsDropdownModule.forRoot(),
     TabsModule.forRoot(),
     NgbTooltipModule.forRoot(),
     NgbDropdownModule.forRoot(),
+    NgbTooltipModule.forRoot(),
+    ModalModule.forRoot(),
+    AlertModule.forRoot(),
     RoutingModule,
     SharedModule,
     CoreModule,
@@ -91,7 +95,8 @@ export function translateLoader(http: Http) {
     ViberService,
     RequestHttpService,
     GalleryHttpService,
-    CommentsHttpService
+    CommentsHttpService,
+    ProfanityHttpService
   ],
   bootstrap: [AppComponent]
 })

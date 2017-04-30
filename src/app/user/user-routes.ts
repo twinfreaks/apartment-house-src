@@ -8,6 +8,7 @@ import {ProtocolsComponent} from "../shared/protocols/protocols.component";
 import {UserInactiveComponent} from "app/user/user-inactive.component";
 import {ProfileEditComponent} from "app/user/profile/profile-edit/profile-edit.component";
 import {AuthGuardService} from "app/auth/services/auth-guard.service";
+import {UserSettingsPageComponent} from "./user-settings/user-settings-page/user-settings-page.component";
 
 export const userRoutes: Routes = [
   {
@@ -19,6 +20,12 @@ export const userRoutes: Routes = [
   {
     path: 'profile',
     component: ProfileEditComponent,
+    canActivate: [AuthGuardService],
+    data: { roles: ['inhabitant']}
+  },
+  {
+    path: 'settings',
+    component: UserSettingsPageComponent,
     canActivate: [AuthGuardService],
     data: { roles: ['inhabitant']}
   },

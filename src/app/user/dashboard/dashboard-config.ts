@@ -9,4 +9,5 @@ export class DashboardConfig {
   viewProtocols?: boolean = true;
   protocolsCount?: number = 3;
   viewOrder?: string;
+  theme?: string;
 }

@@ -19,7 +19,7 @@ exports.test = () => {
         requestTypesContainer = element(by.css('table tbody'));
 
     beforeAll(() => {
-      loginHelpers.loginToPageFunc('superadmin', 'superadmin');
+      loginHelpers.loginToPageFunc('adminReceptionist', 'user');
     });
 
     afterAll(() => {
@@ -163,7 +163,7 @@ exports.test = () => {
         requestTypeDescriptionsList = element.all(by.css('table tbody tr td:nth-child(3)'));
 
     beforeAll(() => {
-      loginHelpers.loginToPageFunc('superadmin', 'superadmin');
+      loginHelpers.loginToPageFunc('adminReceptionist', 'user');
     });
 
     afterAll(() => {

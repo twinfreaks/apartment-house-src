@@ -4,7 +4,7 @@
             <h2 class="element text-center">{{'CHOOSE_ADDRESS' | translate}}</h2>
             <ng-select [items]="sbuildings" placeholder="{{'SELECT_BUILDING' | translate}}" (selected)="emitChooseBuilding($event.id)"></ng-select>
             <ul class="list-group element">
-                <li class="list-group-item list-group-item-action pointer active" *ngIf="choosen">
+                <li class="list-group-item list-group-item-action pointer active calculation" *ngIf="choosen">
                     {{'STREET_SHORT' | translate}} {{findBuildingById(choosen)?.streetName}}, {{'BUILDING_SHORT' | translate}} {{findBuildingById(choosen)?.buildingNumber}}
                 </li>
             </ul>

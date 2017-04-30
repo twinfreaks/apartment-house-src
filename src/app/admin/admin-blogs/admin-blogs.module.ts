@@ -7,7 +7,7 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {CalendarModule} from "primeng/primeng";
 import {DropdownModule} from "primeng/primeng";
 import {ConfirmDialogModule} from "primeng/primeng";
-import {ModalModule} from "ng2-bootstrap/modal";
+import {ModalModule} from "ngx-bootstrap/modal";
 import {AdminEventsModule} from "app/admin/admin-events/admin-events.module";
 import {CKEditorModule} from "ng2-ckeditor";
 import {FileUploadModule} from "primeng/primeng";
@@ -19,7 +19,6 @@ import {AddEventFromBlogEditModalComponent} from "./add-event-from-blog-edit/add
 import {LogoUploadComponent} from "./logo-upload/logo-upload.component";
 import {GalleryModalComponent} from "./gallery-modal/gallery-modal.component";
 import {ViberModule} from "../viber/viber.module";
-
 
 @NgModule({
   imports: [

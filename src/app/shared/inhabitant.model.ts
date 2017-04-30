@@ -7,5 +7,6 @@ export interface Inhabitant {
   phoneNumber?: string,
   appartment?: number,
   user?: number,
-  building?: number,
+  email?: string,
+  building?: any,
 }

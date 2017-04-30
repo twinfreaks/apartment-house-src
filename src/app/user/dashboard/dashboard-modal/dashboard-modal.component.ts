@@ -1,5 +1,5 @@
 import {Component, ViewChild, Input} from "@angular/core";
-import {ModalDirective} from "ng2-bootstrap";
+import {ModalDirective} from "ngx-bootstrap";
 import {AppConfig} from "../../../app.config";
 
 @Component({
@@ -11,7 +11,7 @@ export class DashboardModalComponent {
     @Input() modalData;
     @ViewChild('dashboardModal') public modal: ModalDirective;
 
-    apiFiles = this.config.getConfig('api') + '/protocols/';
+    apiFiles = this.config.getConfig('files') + '/protocols/';
     constructor(private config: AppConfig) {
     }
 

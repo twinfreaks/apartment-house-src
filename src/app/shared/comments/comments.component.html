@@ -7,6 +7,163 @@
               class="btn btn-link comments-button">
         {{ "WRITE_COMMENT" | translate }}
       </button>
+      <button *ngIf="isAdmin"
+              class="btn btn-success pull-right settings-button"
+              (click)="lgModal.show()"><i class="fa fa-wrench"></i>
+        {{ "PROFANITY_SETTINGS_BUTTON" | translate }}
+      </button>
+      <div bsModal #lgModal="bs-modal"
+           class="modal fade" tabindex="-1"
+           role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">{{ "PROFANITY_FILTER_SETTINGS" | translate }}</h5>
+              <button type="button" class="close" (click)="lgModal.hide()"
+                      aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <form class="main-form" [formGroup]="myForm" (ngSubmit)="onSubmit()">
+                <h5>{{ "PROFANITY_FIRST_SECTION" | translate }}</h5>
+                <p class="profanity-descr">{{ "PROFANITY_FIRST_DESCRIPTION" | translate }}</p>
+                <label class="slider-description" for="sensitivity">{{ "PROFANITY_CHANGE_SENS" | translate }}<b>{{
+                  sensitivity }}%</b>
+                  <small>{{ "PROFANITY_SENS_RECOMMENDED" | translate }}</small>
+                </label>
+                <div class="slider-container">
+                  <input type="range" class="control-slider-sens"
+                         id="sensitivity"
+                         (change)="changeSensitivity($event.target.value)"
+                         min="5" max="100" step="5" [value]="sensitivity">
+                </div>
+                <div class="row">
+                  <div class="form-group col-lg" [ngClass]="{'has-danger': !myForm.get('profanity').valid}">
+                    <label for="profanity">{{ "PROFANITY_FIRST_ADD_TO_PROF" | translate }}</label>
+                    <input type="text"
+                           class="form-control"
+                           id="profanity"
+                           formControlName="profanity"
+                           placeholder='{{ "PROFANITY_PROFANITY" | translate }}'
+                           [readonly]="myForm.value.exceptions.length || myForm.value.profanity2.length || file || file2 || file3"
+                           pattern="[0-9A-Za-zА-Яа-яЁё]*"
+                           autocomplete=off>
+                  </div>
+                  <div class="form-group col-lg" [ngClass]="{'has-danger': !myForm.get('exceptions').valid}">
+                    <label for="exceptions">{{ "PROFANITY_FIRST_ADD_TO_EXCEP" | translate }}</label>
+                    <input type="text"
+                           class="form-control"
+                           id="exceptions"
+                           formControlName="exceptions"
+                           placeholder='{{ "PROFANITY_EXCEPTIONS" | translate }}'
+                           [readonly]="myForm.value.profanity.length || myForm.value.profanity2.length || file || file2 || file3"
+                           pattern="[0-9A-Za-zА-Яа-яЁё]*"
+                           autocomplete=off>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="form-group col-lg">
+                    <label for="profanityFile">{{ "PROFANITY_FIRST_UPLOAD_PROF" | translate }}</label>
+                    <input type="file"
+                           *ngIf="isActiveFileUpload && !file2 && !file3"
+                           (change)="fileChange($event)"
+                           class="form-control input-file hidden"
+                           id="profanityFile"
+                           formControlName="profanityFile"
+                           accept=".csv">
+                    <input type="file"
+                           *ngIf="!isActiveFileUpload || file2 || file3"
+                           class="form-control input-file"
+                           disabled>
+                  </div>
+                  <div class="form-group col-lg">
+                    <label for="exceptionsFile">{{ "PROFANITY_FIRST_UPLOAD_EXCEP" | translate }}</label>
+                    <input type="file"
+                           *ngIf="isActiveFileUpload && !file && !file2"
+                           (change)="fileChange3($event)"
+                           class="form-control input-file"
+                           id="exceptionsFile"
+                           formControlName="exceptionsFile"
+                           accept=".csv">
+                    <input type="file"
+                           *ngIf="!isActiveFileUpload || file || file2"
+                           class="form-control input-file"
+                           disabled>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-lg-6 link-wrapper">
+                    <a class="btn btn-block btn-outline-primary download-link" [href]="profanityLink" role="button">{{
+                      "PROFANITY_FIRST_DOWNLOAD_PROF" | translate }}</a>
+                  </div>
+                  <div class="col-lg-6 link-wrapper">
+                    <a class="btn btn-block btn-outline-primary download-link" [href]="exceptionsLink" role="button">{{
+                      "PROFANITY_FIRST_DOWNLOAD_EXCEP" | translate }}</a>
+                  </div>
+                </div>
+                <hr>
+                <h5>{{ "PROFANITY_SECOND_SECTION" | translate }}</h5>
+                <p class="profanity-descr">{{ "PROFANITY_SECOND_DESCRIPTION" | translate }}</p>
+                <div class="row">
+                  <div class="form-group col-lg" [ngClass]="{'has-danger': !myForm.get('profanity2').valid}">
+                    <br>
+                    <label for="profanity2">{{ "PROFANITY_SECOND_ADD_TO_PROF" | translate }}</label>
+                    <input type="text"
+                           class="form-control"
+                           id="profanity2"
+                           formControlName="profanity2"
+                           placeholder='{{ "PROFANITY_PROFANITY" | translate }}'
+                           [readonly]="myForm.value.profanity.length || myForm.value.exceptions.length || file || file2 || file3"
+                           pattern="[0-9A-Za-zА-Яа-яЁё]*"
+                           autocomplete=off>
+                  </div>
+                  <div class="form-group col-lg">
+                    <label for="profanityFile2">{{ "PROFANITY_SECOND_UPLOAD_PROF" | translate }}</label>
+                    <input type="file"
+                           *ngIf="isActiveFileUpload && !file && !file3"
+                           (change)="fileChange2($event)"
+                           class="form-control input-file"
+                           id="profanityFile2"
+                           formControlName="profanityFile2"
+                           accept=".csv">
+                    <input type="file"
+                           *ngIf="!isActiveFileUpload || file || file3"
+                           class="form-control input-file"
+                           disabled>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-lg-6 link-wrapper-bottom">
+                    <a class="btn btn-outline-primary btn-block download-link" [href]="profanity2Link" role="button">{{
+                      "PROFANITY_SECOND_DOWNLOAD_PROF" | translate }}</a>
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-warning button-short" (click)="reset()">
+                    <i class="fa fa-repeat"></i>
+                  </button>
+                  <button type="button" class="btn btn-warning button-full" (click)="reset()">
+                    {{ "PROFANITY_DEFAULTS" | translate }}
+                  </button>
+                  <button (click)="lgModal.hide()"
+                          type="submit"
+                          class="btn btn-primary"
+                          [disabled]="(!myForm.value.profanity.length && !myForm.value.exceptions.length && !myForm.value.profanity2.length && !file && !file2 && !file3 && !sensChanged) || myForm.invalid">
+                    {{"PROFANITY_APPLY" | translate}}
+                  </button>
+                  <button type="button" class="btn button-full" (click)="lgModal.hide()">
+                    {{"CANCEL" | translate}}
+                  </button>
+                  <button type="button" class="btn button-short" (click)="lgModal.hide()">
+                    <i class="fa fa-close"></i>
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
       <button *ngIf="showAddComment"
               (click)="hideAddComments()"
               class="back-button btn btn-default btn-block btn-sm">
@@ -30,7 +187,7 @@
         <div *ngFor="let comment of comments; let i = index">
           <div *ngIf="i < commentsHttpService.commentsToShow" [@signal2]="signal">
             <div class="comment-margin-top"></div>
-            <div *ngIf="i !== 0 && !comment.isDeleted" class="comment-border-top"></div>
+            <div *ngIf="(i !== 0 && !comment.isDeleted) || (i !== 0 && isAdmin)" class="comment-border-top"></div>
 
             <app-single-comment
                 (newAnswer)="newAnswer($event)"

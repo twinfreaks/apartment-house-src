@@ -8,13 +8,14 @@ import "rxjs/add/observable/throw";
 import {AppConfig} from "../../app.config";
 import {Inhabitant} from "../inhabitant.model";
 import {Blog} from "../models/blog";
+import {AuthHttp} from "angular2-jwt";
 
 @Injectable()
 export class ProfileService {
   private headers = new Headers({'Content-Type': 'application/json;charset=utf-8'});
   private profileUrl = this.config.getConfig('api') + `/inhabitant`;
 
-  constructor(private http: Http,
+  constructor(private http: AuthHttp,
               private config: AppConfig) {
   }
 

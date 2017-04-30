@@ -8,7 +8,7 @@ import * as _ from "lodash";
 @Component({
   selector: 'app-add-edit-calculation-type',
   templateUrl: './add-edit-calculation-type.component.html',
-  styleUrls: ['./add-edit-calculation-type.component.css']
+  styleUrls: ['./add-edit-calculation-type.component.scss']
 })
 export class AddEditCalculationTypeComponent implements OnInit {
   @Input() calculationType: CalculationType = null;
@@ -16,7 +16,7 @@ export class AddEditCalculationTypeComponent implements OnInit {
   @Output() cancel: EventEmitter<CalculationType> = new EventEmitter<CalculationType>();
   newCalculationType: CalculationType;
   uploadDestination: string = 'calculation-types';
-  imageUrl = `${this.config.getConfig('api')}/${this.uploadDestination}`;
+  imageUrl = `${this.config.getConfig('files')}/${this.uploadDestination}`;
   uploadUrl = `${this.config.getConfig('api')}/upload`;
   uploaded: boolean = false;
   imageName: string;

@@ -12,7 +12,7 @@
         </button>
       </div>
       <div class="modal-body align-self-lg-center">
-        <p>{{modalData?.text}}</p>
+        <p [innerHTML]="modalData?.text"></p>
         <p>{{modalData?.description}}</p>
         <pdf-viewer #pdf *ngIf="modalData?.fileUrl"
                     src="{{apiFiles + modalData?.fileUrl}}"

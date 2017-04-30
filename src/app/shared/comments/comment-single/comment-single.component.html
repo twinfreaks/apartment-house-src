@@ -5,10 +5,11 @@
      [ngClass]="{'comment-deleted': comment.isDeleted && isAdmin}"
      class="media parent-comment">
   <!--parent comment-->
-  <img class="d-flex mr-3 rounded-circle" [src]="checkDefaultAvatar(comment?.inhabitant.photo)">
+  <img class="d-flex mr-3 rounded-circle" [src]="checkDefaultAvatar(comment?.inhabitant?.photo)">
   <div class="media-body">
     <h5 [ngClass]="{'editing-now': showEditComment || showAddComment}" class="mt-0">
-      {{comment?.inhabitant.name}} {{comment?.inhabitant.surname}},
+      <span *ngIf="comment?.inhabitant">{{comment?.inhabitant?.name}} {{comment?.inhabitant?.surname}},</span>
+      <span *ngIf="comment?.admin">{{comment?.admin?.name}} {{comment?.admin?.surname}},</span>
       <span class="publicated-date">
                 {{comment?.createdAt |  amDateFormat:'LLL' }}
                 ({{comment?.createdAt | amTimeAgo}})
@@ -36,7 +37,7 @@
       <i class="fa fa-reply fa-margin"></i>{{ "COMMENT_ANSWER_TO" | translate }}
     </button>
     <button
-        *ngIf="(comment.inhabitant.id === inhabitantId) && !comment.isDeleted && !comment.editedAt && (timeDiff[comment.id] < timeToEdit)"
+        *ngIf="((comment.inhabitant?.id === inhabitantId) || (comment.admin?.id === adminId )) && !comment.isDeleted && !comment.editedAt && (timeDiff[comment.id] < timeToEdit)"
         class="answer answer-edit-parent btn btn-link btn-sm"
         [ngClass]="{'non-visible': !showAnswerButtonParent}"
         (click)="showEditComments(comment.id, comment.text);
@@ -75,23 +76,22 @@
     </div>
     <!--nested comments goes here-->
     <div *ngFor="let childComment of comment?.comments; let i = index">
-
       <div *ngIf="childComment.isDeleted && !isAdmin" class="comment-deleted-frame">
         {{ "COMMENT_WAS_DELETED" | translate }}
       </div>
       <div *ngIf="((i < 3 || showMore) && !childComment.isDeleted) || (childComment.isDeleted && isAdmin)"
            [ngClass]="{'comment-deleted': childComment.isDeleted && isAdmin }"
            class="media child-comment">
-        <img class="d-flex mr-3 rounded-circle" [src]="checkDefaultAvatar(childComment?.inhabitant.photo)">
+        <img class="d-flex mr-3 rounded-circle" [src]="checkDefaultAvatar(childComment?.inhabitant?.photo)">
         <div class="media-body">
           <h5 [ngClass]="{'editing-now': showEditChildComment && (childComment.id === editedId)}"
               class="mt-0">
-            {{childComment?.inhabitant.name}}
-            {{childComment?.inhabitant.surname}}
+            <span *ngIf="childComment?.inhabitant">{{childComment?.inhabitant?.name}} {{childComment?.inhabitant?.surname}},</span>
+            <span *ngIf="childComment?.admin">{{childComment?.admin?.name}} {{childComment?.admin?.surname}},</span>
             <span class="publicated-date">
                                 {{childComment?.createdAt |  amDateFormat:'LLL' }}
                                 ({{childComment?.createdAt | amTimeAgo}})
-                        </span>
+            </span>
             <button *ngIf="!comment.isDeleted && !childComment.isDeleted && isAdmin"
                     class="btn btn-sm btn-danger pull-right delete-button"
                     (click)="deleteComment(childComment.id, true)"
@@ -110,13 +110,12 @@
                [innerHTML]="childComment?.text">
           </div>
           <button
-              *ngIf="(childComment.inhabitant.id === inhabitantId) && !childComment.isDeleted && !childComment.editedAt  && (timeDiff[childComment.id] < timeToEdit)"
+              *ngIf="((childComment.inhabitant?.id === inhabitantId) || (childComment.admin?.id === adminId )) && !childComment.isDeleted && !comment.isDeleted && !childComment.editedAt  && (timeDiff[childComment.id] < timeToEdit)"
               class="answer answer-edit-child btn btn-link btn-sm"
               [ngClass]="{'non-visible': !showAnswerButtonParent}"
               (click)="showEditChildComments(childComment.id, childComment.text); hideAnswerButtonEmit()">
             <i class="fa fa-edit fa-margin"></i>{{ "COMMENT_EDIT" | translate }}
           </button>
-
           <!--edit-comment component-->
           <button *ngIf="showEditChildComment && (childComment.id === editedId)"
                   (click)="hideAddComments(); hideEditChildComments(); showAnswerButtonEmit()"
@@ -125,7 +124,6 @@
             {{ "COMMENT_EDIT_BACK" | translate }}
             <i class="fa fa-angle-double-up"></i>
           </button>
-
           <div class="add-edit-comment"
                [@signal]="signal"
                *ngIf="showEditChildComment && !showAnswerButtonParent && (childComment.id === editedId)">

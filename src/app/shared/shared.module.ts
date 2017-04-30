@@ -10,7 +10,7 @@ import {NavbarDefaultComponent} from "./navbar-default/navbar-default.component"
 import {ProfileMenuComponent} from "app/shared/profile-menu/profile-menu.component";
 import {UserRequestModule} from "../user/user-request/user-request.module";
 import {TruncatePipe} from "app/shared/pipes/truncate.pipe";
-import {BsDropdownModule} from "ng2-bootstrap";
+import {BsDropdownModule} from "ngx-bootstrap";
 
 @NgModule({
   imports: [

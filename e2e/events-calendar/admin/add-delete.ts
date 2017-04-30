@@ -112,14 +112,14 @@ exports.testAddDelete = () => {
 
     adminFunc.clickOnSuccessToast();
 
-    switchTo('user');
+    switchTo('user', 'user');
 
     sharedFunc.goToCalendarEventsViaNavbar('user');
 
     it('find first day of month with events', () => {
       browser.driver.wait(() => {
         return element.all(by.css(".cal-event")).first().isPresent();
-      });
+      }, 4000);
       function check(className) {
         return (_.includes(className, 'cal-in-month') && _.includes(className, 'cal-has-events'));
       }
@@ -172,7 +172,7 @@ exports.testAddDelete = () => {
         return element(by.tagName('body')).getAttribute('class').then(function (value) {
           return !_.includes(value, 'modal-open');
         });
-      });
+      }, 4000);
       expect(modal.isDisplayed()).toBe(false);
     });
 
@@ -186,11 +186,11 @@ exports.testAddDelete = () => {
         return element(by.tagName('body')).getAttribute('class').then(function (value) {
           return !_.includes(value, 'modal-open');
         });
-      });
+      }, 4000);
       expect(modal.isDisplayed()).toBe(false);
     });
 
-    switchTo('superadmin');
+    switchTo('adminReceptionist', 'user');
 
     sharedFunc.goToCalendarEventsViaNavbar('admin');
 
@@ -199,7 +199,7 @@ exports.testAddDelete = () => {
     it('Open active day on first day of month', () => {
       browser.driver.wait(() => {
         return element.all(by.css(".cal-event")).first().isPresent();
-      });
+      }, 4000);
       let firstDay = element.all(by.css('.cal-day-cell.cal-in-month')).first();
       firstDay.element(by.css('.cal-cell-top')).click();
       browser.wait(EC.presenceOf(openDay), 4000);
@@ -252,22 +252,19 @@ exports.testAddDelete = () => {
       expect(eventTitles.count()).toBe(numOfEvents - 2);
     });
 
-    switchTo('user');
+    switchTo('user', 'user');
 
     sharedFunc.goToCalendarEventsViaNavbar('user');
 
     it('User can not see deleted events', () => {
       browser.driver.wait(() => {
         return element.all(by.css(".cal-event")).first().isPresent();
-      });
+      }, 4000);
       let firstDay = element.all(by.css('.cal-day-cell.cal-in-month')).first();
-      firstDay.element(by.css('.cal-cell-top')).click();
-      browser.wait(EC.presenceOf(eventTitles), 4000);
-      expect(openDay.isDisplayed()).toBe(true);
-      expect(eventTitles.count()).toBe(numOfEvents - 2);
+      expect(firstDay.all(by.css('.cal-event')).count()).toBe(numOfEvents - 2);
     });
 
-    function switchTo(role) {
+    function switchTo(role, pass) {
       it("Switch to " + role, () => {
         let profileMenu = element(by.id("single-button")),
           logoutBtn = element(by.css(".dropdown-menu-right > li:last-child")),
@@ -291,7 +288,7 @@ exports.testAddDelete = () => {
         en.click();
         let signin = element(by.css('a[href="/registration"]'));
         expect(signin.getText()).toContain('Sign in');
-        passwordInput.sendKeys(role);
+        passwordInput.sendKeys(pass);
         loginInput.sendKeys(role);
         let submitBtn = element(by.name('submit'));
         submitBtn.click();

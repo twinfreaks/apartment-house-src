@@ -314,6 +314,11 @@ div.tooltip-wrap .tooltip-text {
   font-size: 15px;
 }
 
+.tooltip-text.width {
+  width: 250px;
+  text-align: center;
+}
+
 div.tooltip-wrap:hover .tooltip-text {
   visibility: visible;
 }

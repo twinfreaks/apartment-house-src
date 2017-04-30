@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container wrapper-big">
   <div class="breadcrumb">
     <h3 class="title">{{ "REQUESTS" | translate }}</h3>
     <span class="settings pull-right pointer" [routerLink] = "['/admin/request-types']">
@@ -11,12 +11,13 @@
       {{ "REQUESTS_CATEGORY" | translate }} <span class="caret"></span>
     </button>
     <ul class="dropdown-request-type dropdown-menu" role="menu" aria-labelledby="single-button">
-      <li class="pointer dropdown-item dropdown-elem-align" *ngFor="let item of requests"
-          role="menuitem" (click)="changeReqType(item.requestId, item.requestType, item.count)">
-        <div class="use-space inline-wraper">
+      <li class="pointer dropdown-item dropdown-elem-align"
+          *ngFor="let item of requests" role="menuitem"
+          (click)="changeReqType(item.requestId, item.requestType, item.count)">
+        <div class="use-space d-inline-block">
           {{item?.requestType}}
         </div>
-        <div class="inline-wraper request-counter">
+        <div class="d-inline-block request-counter">
           <span class="badge badge-danger badge-in-list" *ngIf="item?.count !== 0">
             {{ item?.count }}
           </span>
@@ -24,7 +25,7 @@
       </li>
     </ul>
   </div>
-  <div class="inline-wraper">
+  <div class="d-inline-block">
     <div class="current-request-title-wraper">
       <span class="h6 current-request-title">{{ currentTypeRequest }}</span>
       <span class="badge badge-danger" *ngIf="currentCount !== 0">{{ currentCount }}</span>
@@ -53,7 +54,7 @@
             <th class="text-center">{{ "PHONE_NUMBER" | translate }}</th>
             <th class="text-center">{{ "EMAIL" | translate }}</th>
           </tr>
-          <tr *ngFor="let item of currentRequests">
+          <tr *ngFor="let item of currentRequests | paginate: config">
             <td class="text-justify problem-width">{{ item.text }}</td>
             <td>
               <span *ngIf="item.isDone"><i class="fa fa-check" aria-hidden="true"></i></span>
@@ -76,6 +77,30 @@
           </tr>
         </table>
       </div>
+      <pagination-template #p="paginationApi"
+                           (pageChange)="config.currentPage = $event">
+        <div *ngIf="p.pages.length !== 1">
+          <ul class="pagination justify-content-center">
+            <li class="page-item pagination-previous text-center" [class.disabled]="p.isFirstPage()">
+              <span class="page-link" [class.pointer]="!p.isFirstPage()" (click)="p.previous()">
+                {{"PREVIOUS_PAGE" | translate}}
+              </span>
+            </li>
+            <li class="page-item mobile-invisible" *ngFor="let page of p.pages"
+                [class.active]="p.getCurrent() === page.value">
+              <span class="page-link pointer" (click)="p.setCurrent(page.value)"
+                    *ngIf="p.getCurrent() !== page.value"> {{page.label}}
+              </span>
+              <span class="page-link" *ngIf="p.getCurrent() === page.value"> {{page.label}} </span>
+            </li>
+            <li class="page-item pagination-next text-center" [class.disabled]="p.isLastPage()">
+              <span class="page-link" [class.pointer]="!p.isLastPage()" (click)="p.next()">
+                {{"NEXT_PAGE" | translate}}
+              </span>
+            </li>
+          </ul>
+        </div>
+        </pagination-template>
     </div>
   </div>
 </div>

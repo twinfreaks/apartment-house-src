@@ -9,36 +9,47 @@
     <div class="col-md-8 blog-main">
       <div class="blog-post">
         <h2 class="blog-post-title">{{singleBlog?.title}}</h2>
-        <p class="blog-post-meta">{{singleBlog?.updatedDate | amDateFormat:'LLL' }}
+        <p class="blog-post-meta">{{singleBlog?.updatedDate | amDateFormat:'LLL' }},
+          {{ "BLOG_AUTHOR" | translate }}: {{ author?.name }} {{ author?.surname }}
         </p>
         <hr/>
-        <button *ngIf="isAdmin && !showAllBlog" class="btn btn-default btn-block" (click)="showAllBlogToggle()">{{
-          "BLOG_TEXT_SHOW" | translate }}
+        <button *ngIf="isAdmin && !showAllBlog" class="btn btn-primary btn-block" (click)="showAllBlogToggle()">
+          {{ "BLOG_TEXT_SHOW" | translate }}
         </button>
-        <button *ngIf="isAdmin && showAllBlog" class="btn btn-default btn-block" (click)="showAllBlogToggle()">{{
-          "BLOG_TEXT_HIDE" | translate }}
+        <button *ngIf="isAdmin && showAllBlog" class="btn btn-outline-primary btn-block" (click)="showAllBlogToggle()">
+          {{ "BLOG_TEXT_HIDE" | translate }}
         </button>
         <div *ngIf="showAllBlog || !isAdmin">
           <div class="blog-img-container">
             <img class="blog-img" [src]="checkDefaultLogo(singleBlog?.photo)"/>
           </div>
           <div class="blog-text" [innerHTML]="singleBlog?.text"></div>
-          <div class="gallery-container">
+          <div *ngIf="galleryImages.length" class="gallery-container">
             <ng2-image-gallery [images]="galleryImages"></ng2-image-gallery>
+          </div>
+          <div *ngIf="!singleBlog?.event?.isDeleted && singleBlog?.event" class="event-connected">{{ "BLOG_SINGLE_EVENT_CONNECTED" | translate }}</div>
+          <div *ngIf="!singleBlog?.event?.isDeleted && singleBlog?.event" class="event-container col-lg-8 col-xs-12">
+            <div class="event-title">{{ singleBlog?.event?.title }}</div>
+            <div class="event-time">{{ singleBlog?.event?.start | amDateFormat:'LLL' }} - {{ singleBlog?.event?.end | amDateFormat:'LLL' }}</div>
+            <div class="event-text">{{ singleBlog?.event?.description }}</div>
           </div>
         </div>
       </div>
       <nav class="blog-pagination">
-        <button class="btn btn-outline-secondary" (click)="changeBlog('prev')" [disabled]="!blogPrev"
+        <button class="btn btn-outline-secondary"
+                (click)="changeBlog('prev')"
+                [disabled]="!blogPrev"
                 title="{{blogPrev?.title}}">{{ "PREV_BLOG" | translate }}
         </button>
-        <button class="btn btn-outline-primary pull-right" (click)="changeBlog('next')" [disabled]="!blogNext"
+        <button class="btn btn-outline-primary pull-right"
+                (click)="changeBlog('next')"
+                [disabled]="!blogNext"
                 title="{{blogNext?.title}}">{{ "NEXT_BLOG" | translate }}
         </button>
       </nav>
     </div>
     <div class="col-md-3 offset-sm-1 blog-sidebar">
-      <div class="sidebar-module sidebar-module-inset">
+      <div class="sidebar-module hideable sidebar-module-inset">
         <h4>{{ "ABOUT_US" | translate }}</h4>
         <p>{{ "ABOUT_TEXT" | translate }}</p>
       </div>

@@ -9,6 +9,7 @@ import * as _ from "lodash";
 
 import {ImageOfGallery} from "app/shared/models/image-of-gallery";
 import {AppConfig} from "app/app.config";
+import {AuthHttp} from "angular2-jwt";
 
 @Injectable()
 
@@ -17,7 +18,7 @@ export class GalleryHttpService {
     private galleryUrl = this.config.getConfig('api')+`/gallery`;
 
     constructor (
-        private http: Http,
+        private http: AuthHttp,
         private config: AppConfig
     ) {}
 

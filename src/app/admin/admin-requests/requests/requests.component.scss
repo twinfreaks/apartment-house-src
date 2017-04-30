@@ -19,10 +19,6 @@ table td, table th {
   align-items: flex-start;
 }
 
-.inline-wraper {
-  display: inline-block;
-}
-
 .problem-width {
   min-width: 400px;
 }
@@ -73,8 +69,28 @@ div.no-requests-alert {
   margin-top: 7px;
 }
 
+.pagination-next, .pagination-previous {
+  min-width: 100px;
+}
+
+.pagination {
+  margin: 12px 0 4px 0;
+}
+
+.wrapper-big {
+  margin-bottom: 30px;
+}
+
+:focus {
+  outline: none !important;
+}
+
 @media only screen and (max-width: 576px) {
   .use-space {
     white-space: normal;
+  }
+  
+  .mobile-invisible {
+    display: none;
   }
 }

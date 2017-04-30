@@ -2,7 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter, ViewChild } from "@angu
 import {ToastrService} from "ngx-toastr";
 import {TranslateService} from "@ngx-translate/core";
 import * as _ from "lodash";
-import {ModalDirective} from "ng2-bootstrap";
+import {ModalDirective} from "ngx-bootstrap";
 
 import {AppConfig} from "app/app.config";
 import {ImageOfGallery} from "app/shared/models/image-of-gallery";
@@ -25,7 +25,7 @@ export class BlogAddEditGalleryComponent implements OnInit {
   imagesToDeleteFromExistingGallery: number[] = [];
   imageToShow: string = null;
 
-  apiUrl = this.config.getConfig('api');
+  apiUrl = this.config.getConfig('files');
   uploadDestination = this.config.getConfig('uploadDestinationForBlogs');
   uploadUrl = `${this.config.getConfig('api')}/upload`;
 

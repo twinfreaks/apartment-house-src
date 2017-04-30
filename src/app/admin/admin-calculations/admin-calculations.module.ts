@@ -7,7 +7,7 @@ import {AdminChooseCalculationTypeComponent} from "./admin-choose-calculation-ty
 import {AdminAddCalculationsComponent} from "./admin-add-calculations/admin-add-calculations.component";
 import {TranslateModule} from "@ngx-translate/core";
 import {SelectModule} from "ng2-select";
-import {TooltipModule} from "ng2-bootstrap/tooltip";
+import {TooltipModule} from "ngx-bootstrap/tooltip";
 import {FileUploadModule} from "primeng/primeng";
 import {ConfirmDialogModule, ConfirmationService} from "primeng/primeng";
 import {AddEditBuildingComponent} from "./add-edit-building/add-edit-building.component";

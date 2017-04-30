@@ -35,8 +35,11 @@ exports.testChooseBuilding = () => {
       addEditBuildingForm.testAddEditBuildingForm();
 
       it('Go to next and back, building still choosen', () => {
+        browser.wait(EC.elementToBeClickable(nextBtn), 4000);
         nextBtn.click();
+        browser.wait(EC.elementToBeClickable(prevBtn), 4000);
         prevBtn.click();
+        browser.wait(EC.elementToBeClickable(nextBtn), 4000);
         expect(choosen.isDisplayed()).toBe(true);
         expect(choosen.getText()).toBe('Str. ' + inhabitant.streetName + ', Hs. ' + inhabitant.buildingNumber);
         expect(nextBtn.isEnabled()).toBe(true);

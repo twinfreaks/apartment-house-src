@@ -1,7 +1,7 @@
 import {Component, OnInit, Input, Output, EventEmitter, ViewChild} from "@angular/core";
 import {ToastrService} from "ngx-toastr";
 import {TranslateService} from "@ngx-translate/core";
-import {ModalDirective} from "ng2-bootstrap";
+import {ModalDirective} from "ngx-bootstrap";
 
 import {AppConfig} from "app/app.config";
 
@@ -15,9 +15,9 @@ export class LogoUploadComponent implements OnInit {
   @Input() logoUrl: string = null;
   @Output() logoUrlEmitted: EventEmitter<string> = new EventEmitter<string>();
 
-  apiUrl = this.config.getConfig('api');
+  apiUrl = this.config.getConfig('files');
   uploadDestination = this.config.getConfig('uploadDestinationForBlogs');
-  uploadUrl = `${this.config.getConfig('api')}/upload`
+  uploadUrl = `${this.config.getConfig('api')}/upload`;
   imageToShow: string = null;
 
   constructor(private config: AppConfig,

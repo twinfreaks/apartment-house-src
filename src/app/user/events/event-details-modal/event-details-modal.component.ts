@@ -1,13 +1,12 @@
 import {Component, OnInit, ViewChild, Input} from "@angular/core";
-import {ModalDirective} from "ng2-bootstrap";
+import {ModalDirective} from "ngx-bootstrap";
 import * as moment from "moment";
 import {TranslateService} from "@ngx-translate/core";
 import {AppConfig} from "app/app.config";
 
 @Component({
   selector: 'app-event-details-modal',
-  templateUrl: './event-details-modal.component.html',
-  styleUrls: ['./event-details-modal.component.css']
+  templateUrl: './event-details-modal.component.html'
 })
 export class EventDetailsModalComponent implements OnInit {
   @Input() modalData;

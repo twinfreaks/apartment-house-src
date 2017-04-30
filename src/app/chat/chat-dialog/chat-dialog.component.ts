@@ -89,7 +89,7 @@ export class ChatDialogComponent implements OnInit, AfterViewChecked, OnDestroy 
   }
 
   ngOnInit() {
-    this.imgProfilePath = this.config.getConfig("api") + "/userProfile/";
+    this.imgProfilePath = this.config.getConfig("files") + "/userProfile/";
     this.windowWidth = window.screen.width;
 
     if (this.windowWidth < 768) {

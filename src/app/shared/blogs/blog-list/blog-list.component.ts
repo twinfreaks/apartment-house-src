@@ -23,7 +23,7 @@ export class BlogListComponent implements OnInit {
   totalPage: number;
   isLoading: boolean = true;
   isInhabitant: boolean;
-  apiUrl = this.config.getConfig('api');
+  filesUrl = this.config.getConfig('files');
   uploadDestination = this.config.getConfig('uploadDestinationForBlogs');
   truncateLength = this.config.getConfig('truncateLengthShotBlog');
   defaultBlogLogo = this.config.getConfig('defaultBlogLogoUrl');
@@ -58,6 +58,9 @@ export class BlogListComponent implements OnInit {
           }
           let blogsPerPage: Blog[] = data['data']['blogs'];
           _.forEach(blogsPerPage, (blog) => {
+            if (this.isInhabitant && !blog.isActive) {
+              return;
+            }
             blog.publicatedFrom = new Date(blog.publicatedFrom);
             this.blogs.push(blog);
           });
@@ -130,7 +133,7 @@ export class BlogListComponent implements OnInit {
 
   checkDefaultLogo(logoUrl: string) {
     if (logoUrl) {
-      return this.apiUrl + '/' + this.uploadDestination + '/' + logoUrl;
+      return this.filesUrl + '/' + this.uploadDestination + '/' + logoUrl;
     }
     return this.defaultBlogLogo;
   };

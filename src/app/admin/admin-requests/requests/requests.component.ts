@@ -2,6 +2,8 @@ import {Component, OnInit} from "@angular/core";
 import {TranslateService} from "@ngx-translate/core";
 import {ToastrService} from "ngx-toastr";
 import * as _ from "lodash";
+import {PaginationInstance} from 'ngx-pagination';
+import {AppConfig} from "app/app.config";
 import {RequestHttpService} from "app/shared/services/request-http.service";
 
 @Component({
@@ -10,6 +12,7 @@ import {RequestHttpService} from "app/shared/services/request-http.service";
   styleUrls: ['./requests.component.scss']
 })
 export class RequestsComponent implements OnInit {
+  config: PaginationInstance = this.appConfig.getConfig('requestPagination');
   requests: Array<Object> = [];
   currentRequests: Array<any> = [];
   currentTypeRequest: string;
@@ -22,7 +25,8 @@ export class RequestsComponent implements OnInit {
 
   constructor(private translateService: TranslateService,
               private requestHttpService: RequestHttpService,
-              private toastrService: ToastrService) {
+              private toastrService: ToastrService,
+              private appConfig: AppConfig) {
   }
 
   ngOnInit() {
@@ -34,6 +38,7 @@ export class RequestsComponent implements OnInit {
       .subscribe(
         (data) => {
           this.requests.push({
+            "requestId": 0,
             "requestType": this.translateService.instant('ALL_REQUESTS'),
             "count": 0,
             "requests": []
@@ -84,14 +89,16 @@ export class RequestsComponent implements OnInit {
         (err: any) => {
           this.toastrService.error(err.toString(), this.translateService.instant('SERVER_GET_ERROR'));
         },
+        () => {
+          this.changeReqType(0, this.requests[0]['requestType'], this.requests[0]['count'])
+        }
       );
   }
 
   putRequestConfirmed(request: any) {
     this.requestHttpService.updateRequeast(request)
       .subscribe(
-        (data) => {
-        },
+        (data) => { },
         (err: any) => {
           this.toastrService.error(err.toString(), this.translateService.instant('SERVER_UPDATE_ERROR'));
           this.sendingToServer = false;
@@ -121,6 +128,7 @@ export class RequestsComponent implements OnInit {
     if (this.currentRequests.length === 0) {
       this.noRequestsByCategory = true;
     }
+    this.config.currentPage = 1;
   }
 
   confirmDone(item) {

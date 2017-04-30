@@ -14,7 +14,7 @@ exports.test = () => {
         requestTypeTitlesList = element.all(by.css('table tbody tr td:nth-child(2)'));
 
     beforeAll(() => {
-      loginHelpers.loginToPageFunc('superadmin', 'superadmin');
+      loginHelpers.loginToPageFunc('adminReceptionist', 'user');
     });
 
     afterAll(() => {

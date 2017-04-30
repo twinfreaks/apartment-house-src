@@ -5,8 +5,7 @@ import {TranslateService} from "@ngx-translate/core";
 
 @Component({
   selector: 'app-date-time-picker',
-  templateUrl: './date-time-picker.component.html',
-  styleUrls: ['./date-time-picker.component.css']
+  templateUrl: './date-time-picker.component.html'
 })
 export class DateTimePickerComponent implements OnInit {
   @Input() placeholder: string;

@@ -2,8 +2,8 @@ import {NgModule} from "@angular/core";
 import {CommonModule} from "@angular/common";
 import {InhabitantsListComponent} from "./inhabitants-list/inhabitants-list.component";
 import {TranslateModule} from "@ngx-translate/core";
-import {TabsModule, ModalModule} from "ng2-bootstrap";
-import {Ng2PaginationModule} from "ng2-pagination";
+import {TabsModule, ModalModule} from "ngx-bootstrap";
+import {NgxPaginationModule} from "ngx-pagination";
 import {InhabitantsService} from "app/admin/admin-inhabitants/services/inhabitants.service";
 import {MomentModule} from "angular2-moment";
 import {ConfirmDialogModule} from "primeng/components/confirmdialog/confirmdialog";
@@ -25,7 +25,7 @@ import {InhabitantInactivateModalComponent} from "app/admin/admin-inhabitants/in
     ReactiveFormsModule,
     TranslateModule,
     TabsModule,
-    Ng2PaginationModule,
+    NgxPaginationModule,
     MomentModule,
     ConfirmDialogModule,
     NgbTooltipModule,

@@ -24,7 +24,7 @@ exports.test = () => {
         imageModal = element(by.css('.modal img'));
 
     beforeAll(() => {
-      loginHelpers.loginToPageFunc('superadmin', 'superadmin');
+      loginHelpers.loginToPageFunc('adminReceptionist', 'user');
     });
 
     afterAll(() => {
